@@ -19,6 +19,7 @@ assert.equal(rows.exercises.length, programSeed.exercises.length);
 assert.equal(rows.muscles.length, programSeed.muscles.length);
 assert.equal(rows.exerciseAlternatives.length, programSeed.exerciseAlternatives.length);
 assert.equal(rows.programWorkouts.length, countAnnualWorkouts(programSeed));
+assert.equal(rows.workoutInstances.length, rows.programWorkouts.length);
 assert.equal(rows.programExercises.length, countAnnualExercises(programSeed));
 assert.equal(rows.programSetPrescriptions.length, countAnnualPrescriptions(programSeed));
 assert.equal(
@@ -27,6 +28,13 @@ assert.equal(
 );
 
 assert.equal(new Set(rows.programWorkouts.map((row) => row.id)).size, rows.programWorkouts.length);
+assert.equal(
+  new Set(rows.workoutInstances.map((row) => row.id)).size,
+  rows.workoutInstances.length,
+);
+assert.equal(rows.workoutInstances[0].scheduled_date, '2026-01-01');
+assert.equal(rows.workoutInstances[0].sequence_index, 1);
+assert.equal(rows.workoutInstances.at(-1)?.status, 'scheduled');
 assert.equal(new Set(rows.programExercises.map((row) => row.id)).size, rows.programExercises.length);
 assert.equal(
   new Set(rows.programSetPrescriptions.map((row) => row.id)).size,

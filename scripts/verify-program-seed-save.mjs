@@ -33,6 +33,11 @@ assert.deepEqual(calls.at(-1), { type: 'exec', sql: 'COMMIT' });
 assert.equal(calls.filter((call) => call.type === 'run').length, expectedInsertCount);
 assert.match(calls[1].sql, /^INSERT OR REPLACE INTO program_years /);
 assert.match(
+  calls.find((call) => call.sql?.startsWith('INSERT OR REPLACE INTO workout_instances'))
+    ?.sql,
+  /^INSERT OR REPLACE INTO workout_instances /,
+);
+assert.match(
   calls.find((call) => call.sql?.startsWith('INSERT OR REPLACE INTO program_exercises'))
     ?.sql,
   /^INSERT OR REPLACE INTO program_exercises /,

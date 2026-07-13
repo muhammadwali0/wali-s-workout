@@ -51,6 +51,7 @@ export async function saveProgramSeedRows(
     await insertRows(db, 'exercises', rows.exercises);
     await insertRows(db, 'muscles', rows.muscles);
     await insertRows(db, 'program_workouts', rows.programWorkouts);
+    await insertRows(db, 'workout_instances', rows.workoutInstances);
     await insertRows(db, 'program_exercises', rows.programExercises);
     await insertRows(
       db,
@@ -129,6 +130,8 @@ export function buildProgramSeedRows(
   const programWorkouts = [];
   const programExercises = [];
   const programSetPrescriptions = [];
+  const workoutInstances = [];
+  let sequenceIndex = 0;
 
   for (const week of seed.annualWeeks) {
     const phaseWeek =
@@ -140,6 +143,8 @@ export function buildProgramSeedRows(
 
     for (const [workoutIndex, workout] of (phaseWeek?.workouts ?? []).entries()) {
       const workoutId = `year_week_${week.yearWeekNumber}_workout_${workoutIndex + 1}_${workout.id}`;
+      const scheduledDay = workout.scheduledWeekday;
+      sequenceIndex += 1;
       programWorkouts.push({
         id: workoutId,
         program_week_id: `year_week_${week.yearWeekNumber}`,
@@ -150,6 +155,21 @@ export function buildProgramSeedRows(
         workout_type: workout.workoutType,
         estimated_duration_min: workout.estimatedDurationMin,
         notes: null,
+        created_at: input.recordedAt,
+        updated_at: input.recordedAt,
+      });
+      workoutInstances.push({
+        id: `${workoutId}_instance`,
+        program_workout_id: workoutId,
+        scheduled_date: addDays(
+          input.startDate,
+          (week.yearWeekNumber - 1) * 7 + scheduledDay - 1,
+        ),
+        actual_date: null,
+        status: 'scheduled',
+        sequence_index: sequenceIndex,
+        was_shifted: 0,
+        shift_reason: null,
         created_at: input.recordedAt,
         updated_at: input.recordedAt,
       });
@@ -265,6 +285,7 @@ export function buildProgramSeedRows(
     programPhases,
     programWeeks,
     programWorkouts,
+    workoutInstances,
     programExercises,
     programSetPrescriptions,
     exercises,
@@ -272,6 +293,12 @@ export function buildProgramSeedRows(
     exerciseMuscles,
     exerciseAlternatives,
   };
+}
+
+function addDays(isoDate: string, days: number) {
+  const date = new Date(`${isoDate}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
 }
 
 async function insertRows(
