@@ -70,7 +70,7 @@ import {
   getConsistencyCalendar,
   type CalendarWorkout,
 } from './domain/analytics/consistencyCalendar';
-import { compareBlocks } from './domain/analytics/blockComparison';
+import { compareBlocks, comparePhases } from './domain/analytics/blockComparison';
 import { calculateMuscleExposure } from './domain/analytics/muscleExposure';
 import { calculateMuscleHeatmap } from './domain/analytics/muscleHeatmap';
 import { getTrainingFrequency } from './domain/analytics/trainingFrequency';
@@ -661,6 +661,7 @@ function AnalyticsSummary({
 }) {
   const weeklyVolume = getWeeklyVolume(completedSets);
   const blockComparison = compareBlocks(completedSets);
+  const phaseComparison = comparePhases(completedSets);
   const consistency = getConsistencyCalendar(calendarWorkouts);
   const trainingFrequency = getTrainingFrequency(calendarWorkouts);
   const muscleExposure = calculateMuscleExposure(completedSets)
@@ -674,6 +675,10 @@ function AnalyticsSummary({
   const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
   const maxBlockVolume = Math.max(
     ...blockComparison.map((point) => point.totalVolume),
+    1,
+  );
+  const maxPhaseVolume = Math.max(
+    ...phaseComparison.map((point) => point.totalVolume),
     1,
   );
   const maxFrequency = Math.max(
@@ -721,6 +726,22 @@ function AnalyticsSummary({
               label={`Block ${point.blockNumber} - ${point.phaseCode}`}
               value={`${point.workingSets} sets`}
               percent={(point.totalVolume / maxBlockVolume) * 100}
+            />
+          ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Phase Comparison</Text>
+        {phaseComparison.length === 0 ? (
+          <Text style={styles.summaryText}>No completed phase data yet.</Text>
+        ) : (
+          phaseComparison.map((point) => (
+            <BarRow
+              key={point.phaseCode}
+              label={point.phaseCode}
+              value={`${point.workingSets} sets`}
+              percent={(point.totalVolume / maxPhaseVolume) * 100}
             />
           ))
         )}
