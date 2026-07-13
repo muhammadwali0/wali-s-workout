@@ -9,6 +9,11 @@ import {
   View,
 } from 'react-native';
 
+import {
+  getCalendarWorkouts,
+  getCompletedAnalyticsSets,
+  type AnalyticsSet,
+} from './db/analyticsQueries';
 import { openTrainingDatabase, type TrainingDatabase } from './db/database';
 import {
   getTodayWorkoutInstance,
@@ -19,14 +24,8 @@ import {
   getConsistencyCalendar,
   type CalendarWorkout,
 } from './domain/analytics/consistencyCalendar';
-import {
-  calculateMuscleExposure,
-  type MuscleExposureSet,
-} from './domain/analytics/muscleExposure';
-import {
-  getWeeklyVolume,
-  type VolumeSet,
-} from './domain/analytics/weeklyVolume';
+import { calculateMuscleExposure } from './domain/analytics/muscleExposure';
+import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
 import { programSeed } from './data/programSeed';
 import {
   createTrainingYear,
@@ -91,48 +90,6 @@ const tabs: Tab[] = [
   },
 ];
 
-const sampleCompletedSets: (VolumeSet & MuscleExposureSet)[] = [
-  {
-    completedAt: '2026-01-01T10:00:00Z',
-    exerciseId: 'back_squat',
-    setType: 'working',
-    completed: true,
-    weight: 100,
-    reps: 5,
-  },
-  {
-    completedAt: '2026-01-01T10:08:00Z',
-    exerciseId: 'back_squat',
-    setType: 'working',
-    completed: true,
-    weight: 100,
-    reps: 5,
-  },
-  {
-    completedAt: '2026-01-03T10:00:00Z',
-    exerciseId: 'barbell_bench_press',
-    setType: 'working',
-    completed: true,
-    weight: 80,
-    reps: 6,
-  },
-  {
-    completedAt: '2026-01-08T10:00:00Z',
-    exerciseId: 'deadlift',
-    setType: 'working',
-    completed: true,
-    weight: 140,
-    reps: 4,
-  },
-];
-
-const sampleScheduledWorkouts: CalendarWorkout[] = [
-  { scheduledDate: '2026-01-01', status: 'completed' },
-  { scheduledDate: '2026-01-03', status: 'completed' },
-  { scheduledDate: '2026-01-05', status: 'missed' },
-  { scheduledDate: '2026-01-08', status: 'completed' },
-];
-
 const muscleNameById: Map<string, string> = new Map(
   programSeed.muscles.map((muscle) => [muscle.id, muscle.name]),
 );
@@ -143,6 +100,8 @@ export default function App() {
   const [todayInstance, setTodayInstance] = useState<TodayWorkoutInstance | null>(
     null,
   );
+  const [analyticsSets, setAnalyticsSets] = useState<AnalyticsSet[]>([]);
+  const [calendarWorkouts, setCalendarWorkouts] = useState<CalendarWorkout[]>([]);
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -162,8 +121,10 @@ export default function App() {
   const positionLabel = formatProgramPosition(position);
   const weekType =
     position.status === 'in_year' ? position.week.weekType : position.status;
-  const refreshTodayInstance = async (database: TrainingDatabase) => {
+  const refreshLocalData = async (database: TrainingDatabase) => {
     setTodayInstance(await getTodayWorkoutInstance(database));
+    setAnalyticsSets(await getCompletedAnalyticsSets(database));
+    setCalendarWorkouts(await getCalendarWorkouts(database));
   };
 
   useEffect(() => {
@@ -173,7 +134,7 @@ export default function App() {
       .then(async (database) => {
         if (cancelled) return;
         setDb(database);
-        await refreshTodayInstance(database);
+        await refreshLocalData(database);
         setDbStatus('Local database ready');
       })
       .catch(() => {
@@ -216,11 +177,17 @@ export default function App() {
                 dbReady={db !== null}
                 dbStatus={dbStatus}
                 dueWorkout={dueWorkout}
-                onSaved={refreshTodayInstance}
+                onSaved={refreshLocalData}
                 todayInstance={todayInstance}
               />
             ) : null}
-            {activeTab === 'analytics' ? <AnalyticsSummary /> : null}
+            {activeTab === 'analytics' ? (
+              <AnalyticsSummary
+                calendarWorkouts={calendarWorkouts}
+                completedSets={analyticsSets}
+                dbStatus={dbStatus}
+              />
+            ) : null}
           </View>
 
           <View style={styles.metricsRow}>
@@ -428,10 +395,18 @@ function TodayWorkoutSummary({
   return null;
 }
 
-function AnalyticsSummary() {
-  const weeklyVolume = getWeeklyVolume(sampleCompletedSets);
-  const consistency = getConsistencyCalendar(sampleScheduledWorkouts);
-  const muscleExposure = calculateMuscleExposure(sampleCompletedSets)
+function AnalyticsSummary({
+  calendarWorkouts,
+  completedSets,
+  dbStatus,
+}: {
+  calendarWorkouts: CalendarWorkout[];
+  completedSets: AnalyticsSet[];
+  dbStatus: string;
+}) {
+  const weeklyVolume = getWeeklyVolume(completedSets);
+  const consistency = getConsistencyCalendar(calendarWorkouts);
+  const muscleExposure = calculateMuscleExposure(completedSets)
     .sort((a, b) => b.volumeLoad - a.volumeLoad)
     .slice(0, 5);
   const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
@@ -446,31 +421,39 @@ function AnalyticsSummary() {
     <View style={styles.summaryBlock}>
       <Text style={styles.summaryTitle}>Analytics Preview</Text>
       <Text style={styles.summaryText}>
-        Uses local sample logs until persisted workout history is wired into the app.
+        {dbStatus} - {completedSets.length} completed sets available.
       </Text>
 
       <View style={styles.analyticsSection}>
         <Text style={styles.analyticsHeading}>Weekly Volume</Text>
-        {weeklyVolume.map((point) => (
-          <BarRow
-            key={point.weekKey}
-            label={point.weekKey}
-            value={`${point.totalVolume} kg reps`}
-            percent={(point.totalVolume / maxVolume) * 100}
-          />
-        ))}
+        {weeklyVolume.length === 0 ? (
+          <Text style={styles.summaryText}>No completed working sets yet.</Text>
+        ) : (
+          weeklyVolume.map((point) => (
+            <BarRow
+              key={point.weekKey}
+              label={point.weekKey}
+              value={`${point.totalVolume} kg reps`}
+              percent={(point.totalVolume / maxVolume) * 100}
+            />
+          ))
+        )}
       </View>
 
       <View style={styles.analyticsSection}>
         <Text style={styles.analyticsHeading}>Muscle Exposure</Text>
-        {muscleExposure.map((exposure) => (
-          <BarRow
-            key={exposure.muscleId}
-            label={muscleNameById.get(exposure.muscleId) ?? exposure.muscleId}
-            value={`${exposure.hardSets.toFixed(1)} hard sets`}
-            percent={(exposure.volumeLoad / maxExposure) * 100}
-          />
-        ))}
+        {muscleExposure.length === 0 ? (
+          <Text style={styles.summaryText}>No muscle exposure from completed sets yet.</Text>
+        ) : (
+          muscleExposure.map((exposure) => (
+            <BarRow
+              key={exposure.muscleId}
+              label={muscleNameById.get(exposure.muscleId) ?? exposure.muscleId}
+              value={`${exposure.hardSets.toFixed(1)} hard sets`}
+              percent={(exposure.volumeLoad / maxExposure) * 100}
+            />
+          ))
+        )}
       </View>
 
       <View style={styles.analyticsFooter}>
