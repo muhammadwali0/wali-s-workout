@@ -9,6 +9,11 @@ import {
   View,
 } from 'react-native';
 
+import { openTrainingDatabase, type TrainingDatabase } from './db/database';
+import {
+  getTodayWorkoutInstance,
+  type TodayWorkoutInstance,
+} from './db/todayWorkoutQuery';
 import {
   getConsistencyCalendar,
   type CalendarWorkout,
@@ -133,6 +138,11 @@ const muscleNameById: Map<string, string> = new Map(
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabKey>('today');
+  const [db, setDb] = useState<TrainingDatabase | null>(null);
+  const [todayInstance, setTodayInstance] = useState<TodayWorkoutInstance | null>(
+    null,
+  );
+  const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
     return createTrainingYear(
@@ -151,6 +161,25 @@ export default function App() {
   const positionLabel = formatProgramPosition(position);
   const weekType =
     position.status === 'in_year' ? position.week.weekType : position.status;
+
+  useEffect(() => {
+    let cancelled = false;
+
+    openTrainingDatabase()
+      .then(async (database) => {
+        if (cancelled) return;
+        setDb(database);
+        setTodayInstance(await getTodayWorkoutInstance(database));
+        setDbStatus('Local database ready');
+      })
+      .catch(() => {
+        if (!cancelled) setDbStatus('Local database unavailable');
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -177,7 +206,14 @@ export default function App() {
               {activeTab === 'today' ? getTodayTitle(dueWorkout) : active.label}
             </Text>
             <Text style={styles.body}>{active.body}</Text>
-            {activeTab === 'today' ? <TodayWorkoutSummary dueWorkout={dueWorkout} /> : null}
+            {activeTab === 'today' ? (
+              <TodayWorkoutSummary
+                dbReady={db !== null}
+                dbStatus={dbStatus}
+                dueWorkout={dueWorkout}
+                todayInstance={todayInstance}
+              />
+            ) : null}
             {activeTab === 'analytics' ? <AnalyticsSummary /> : null}
           </View>
 
@@ -221,9 +257,15 @@ function Metric({ label, value }: { label: string; value: string }) {
 }
 
 function TodayWorkoutSummary({
+  dbReady,
+  dbStatus,
   dueWorkout,
+  todayInstance,
 }: {
+  dbReady: boolean;
+  dbStatus: string;
   dueWorkout: ReturnType<typeof getDueWorkout>;
+  todayInstance: TodayWorkoutInstance | null;
 }) {
   const [draft, setDraft] = useState<WorkoutDraft | null>(null);
 
@@ -240,6 +282,14 @@ function TodayWorkoutSummary({
     return (
       <View style={styles.summaryBlock}>
         <Text style={styles.summaryTitle}>{dueWorkout.workout.name}</Text>
+        <Text style={styles.summaryText}>
+          {dbStatus}
+          {todayInstance
+            ? ` - ${todayInstance.status} - ${todayInstance.instanceId}`
+            : dbReady
+              ? ' - no persisted instance for today'
+              : ''}
+        </Text>
         <Text style={styles.summaryText}>
           {dueWorkout.workout.estimatedDurationMin ?? 0} min -{' '}
           {dueWorkout.workout.exercises.length} exercises - {plannedSets.length} planned sets
