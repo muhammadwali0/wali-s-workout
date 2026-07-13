@@ -10,6 +10,7 @@ export type WorkoutHistoryItem = {
   totalVolume: number | null;
   totalWorkingSets: number | null;
   averageRpe: number | null;
+  personalRecordCount: number;
   lastSetNote: string | null;
 };
 
@@ -28,6 +29,11 @@ export async function getRecentWorkoutHistory(
        wl.total_volume AS totalVolume,
        wl.total_working_sets AS totalWorkingSets,
        wl.average_rpe AS averageRpe,
+       (
+         SELECT COUNT(*)
+         FROM personal_records pr
+         WHERE pr.workout_log_id = wl.id
+       ) AS personalRecordCount,
        (
          SELECT sl.user_notes
          FROM set_logs sl
