@@ -75,6 +75,7 @@ import { compareBlocks, comparePhases } from './domain/analytics/blockComparison
 import { calculateMuscleExposure } from './domain/analytics/muscleExposure';
 import { calculateMuscleHeatmap } from './domain/analytics/muscleHeatmap';
 import { getTrainingFrequency } from './domain/analytics/trainingFrequency';
+import { getWeeklyAverageRpe } from './domain/analytics/weeklyRpe';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
 import { programSeed } from './data/programSeed';
 import {
@@ -679,6 +680,7 @@ function AnalyticsSummary({
   strengthTrend: StrengthTrendPoint[];
 }) {
   const weeklyVolume = getWeeklyVolume(completedSets);
+  const weeklyRpe = getWeeklyAverageRpe(completedSets);
   const blockComparison = compareBlocks(completedSets);
   const phaseComparison = comparePhases(completedSets);
   const consistency = getConsistencyCalendar(calendarWorkouts);
@@ -729,6 +731,22 @@ function AnalyticsSummary({
               label={point.weekKey}
               value={`${point.totalVolume} kg reps`}
               percent={(point.totalVolume / maxVolume) * 100}
+            />
+          ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Weekly RPE</Text>
+        {weeklyRpe.length === 0 ? (
+          <Text style={styles.summaryText}>No rated working sets yet.</Text>
+        ) : (
+          weeklyRpe.map((point) => (
+            <BarRow
+              key={point.weekKey}
+              label={point.weekKey}
+              value={`${Math.round(point.averageRpe * 10) / 10} avg`}
+              percent={point.averageRpe * 10}
             />
           ))
         )}

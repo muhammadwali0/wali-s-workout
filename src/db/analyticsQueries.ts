@@ -1,10 +1,11 @@
 import type { CalendarWorkout } from '../domain/analytics/consistencyCalendar.ts';
 import type { BlockComparisonSet } from '../domain/analytics/blockComparison.ts';
 import type { MuscleExposureSet } from '../domain/analytics/muscleExposure.ts';
+import type { RpeSet } from '../domain/analytics/weeklyRpe.ts';
 import type { VolumeSet } from '../domain/analytics/weeklyVolume.ts';
 import type { TrainingDatabase } from './database.ts';
 
-export type AnalyticsSet = VolumeSet & MuscleExposureSet & BlockComparisonSet;
+export type AnalyticsSet = VolumeSet & MuscleExposureSet & BlockComparisonSet & RpeSet;
 
 export type StrengthTrendPoint = {
   exerciseId: string;
@@ -26,7 +27,8 @@ export async function getCompletedAnalyticsSets(
        sl.set_type AS setType,
        sl.is_completed = 1 AS completed,
        sl.weight AS weight,
-       sl.reps AS reps
+       sl.reps AS reps,
+       sl.rpe
      FROM set_logs sl
      JOIN exercise_logs el ON el.id = sl.exercise_log_id
      JOIN workout_logs wl ON wl.id = el.workout_log_id
