@@ -6,13 +6,15 @@ import {
   expectedTables,
   schemaVersion,
   type AppTable,
-} from './schema';
+} from './schema.ts';
+import { ensureProgramSeeded } from './programSeedRows.ts';
 
 export type TrainingDatabase = SQLite.SQLiteDatabase;
 
 export async function openTrainingDatabase() {
   const db = await SQLite.openDatabaseAsync(databaseName);
   await migrateDatabase(db);
+  await ensureProgramSeeded(db);
   return db;
 }
 

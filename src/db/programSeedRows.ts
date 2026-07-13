@@ -14,6 +14,27 @@ export type ProgramSeedRowInput = {
 
 export type ProgramSeedRows = ReturnType<typeof buildProgramSeedRows>;
 
+export async function ensureProgramSeeded(
+  db: Pick<TrainingDatabase, 'execAsync' | 'getFirstAsync' | 'runAsync'>,
+  now = new Date(),
+) {
+  const row = await db.getFirstAsync<{ count: number }>(
+    'SELECT COUNT(*) AS count FROM program_years',
+  );
+
+  if ((row?.count ?? 0) > 0) return false;
+
+  const year = now.getUTCFullYear();
+  await saveProgramSeedRows(db as TrainingDatabase, {
+    programYearId: `training_year_${year}`,
+    programName: 'Training Year',
+    startDate: `${year}-01-01`,
+    endDate: `${year}-12-31`,
+    recordedAt: now.toISOString(),
+  });
+  return true;
+}
+
 export async function saveProgramSeedRows(
   db: TrainingDatabase,
   input: ProgramSeedRowInput,
