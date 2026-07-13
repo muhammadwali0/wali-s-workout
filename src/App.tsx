@@ -23,8 +23,10 @@ import {
 } from './db/alternativeQueries';
 import { openTrainingDatabase, type TrainingDatabase } from './db/database';
 import {
+  getLatestExercisePerformances,
   getNextWorkoutInstance,
   getTodayWorkoutInstance,
+  type LatestExercisePerformance,
   type TodayWorkoutInstance,
 } from './db/todayWorkoutQuery';
 import {
@@ -419,6 +421,9 @@ function TodayWorkoutSummary({
   const [timerNowMs, setTimerNowMs] = useState(Date.now());
   const [nextSetEntry, setNextSetEntry] = useState(emptySetEntry);
   const [nextSetNote, setNextSetNote] = useState('');
+  const [latestPerformances, setLatestPerformances] = useState<
+    LatestExercisePerformance[]
+  >([]);
   const [saveStatus, setSaveStatus] = useState('Not saved');
 
   useEffect(() => {
@@ -427,6 +432,26 @@ function TodayWorkoutSummary({
     setNextSetEntry(emptySetEntry);
     setNextSetNote('');
   }, [dueWorkout.status === 'workout_due' ? dueWorkout.workout.id : dueWorkout.status]);
+
+  useEffect(() => {
+    if (!db || dueWorkout.status !== 'workout_due') {
+      setLatestPerformances([]);
+      return;
+    }
+
+    const plannedSets = applyExerciseReplacements(
+      createPlannedSets(dueWorkout.workout),
+      activeReplacements,
+    );
+    void getLatestExercisePerformances(
+      db,
+      plannedSets.map((set) => set.exerciseId),
+    ).then(setLatestPerformances);
+  }, [
+    activeReplacements,
+    db,
+    dueWorkout.status === 'workout_due' ? dueWorkout.workout.id : dueWorkout.status,
+  ]);
 
   useEffect(() => {
     if (!db || !todayInstance || dueWorkout.status !== 'workout_due') return;
@@ -469,6 +494,9 @@ function TodayWorkoutSummary({
     const nextSet = draft?.actualSets.find((set) => !set.completed && !set.skipped);
     const activePlannedSets = draft?.plannedSets ?? plannedSets;
     const previewSets = activePlannedSets.slice(0, 5);
+    const latestPerformanceByExercise = new Map(
+      latestPerformances.map((performance) => [performance.exerciseId, performance]),
+    );
     const timerState = restTimer
       ? getRestTimerState(restTimer, timerNowMs)
       : null;
@@ -730,6 +758,15 @@ function TodayWorkoutSummary({
                 )}
                 {formatRpeRange(set.targetRpeLow, set.targetRpeHigh)}
               </Text>
+              {latestPerformanceByExercise.has(set.exerciseId) ? (
+                <Text style={styles.setPrescription}>
+                  Previous:{' '}
+                  {formatLatestPerformance(
+                    latestPerformanceByExercise.get(set.exerciseId),
+                    appSettings.preferredUnit,
+                  )}
+                </Text>
+              ) : null}
             </View>
           ))}
         </View>
@@ -1601,6 +1638,15 @@ function formatSuggestedLoad(
   if (!load) return '';
   if (load.roundedLow === load.roundedHigh) return ` - ${load.roundedLow} ${unit}`;
   return ` - ${load.roundedLow}-${load.roundedHigh} ${unit}`;
+}
+
+function formatLatestPerformance(
+  performance: LatestExercisePerformance | undefined,
+  unit: AppSettings['preferredUnit'],
+) {
+  if (!performance) return 'none';
+  const rpe = performance.rpe === null ? '' : `, RPE ${performance.rpe}`;
+  return `${performance.weight} ${unit} x ${performance.reps}${rpe}`;
 }
 
 function formatPersonalRecord(record: PersonalRecordItem) {

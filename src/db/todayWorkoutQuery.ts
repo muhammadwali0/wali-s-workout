@@ -10,6 +10,14 @@ export type TodayWorkoutInstance = {
   estimatedDurationMin: number | null;
 };
 
+export type LatestExercisePerformance = {
+  exerciseId: string;
+  weight: number;
+  reps: number;
+  rpe: number | null;
+  completedAt: string | null;
+};
+
 export async function getTodayWorkoutInstance(
   db: Pick<TrainingDatabase, 'getFirstAsync'>,
   date: Date | string = new Date(),
@@ -53,6 +61,40 @@ export async function getNextWorkoutInstance(
      ORDER BY wi.scheduled_date, wi.sequence_index
      LIMIT 1`,
     toIsoDate(date),
+  );
+}
+
+export async function getLatestExercisePerformances(
+  db: Pick<TrainingDatabase, 'getAllAsync'>,
+  exerciseIds: readonly string[],
+): Promise<LatestExercisePerformance[]> {
+  const uniqueExerciseIds = [...new Set(exerciseIds)];
+  if (uniqueExerciseIds.length === 0) return [];
+
+  const placeholders = uniqueExerciseIds.map(() => '?').join(', ');
+  return db.getAllAsync<LatestExercisePerformance>(
+    `SELECT exerciseId, weight, reps, rpe, completedAt
+     FROM (
+       SELECT
+         el.exercise_id AS exerciseId,
+         sl.weight,
+         sl.reps,
+         sl.rpe,
+         wl.completed_at AS completedAt,
+         ROW_NUMBER() OVER (
+           PARTITION BY el.exercise_id
+           ORDER BY COALESCE(wl.completed_at, wl.started_at) DESC, sl.set_order DESC
+         ) AS rank
+       FROM set_logs sl
+       JOIN exercise_logs el ON el.id = sl.exercise_log_id
+       JOIN workout_logs wl ON wl.id = el.workout_log_id
+       WHERE el.exercise_id IN (${placeholders})
+         AND sl.is_completed = 1
+         AND sl.weight IS NOT NULL
+         AND sl.reps IS NOT NULL
+     )
+     WHERE rank = 1`,
+    ...uniqueExerciseIds,
   );
 }
 
