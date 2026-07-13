@@ -84,6 +84,7 @@ import {
 } from './domain/program/yearEngine';
 import {
   isValidNotificationTime,
+  planRestTimerNotification,
   planWorkoutDueNotification,
   type NotificationSettings,
 } from './domain/notifications/notificationPlanner';
@@ -525,8 +526,27 @@ function TodayWorkoutSummary({
                     : null;
 
                   if (plannedSet) {
-                    setRestTimer(createRestTimer(plannedSet, Date.now()));
+                    const nowMs = Date.now();
+                    const nextTimer = createRestTimer(plannedSet, nowMs);
+                    setRestTimer(nextTimer);
                     setTimerNowMs(Date.now());
+                    if (db && todayInstance && nextTimer) {
+                      const notification = planRestTimerNotification(
+                        new Date(nowMs + nextTimer.durationSeconds * 1000).toISOString(),
+                        plannedSet.exerciseName,
+                      );
+                      void scheduleLocalNotification(notification).then(
+                        (externalNotificationId) => {
+                          if (!externalNotificationId) return;
+                          void savePlannedNotification(
+                            db,
+                            notification,
+                            plannedSet.id,
+                            externalNotificationId,
+                          );
+                        },
+                      );
+                    }
                   }
                   void saveDraft(
                     completeSet(draft, nextSet.plannedSetId, {

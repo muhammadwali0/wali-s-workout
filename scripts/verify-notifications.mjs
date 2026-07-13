@@ -6,6 +6,7 @@ const { createTrainingYear, getProgramPosition } = await import(
 const { getDueWorkout } = await import('../src/domain/program/seedResolver.ts');
 const {
   planMissedWorkoutNotification,
+  planRestTimerNotification,
   planUnfinishedSessionNotification,
   planWeekStatusNotification,
   planWorkoutDueNotification,
@@ -87,5 +88,11 @@ assert.deepEqual(
     body: 'Full Body 1 has saved set data and is still in progress.',
   },
 );
+assert.deepEqual(planRestTimerNotification('2026-01-01T10:04:00', 'Back Squat'), {
+  type: 'rest_timer',
+  scheduledFor: '2026-01-01T10:04:00',
+  title: 'Rest complete',
+  body: 'Back Squat: begin the next set when ready.',
+});
 
 console.log('notifications verified');

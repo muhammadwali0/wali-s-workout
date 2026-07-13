@@ -79,4 +79,17 @@ assert.equal(calls[4].limit, 5);
 assert.match(calls[4].sql, /WHERE status = 'scheduled'/);
 assert.match(calls[4].sql, /external_notification_id AS externalNotificationId/);
 
+const restId = await savePlannedNotification(
+  db,
+  {
+    type: 'rest_timer',
+    scheduledFor: '2026-01-01T10:04:00',
+    title: 'Rest complete',
+    body: 'Back Squat: begin the next set when ready.',
+  },
+  'set_1',
+  'native_rest_1',
+);
+assert.equal(restId, 'rest_timer_2026-01-01T10:04:00_set_1');
+
 console.log('notification queries verified');

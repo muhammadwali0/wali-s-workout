@@ -18,7 +18,8 @@ export type PlannedNotification = {
     | 'unfinished_session'
     | 'deload_week'
     | 'taper_week'
-    | 'test_week';
+    | 'test_week'
+    | 'rest_timer';
   scheduledFor: string;
   title: string;
   body: string;
@@ -122,5 +123,17 @@ export function planUnfinishedSessionNotification(
     scheduledFor,
     title: 'Workout session unfinished',
     body: `${workoutName} has saved set data and is still in progress.`,
+  };
+}
+
+export function planRestTimerNotification(
+  scheduledFor: string,
+  exerciseName: string,
+): PlannedNotification {
+  return {
+    type: 'rest_timer',
+    scheduledFor,
+    title: 'Rest complete',
+    body: `${exerciseName}: begin the next set when ready.`,
   };
 }

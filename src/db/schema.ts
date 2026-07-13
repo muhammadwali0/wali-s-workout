@@ -406,7 +406,8 @@ CREATE TABLE IF NOT EXISTS scheduled_notifications (
     'deload_week',
     'taper_week',
     'test_week',
-    'phase_transition'
+    'phase_transition',
+    'rest_timer'
   )),
   related_entity_type TEXT,
   related_entity_id TEXT,
