@@ -170,6 +170,7 @@ const replacementScopes: ExerciseReplacementInput['scope'][] = [
   'block',
   'year',
 ];
+const emptySetEntry = { weight: '', reps: '', rpe: '' };
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabKey>('today');
@@ -414,12 +415,15 @@ function TodayWorkoutSummary({
   const [draft, setDraft] = useState<WorkoutDraft | null>(null);
   const [restTimer, setRestTimer] = useState<RestTimer | null>(null);
   const [timerNowMs, setTimerNowMs] = useState(Date.now());
+  const [nextSetEntry, setNextSetEntry] = useState(emptySetEntry);
   const [nextSetNote, setNextSetNote] = useState('');
   const [saveStatus, setSaveStatus] = useState('Not saved');
 
   useEffect(() => {
     setDraft(null);
     setRestTimer(null);
+    setNextSetEntry(emptySetEntry);
+    setNextSetNote('');
   }, [dueWorkout.status === 'workout_due' ? dueWorkout.workout.id : dueWorkout.status]);
 
   useEffect(() => {
@@ -533,6 +537,33 @@ function TodayWorkoutSummary({
                         appSettings.plateIncrement,
                       )
                     : null;
+                  const weight =
+                    nextSetEntry.weight.trim() === ''
+                      ? suggestion?.roundedLow ?? 0
+                      : Number(nextSetEntry.weight);
+                  const reps =
+                    nextSetEntry.reps.trim() === ''
+                      ? getDefaultReps(plannedSet?.targetReps ?? null)
+                      : Number(nextSetEntry.reps);
+                  const rpe =
+                    nextSetEntry.rpe.trim() === ''
+                      ? plannedSet?.targetRpeHigh ?? null
+                      : Number(nextSetEntry.rpe);
+                  let nextDraft: WorkoutDraft;
+
+                  try {
+                    nextDraft = completeSet(draft, nextSet.plannedSetId, {
+                      weight,
+                      reps,
+                      rpe,
+                      notes: nextSetNote.trim() || null,
+                    });
+                  } catch (error) {
+                    setSaveStatus(
+                      error instanceof Error ? error.message : 'Invalid set entry',
+                    );
+                    return;
+                  }
 
                   if (plannedSet) {
                     const nowMs = Date.now();
@@ -557,14 +588,8 @@ function TodayWorkoutSummary({
                       );
                     }
                   }
-                  void saveDraft(
-                    completeSet(draft, nextSet.plannedSetId, {
-                      weight: suggestion?.roundedLow ?? 0,
-                      reps: getDefaultReps(plannedSet?.targetReps ?? null),
-                      rpe: plannedSet?.targetRpeHigh ?? null,
-                      notes: nextSetNote.trim() || null,
-                    }),
-                  );
+                  void saveDraft(nextDraft);
+                  setNextSetEntry(emptySetEntry);
                   setNextSetNote('');
                 }}
                 style={styles.secondaryButton}
@@ -575,7 +600,11 @@ function TodayWorkoutSummary({
             {draft && nextSet ? (
               <Pressable
                 accessibilityRole="button"
-                onPress={() => void saveDraft(skipSet(draft, nextSet.plannedSetId))}
+                onPress={() => {
+                  setNextSetEntry(emptySetEntry);
+                  setNextSetNote('');
+                  void saveDraft(skipSet(draft, nextSet.plannedSetId));
+                }}
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Skip Next Set</Text>
@@ -604,13 +633,47 @@ function TodayWorkoutSummary({
             </Text>
           ) : null}
           {draft && nextSet ? (
-            <TextInput
-              accessibilityLabel="Next set note"
-              onChangeText={setNextSetNote}
-              placeholder="Set note"
-              style={styles.noteInput}
-              value={nextSetNote}
-            />
+            <>
+              <View style={styles.setEntryRow}>
+                <TextInput
+                  accessibilityLabel="Next set weight"
+                  keyboardType="decimal-pad"
+                  onChangeText={(weight) =>
+                    setNextSetEntry((entry) => ({ ...entry, weight }))
+                  }
+                  placeholder="Weight"
+                  style={[styles.noteInput, styles.setEntryInput]}
+                  value={nextSetEntry.weight}
+                />
+                <TextInput
+                  accessibilityLabel="Next set reps"
+                  keyboardType="number-pad"
+                  onChangeText={(reps) =>
+                    setNextSetEntry((entry) => ({ ...entry, reps }))
+                  }
+                  placeholder="Reps"
+                  style={[styles.noteInput, styles.setEntryInput]}
+                  value={nextSetEntry.reps}
+                />
+                <TextInput
+                  accessibilityLabel="Next set RPE"
+                  keyboardType="decimal-pad"
+                  onChangeText={(rpe) =>
+                    setNextSetEntry((entry) => ({ ...entry, rpe }))
+                  }
+                  placeholder="RPE"
+                  style={[styles.noteInput, styles.setEntryInput]}
+                  value={nextSetEntry.rpe}
+                />
+              </View>
+              <TextInput
+                accessibilityLabel="Next set note"
+                onChangeText={setNextSetNote}
+                placeholder="Set note"
+                style={styles.noteInput}
+                value={nextSetNote}
+              />
+            </>
           ) : null}
           {timerState && restTimer ? (
             <Text style={styles.currentSetText}>
@@ -1685,6 +1748,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: '#111827',
     backgroundColor: '#FFFFFF',
+  },
+  setEntryRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 10,
+  },
+  setEntryInput: {
+    flex: 1,
+    minWidth: 0,
   },
   actionRow: {
     flexDirection: 'row',
