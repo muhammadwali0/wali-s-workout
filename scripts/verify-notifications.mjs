@@ -9,6 +9,7 @@ const {
   planUnfinishedSessionNotification,
   planWeekStatusNotification,
   planWorkoutDueNotification,
+  isValidNotificationTime,
 } = await import('../src/domain/notifications/notificationPlanner.ts');
 
 const settings = {
@@ -32,6 +33,15 @@ assert.deepEqual(
     title: 'Training session due',
     body: 'Block 1 - Week 1 - Day 1: Back Squat / Back Squat',
   },
+);
+assert.equal(isValidNotificationTime('23:59'), true);
+assert.equal(isValidNotificationTime('24:00'), false);
+assert.equal(
+  planWorkoutDueNotification('2026-01-01', firstPosition, firstDue, {
+    ...settings,
+    workoutReminderTime: '24:00',
+  }),
+  null,
 );
 assert.equal(
   planWorkoutDueNotification('2026-01-03', getProgramPosition('2026-01-03', year), getDueWorkout(getProgramPosition('2026-01-03', year)), settings),
@@ -61,6 +71,13 @@ assert.deepEqual(planMissedWorkoutNotification('2026-01-01', 'Upper 1', settings
   title: 'Scheduled workout unresolved',
   body: 'Upper 1 remains pending. Choose whether to shift, move, or skip it.',
 });
+assert.equal(
+  planMissedWorkoutNotification('2026-01-01', 'Upper 1', {
+    ...settings,
+    missedWorkoutTime: '9pm',
+  }),
+  null,
+);
 assert.deepEqual(
   planUnfinishedSessionNotification('2026-01-01T12:00:00', 'Full Body 1', settings),
   {

@@ -82,6 +82,7 @@ import {
   type ProgramPosition,
 } from './domain/program/yearEngine';
 import {
+  isValidNotificationTime,
   planWorkoutDueNotification,
   type NotificationSettings,
 } from './domain/notifications/notificationPlanner';
@@ -948,6 +949,8 @@ function LibrarySummary({
 }) {
   const [draftValues, setDraftValues] = useState<Record<string, string>>({});
   const [draftPlateIncrement, setDraftPlateIncrement] = useState('');
+  const [draftWorkoutReminderTime, setDraftWorkoutReminderTime] = useState('');
+  const [draftMissedReminderTime, setDraftMissedReminderTime] = useState('');
   const [saveStatus, setSaveStatus] = useState('Baselines not changed');
   const [replacementScope, setReplacementScope] =
     useState<ExerciseReplacementInput['scope']>('today_only');
@@ -1028,6 +1031,28 @@ function LibrarySummary({
     await onSaved(db);
     setSaveStatus('Notification settings saved');
   };
+  const saveReminderTimes = async () => {
+    if (!db) return;
+
+    const workoutTime =
+      draftWorkoutReminderTime || notificationSettings.workoutReminderTime || '';
+    const missedTime =
+      draftMissedReminderTime || notificationSettings.missedWorkoutTime || '';
+    if (!isValidNotificationTime(workoutTime) || !isValidNotificationTime(missedTime)) {
+      setSaveStatus('Use reminder time format HH:MM');
+      return;
+    }
+
+    await saveNotificationSettings(db, {
+      ...notificationSettings,
+      workoutReminderTime: workoutTime,
+      missedWorkoutTime: missedTime,
+    });
+    await onSaved(db);
+    setDraftWorkoutReminderTime('');
+    setDraftMissedReminderTime('');
+    setSaveStatus('Reminder times saved');
+  };
   const scheduleTodayReminder = async () => {
     if (!db) return;
 
@@ -1106,13 +1131,39 @@ function LibrarySummary({
           Workout reminders: {notificationSettings.workoutRemindersEnabled ? 'on' : 'off'} -{' '}
           {notificationSettings.workoutReminderTime ?? 'unset'}
         </Text>
+        <Text style={styles.summaryText}>
+          Missed workout reminder: {notificationSettings.missedWorkoutTime ?? 'unset'}
+        </Text>
         <View style={styles.actionRow}>
+          <TextInput
+            accessibilityLabel="Workout reminder time"
+            inputMode="numeric"
+            onChangeText={setDraftWorkoutReminderTime}
+            placeholder={notificationSettings.workoutReminderTime ?? 'HH:MM'}
+            style={styles.baselineInput}
+            value={draftWorkoutReminderTime}
+          />
+          <TextInput
+            accessibilityLabel="Missed workout reminder time"
+            inputMode="numeric"
+            onChangeText={setDraftMissedReminderTime}
+            placeholder={notificationSettings.missedWorkoutTime ?? 'HH:MM'}
+            style={styles.baselineInput}
+            value={draftMissedReminderTime}
+          />
           <Pressable
             accessibilityRole="button"
             onPress={() => void toggleWorkoutReminder()}
             style={styles.secondaryButton}
           >
             <Text style={styles.secondaryButtonText}>Toggle Reminders</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void saveReminderTimes()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Save Times</Text>
           </Pressable>
           <Pressable
             accessibilityRole="button"

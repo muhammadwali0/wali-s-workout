@@ -24,6 +24,10 @@ export type PlannedNotification = {
   body: string;
 };
 
+export function isValidNotificationTime(time: string) {
+  return /^([01]\d|2[0-3]):[0-5]\d$/.test(time);
+}
+
 export function planWorkoutDueNotification(
   date: string,
   position: ProgramPosition,
@@ -33,6 +37,7 @@ export function planWorkoutDueNotification(
   if (
     !settings.workoutRemindersEnabled ||
     !settings.workoutReminderTime ||
+    !isValidNotificationTime(settings.workoutReminderTime) ||
     position.status !== 'in_year' ||
     dueWorkout.status !== 'workout_due'
   ) {
@@ -89,7 +94,13 @@ export function planMissedWorkoutNotification(
   workoutName: string,
   settings: NotificationSettings,
 ): PlannedNotification | null {
-  if (!settings.missedWorkoutEnabled || !settings.missedWorkoutTime) return null;
+  if (
+    !settings.missedWorkoutEnabled ||
+    !settings.missedWorkoutTime ||
+    !isValidNotificationTime(settings.missedWorkoutTime)
+  ) {
+    return null;
+  }
 
   return {
     type: 'missed_workout',
