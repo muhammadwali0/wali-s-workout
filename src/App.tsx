@@ -414,6 +414,7 @@ function TodayWorkoutSummary({
   const [draft, setDraft] = useState<WorkoutDraft | null>(null);
   const [restTimer, setRestTimer] = useState<RestTimer | null>(null);
   const [timerNowMs, setTimerNowMs] = useState(Date.now());
+  const [nextSetNote, setNextSetNote] = useState('');
   const [saveStatus, setSaveStatus] = useState('Not saved');
 
   useEffect(() => {
@@ -561,8 +562,10 @@ function TodayWorkoutSummary({
                       weight: suggestion?.roundedLow ?? 0,
                       reps: getDefaultReps(plannedSet?.targetReps ?? null),
                       rpe: plannedSet?.targetRpeHigh ?? null,
+                      notes: nextSetNote.trim() || null,
                     }),
                   );
+                  setNextSetNote('');
                 }}
                 style={styles.secondaryButton}
               >
@@ -599,6 +602,15 @@ function TodayWorkoutSummary({
                   ? 'Workout completed'
                   : 'All sets logged'}
             </Text>
+          ) : null}
+          {draft && nextSet ? (
+            <TextInput
+              accessibilityLabel="Next set note"
+              onChangeText={setNextSetNote}
+              placeholder="Set note"
+              style={styles.noteInput}
+              value={nextSetNote}
+            />
           ) : null}
           {timerState && restTimer ? (
             <Text style={styles.currentSetText}>
@@ -1655,6 +1667,15 @@ const styles = StyleSheet.create({
   baselineInput: {
     minHeight: 42,
     minWidth: 76,
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    color: '#111827',
+    backgroundColor: '#FFFFFF',
+  },
+  noteInput: {
+    minHeight: 42,
     borderWidth: 1,
     borderColor: '#CBD5E1',
     borderRadius: 6,

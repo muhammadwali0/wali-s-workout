@@ -29,6 +29,7 @@ const draft = completeSet(
     weight: 20,
     reps: 5,
     rpe: 6,
+    notes: 'Felt stable',
   },
 );
 const rows = buildWorkoutLogRows(draft, {
@@ -66,7 +67,7 @@ assert.deepEqual(rows.setLogs[0], {
   is_pr: 0,
   is_warmup: 1,
   is_failed: 0,
-  user_notes: null,
+  user_notes: 'Felt stable',
   created_at: '2026-01-01T10:00:00Z',
   updated_at: '2026-01-01T10:00:00Z',
 });
