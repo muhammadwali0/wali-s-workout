@@ -93,6 +93,10 @@ const db = {
   async execAsync(sql) {
     calls.push({ type: 'exec', sql });
   },
+  async getAllAsync(sql, ...params) {
+    calls.push({ type: 'all', sql, params });
+    return [{ weight: 10, reps: 1 }];
+  },
   async runAsync(sql, ...params) {
     calls.push({ type: 'run', sql, params });
   },
@@ -113,6 +117,14 @@ assert.deepEqual(inProgressUpdate?.params, [
   '2026-01-01T10:00:00Z',
   'instance_1',
 ]);
+const prInsert = calls.find((call) =>
+  call.sql?.includes('INSERT OR REPLACE INTO personal_records'),
+);
+assert.equal(Boolean(prInsert), true);
+assert.equal(
+  calls.find((call) => call.sql?.includes('INSERT OR REPLACE INTO set_logs'))?.params[12],
+  1,
+);
 
 calls.length = 0;
 const completeDraft = completeWorkout(
