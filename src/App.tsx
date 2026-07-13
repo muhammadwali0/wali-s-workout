@@ -258,6 +258,7 @@ export default function App() {
             ) : null}
             {activeTab === 'year' ? (
               <YearSummary
+                calendarWorkouts={calendarWorkouts}
                 db={db}
                 dbStatus={dbStatus}
                 missedWorkouts={missedWorkouts}
@@ -632,17 +633,28 @@ function HistorySummary({
 }
 
 function YearSummary({
+  calendarWorkouts,
   db,
   dbStatus,
   missedWorkouts,
   onSaved,
 }: {
+  calendarWorkouts: CalendarWorkout[];
   db: TrainingDatabase | null;
   dbStatus: string;
   missedWorkouts: MissedWorkoutItem[];
   onSaved: (database: TrainingDatabase) => Promise<void>;
 }) {
   const [status, setStatus] = useState('No schedule change selected');
+  const completed = calendarWorkouts.filter(
+    (workout) => workout.status === 'completed',
+  ).length;
+  const skipped = calendarWorkouts.filter(
+    (workout) => workout.status === 'skipped',
+  ).length;
+  const rescheduled = calendarWorkouts.filter(
+    (workout) => workout.status === 'rescheduled',
+  ).length;
   const resolve = async (
     workout: MissedWorkoutItem,
     action: 'skip' | 'do_today_and_shift',
@@ -667,6 +679,11 @@ function YearSummary({
         {dbStatus} - {missedWorkouts.length} unresolved missed workouts.
       </Text>
       <Text style={styles.summaryText}>{status}</Text>
+      <View style={styles.analyticsFooter}>
+        <Metric label="Completed" value={String(completed)} />
+        <Metric label="Skipped" value={String(skipped)} />
+        <Metric label="Moved" value={String(rescheduled)} />
+      </View>
       <View style={styles.setPreview}>
         {missedWorkouts.length === 0 ? (
           <Text style={styles.summaryText}>No missed sessions need a decision.</Text>
