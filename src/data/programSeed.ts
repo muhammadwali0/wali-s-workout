@@ -1,4 +1,4 @@
-{
+export const programSeed = {
   "schemaVersion": 1,
   "generatedFrom": "sanitized-program-json",
   "phases": [
@@ -36624,4 +36624,4 @@
       "name": "Wide-Grip Lat Pulldown"
     }
   ]
-}
+} as const;

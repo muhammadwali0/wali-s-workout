@@ -14,6 +14,7 @@ import {
   formatProgramPosition,
   getProgramPosition,
 } from './domain/program/yearEngine';
+import { getDueWorkout } from './domain/program/seedResolver';
 
 type TabKey = 'today' | 'year' | 'analytics' | 'history' | 'library';
 
@@ -75,6 +76,7 @@ export default function App() {
     () => getProgramPosition(new Date(), trainingYear),
     [trainingYear],
   );
+  const dueWorkout = useMemo(() => getDueWorkout(position), [position]);
   const active = useMemo(
     () => tabs.find((tab) => tab.key === activeTab) ?? tabs[0],
     [activeTab],
@@ -104,8 +106,11 @@ export default function App() {
           </View>
 
           <View style={styles.panel}>
-            <Text style={styles.sectionTitle}>{active.label}</Text>
+            <Text style={styles.sectionTitle}>
+              {activeTab === 'today' ? getTodayTitle(dueWorkout) : active.label}
+            </Text>
             <Text style={styles.body}>{active.body}</Text>
+            {activeTab === 'today' ? <TodayWorkoutSummary dueWorkout={dueWorkout} /> : null}
           </View>
 
           <View style={styles.metricsRow}>
@@ -145,6 +150,56 @@ function Metric({ label, value }: { label: string; value: string }) {
       <Text style={styles.metricValue}>{value}</Text>
     </View>
   );
+}
+
+function TodayWorkoutSummary({
+  dueWorkout,
+}: {
+  dueWorkout: ReturnType<typeof getDueWorkout>;
+}) {
+  if (dueWorkout.status === 'workout_due') {
+    return (
+      <View style={styles.summaryBlock}>
+        <Text style={styles.summaryTitle}>{dueWorkout.workout.name}</Text>
+        <Text style={styles.summaryText}>
+          {dueWorkout.workout.estimatedDurationMin ?? 0} min -{' '}
+          {dueWorkout.workout.exercises.length} exercises
+        </Text>
+        <Text style={styles.summaryText}>
+          Main lifts: {dueWorkout.mainLifts.join(', ')}
+        </Text>
+      </View>
+    );
+  }
+
+  if (dueWorkout.status === 'rest_day') {
+    return (
+      <View style={styles.summaryBlock}>
+        <Text style={styles.summaryTitle}>Rest Day</Text>
+        <Text style={styles.summaryText}>
+          Next session: {dueWorkout.nextWorkout?.name ?? 'No later session this week'}
+        </Text>
+      </View>
+    );
+  }
+
+  if (dueWorkout.status === 'buffer_week') {
+    return (
+      <View style={styles.summaryBlock}>
+        <Text style={styles.summaryTitle}>Buffer Week</Text>
+        <Text style={styles.summaryText}>No training is prescribed for this week.</Text>
+      </View>
+    );
+  }
+
+  return null;
+}
+
+function getTodayTitle(dueWorkout: ReturnType<typeof getDueWorkout>) {
+  if (dueWorkout.status === 'workout_due') return 'Workout Due';
+  if (dueWorkout.status === 'rest_day') return 'Rest Day';
+  if (dueWorkout.status === 'buffer_week') return 'Buffer Week';
+  return 'Training Year';
 }
 
 const styles = StyleSheet.create({
@@ -222,6 +277,23 @@ const styles = StyleSheet.create({
     color: '#334155',
     fontSize: 15,
     lineHeight: 23,
+  },
+  summaryBlock: {
+    marginTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
+    paddingTop: 14,
+  },
+  summaryTitle: {
+    color: '#111827',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  summaryText: {
+    marginTop: 6,
+    color: '#475569',
+    fontSize: 14,
+    lineHeight: 20,
   },
   metricsRow: {
     flexDirection: 'row',

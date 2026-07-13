@@ -1,9 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-
-const seed = JSON.parse(
-  readFileSync(new URL('../src/data/programSeed.json', import.meta.url), 'utf8'),
-);
+const { programSeed: seed } = await import('../src/data/programSeed.ts');
 
 assert.equal(seed.schemaVersion, 1);
 assert.equal(seed.annualWeeks.length, 52);

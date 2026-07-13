@@ -2,7 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
 const privateRoot = new URL('../data/program/', import.meta.url);
-const outputUrl = new URL('../src/data/programSeed.json', import.meta.url);
+const outputUrl = new URL('../src/data/programSeed.ts', import.meta.url);
 
 const annualPlan = readJson('annual_plan.json').annual_plan;
 const phaseSeeds = {
@@ -65,7 +65,7 @@ const seed = {
   exercises,
 };
 
-const text = `${JSON.stringify(seed, null, 2)}\n`;
+const text = `export const programSeed = ${JSON.stringify(seed, null, 2)} as const;\n`;
 assertPublic(text);
 mkdirSync(dirname(outputUrl.pathname), { recursive: true });
 writeFileSync(outputUrl, text);

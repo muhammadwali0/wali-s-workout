@@ -12,8 +12,9 @@
     "verify:adherence": "node --experimental-strip-types scripts/verify-adherence.mjs",
     "verify:alternatives": "node --experimental-strip-types scripts/verify-alternatives.mjs",
     "verify:load": "node --experimental-strip-types scripts/verify-load-calculator.mjs",
-    "verify:program-seed": "node scripts/verify-program-seed.mjs",
+    "verify:program-seed": "node --experimental-strip-types scripts/verify-program-seed.mjs",
     "verify:schema": "node scripts/verify-schema.mjs",
+    "verify:seed-resolver": "node --experimental-strip-types scripts/verify-seed-resolver.mjs",
     "verify:year": "node --experimental-strip-types scripts/verify-year-engine.mjs",
     "typecheck": "tsc --noEmit"
   },
