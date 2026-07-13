@@ -17,6 +17,7 @@
     "verify:modifications": "node --experimental-strip-types scripts/verify-modification-resolver.mjs",
     "verify:notifications": "node --experimental-strip-types scripts/verify-notifications.mjs",
     "verify:personal-records": "node --experimental-strip-types scripts/verify-personal-records.mjs",
+    "verify:progression": "node --experimental-strip-types scripts/verify-progression.mjs",
     "verify:program-seed": "node --experimental-strip-types scripts/verify-program-seed.mjs",
     "verify:rest-timer": "node --experimental-strip-types scripts/verify-rest-timer.mjs",
     "verify:schema": "node scripts/verify-schema.mjs",
