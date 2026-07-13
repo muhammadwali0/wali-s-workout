@@ -1,4 +1,5 @@
 import { programSeed } from '../data/programSeed.ts';
+import type { TrainingDatabase } from './database.ts';
 
 type ProgramSeed = typeof programSeed;
 type PhaseCode = keyof ProgramSeed['phaseWeeks'];
@@ -12,6 +13,37 @@ export type ProgramSeedRowInput = {
 };
 
 export type ProgramSeedRows = ReturnType<typeof buildProgramSeedRows>;
+
+export async function saveProgramSeedRows(
+  db: TrainingDatabase,
+  input: ProgramSeedRowInput,
+  seed: ProgramSeed = programSeed,
+) {
+  const rows = buildProgramSeedRows(input, seed);
+
+  await db.execAsync('BEGIN TRANSACTION');
+  try {
+    await insertRows(db, 'program_years', rows.programYears);
+    await insertRows(db, 'program_phases', rows.programPhases);
+    await insertRows(db, 'program_blocks', rows.programBlocks);
+    await insertRows(db, 'program_weeks', rows.programWeeks);
+    await insertRows(db, 'exercises', rows.exercises);
+    await insertRows(db, 'muscles', rows.muscles);
+    await insertRows(db, 'program_workouts', rows.programWorkouts);
+    await insertRows(db, 'program_exercises', rows.programExercises);
+    await insertRows(
+      db,
+      'program_set_prescriptions',
+      rows.programSetPrescriptions,
+    );
+    await insertRows(db, 'exercise_muscles', rows.exerciseMuscles);
+    await insertRows(db, 'exercise_alternatives', rows.exerciseAlternatives);
+    await db.execAsync('COMMIT');
+  } catch (error) {
+    await db.execAsync('ROLLBACK');
+    throw error;
+  }
+}
 
 export function buildProgramSeedRows(
   input: ProgramSeedRowInput,
@@ -219,4 +251,19 @@ export function buildProgramSeedRows(
     exerciseMuscles,
     exerciseAlternatives,
   };
+}
+
+async function insertRows(
+  db: TrainingDatabase,
+  table: string,
+  rows: readonly Record<string, string | number | null>[],
+) {
+  for (const row of rows) {
+    const columns = Object.keys(row);
+    const placeholders = columns.map(() => '?').join(', ');
+    await db.runAsync(
+      `INSERT OR REPLACE INTO ${table} (${columns.join(', ')}) VALUES (${placeholders})`,
+      ...Object.values(row),
+    );
+  }
 }
