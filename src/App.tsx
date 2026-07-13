@@ -14,6 +14,7 @@ import {
   getTodayWorkoutInstance,
   type TodayWorkoutInstance,
 } from './db/todayWorkoutQuery';
+import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import {
   getConsistencyCalendar,
   type CalendarWorkout,
@@ -161,6 +162,9 @@ export default function App() {
   const positionLabel = formatProgramPosition(position);
   const weekType =
     position.status === 'in_year' ? position.week.weekType : position.status;
+  const refreshTodayInstance = async (database: TrainingDatabase) => {
+    setTodayInstance(await getTodayWorkoutInstance(database));
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -169,7 +173,7 @@ export default function App() {
       .then(async (database) => {
         if (cancelled) return;
         setDb(database);
-        setTodayInstance(await getTodayWorkoutInstance(database));
+        await refreshTodayInstance(database);
         setDbStatus('Local database ready');
       })
       .catch(() => {
@@ -208,9 +212,11 @@ export default function App() {
             <Text style={styles.body}>{active.body}</Text>
             {activeTab === 'today' ? (
               <TodayWorkoutSummary
+                db={db}
                 dbReady={db !== null}
                 dbStatus={dbStatus}
                 dueWorkout={dueWorkout}
+                onSaved={refreshTodayInstance}
                 todayInstance={todayInstance}
               />
             ) : null}
@@ -257,17 +263,22 @@ function Metric({ label, value }: { label: string; value: string }) {
 }
 
 function TodayWorkoutSummary({
+  db,
   dbReady,
   dbStatus,
   dueWorkout,
+  onSaved,
   todayInstance,
 }: {
+  db: TrainingDatabase | null;
   dbReady: boolean;
   dbStatus: string;
   dueWorkout: ReturnType<typeof getDueWorkout>;
+  onSaved: (database: TrainingDatabase) => Promise<void>;
   todayInstance: TodayWorkoutInstance | null;
 }) {
   const [draft, setDraft] = useState<WorkoutDraft | null>(null);
+  const [saveStatus, setSaveStatus] = useState('Not saved');
 
   useEffect(() => {
     setDraft(null);
@@ -278,6 +289,19 @@ function TodayWorkoutSummary({
     const previewSets = plannedSets.slice(0, 5);
     const summary = draft ? summarizeWorkoutDraft(draft) : null;
     const nextSet = draft?.actualSets.find((set) => !set.completed);
+    const saveDraft = async (nextDraft: WorkoutDraft) => {
+      setDraft(nextDraft);
+      if (!db || !todayInstance) return;
+
+      await saveWorkoutDraft(db, nextDraft, {
+        workoutLogId: `${todayInstance.instanceId}_log`,
+        workoutInstanceId: todayInstance.instanceId,
+        recordedAt: new Date().toISOString(),
+        unit: 'kg',
+      });
+      await onSaved(db);
+      setSaveStatus('Saved locally');
+    };
 
     return (
       <View style={styles.summaryBlock}>
@@ -290,6 +314,7 @@ function TodayWorkoutSummary({
               ? ' - no persisted instance for today'
               : ''}
         </Text>
+        <Text style={styles.summaryText}>{saveStatus}</Text>
         <Text style={styles.summaryText}>
           {dueWorkout.workout.estimatedDurationMin ?? 0} min -{' '}
           {dueWorkout.workout.exercises.length} exercises - {plannedSets.length} planned sets
@@ -308,7 +333,9 @@ function TodayWorkoutSummary({
             <Pressable
               accessibilityRole="button"
               onPress={() =>
-                setDraft(createWorkoutDraft(dueWorkout.workout.id, plannedSets))
+                void saveDraft(
+                  createWorkoutDraft(dueWorkout.workout.id, plannedSets),
+                )
               }
               style={styles.primaryButton}
             >
@@ -320,7 +347,7 @@ function TodayWorkoutSummary({
               <Pressable
                 accessibilityRole="button"
                 onPress={() =>
-                  setDraft(
+                  void saveDraft(
                     completeSet(draft, nextSet.plannedSetId, {
                       weight: 0,
                       reps: getDefaultReps(
@@ -341,7 +368,7 @@ function TodayWorkoutSummary({
             {draft && summary?.isComplete && draft.status !== 'completed' ? (
               <Pressable
                 accessibilityRole="button"
-                onPress={() => setDraft(completeWorkout(draft))}
+                onPress={() => void saveDraft(completeWorkout(draft))}
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Finish</Text>
