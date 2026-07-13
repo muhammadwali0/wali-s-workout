@@ -9,6 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "verify:schema": "node scripts/verify-schema.mjs",
+    "verify:year": "node --experimental-strip-types scripts/verify-year-engine.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -9,6 +9,12 @@ import {
   View,
 } from 'react-native';
 
+import {
+  createTrainingYear,
+  formatProgramPosition,
+  getProgramPosition,
+} from './domain/program/yearEngine';
+
 type TabKey = 'today' | 'year' | 'analytics' | 'history' | 'library';
 
 type Tab = {
@@ -59,10 +65,23 @@ const tabs: Tab[] = [
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabKey>('today');
+  const trainingYear = useMemo(() => {
+    const now = new Date();
+    return createTrainingYear(
+      new Date(Date.UTC(now.getUTCFullYear(), 0, 1)),
+    );
+  }, []);
+  const position = useMemo(
+    () => getProgramPosition(new Date(), trainingYear),
+    [trainingYear],
+  );
   const active = useMemo(
     () => tabs.find((tab) => tab.key === activeTab) ?? tabs[0],
     [activeTab],
   );
+  const positionLabel = formatProgramPosition(position);
+  const weekType =
+    position.status === 'in_year' ? position.week.weekType : position.status;
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -76,8 +95,12 @@ export default function App() {
         <ScrollView contentContainerStyle={styles.content}>
           <View style={styles.positionCard}>
             <Text style={styles.meta}>Current Workspace</Text>
-            <Text style={styles.positionTitle}>{active.title}</Text>
-            <Text style={styles.eyebrow}>{active.eyebrow}</Text>
+            <Text style={styles.positionTitle}>
+              {activeTab === 'today' ? positionLabel : active.title}
+            </Text>
+            <Text style={styles.eyebrow}>
+              {activeTab === 'today' ? `Week type: ${weekType}` : active.eyebrow}
+            </Text>
           </View>
 
           <View style={styles.panel}>
@@ -86,7 +109,7 @@ export default function App() {
           </View>
 
           <View style={styles.metricsRow}>
-            <Metric label="Program" value="Unseeded" />
+            <Metric label="Program" value="52 weeks" />
             <Metric label="Mode" value="Offline" />
             <Metric label="Data" value="Local" />
           </View>
