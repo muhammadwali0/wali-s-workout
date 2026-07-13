@@ -16,6 +16,7 @@
     "verify:muscle-exposure": "node --experimental-strip-types scripts/verify-muscle-exposure.mjs",
     "verify:modifications": "node --experimental-strip-types scripts/verify-modification-resolver.mjs",
     "verify:notifications": "node --experimental-strip-types scripts/verify-notifications.mjs",
+    "verify:one-rm": "node --experimental-strip-types scripts/verify-one-rm-vault.mjs",
     "verify:personal-records": "node --experimental-strip-types scripts/verify-personal-records.mjs",
     "verify:progression": "node --experimental-strip-types scripts/verify-progression.mjs",
     "verify:program-seed": "node --experimental-strip-types scripts/verify-program-seed.mjs",
