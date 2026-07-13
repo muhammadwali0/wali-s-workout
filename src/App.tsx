@@ -37,6 +37,7 @@ import {
   saveOneRmRecord,
   type CurrentOneRmRecord,
 } from './db/oneRmQueries';
+import { saveExerciseReplacement } from './db/modificationQueries';
 import { getAppSettings, saveAppSettings } from './db/settingsQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import {
@@ -652,6 +653,16 @@ function LibrarySummary({
     await onSaved(db);
     setSaveStatus('Settings saved locally');
   };
+  const saveReplacement = async (alternative: ExerciseAlternativeItem) => {
+    if (!db) return;
+
+    await saveExerciseReplacement(db, {
+      originalExerciseId: alternative.sourceExerciseId,
+      replacementExerciseId: alternative.alternativeExerciseId,
+      scope: 'today_only',
+    });
+    setSaveStatus('Substitution saved for today');
+  };
 
   return (
     <View style={styles.summaryBlock}>
@@ -715,13 +726,16 @@ function LibrarySummary({
               {(alternativesByExercise.get(exercise.exerciseId) ?? [])
                 .slice(0, 2)
                 .map((alternative) => (
-                  <Text
+                  <Pressable
+                    accessibilityRole="button"
                     key={alternative.alternativeExerciseId}
-                    style={styles.setPrescription}
+                    onPress={() => void saveReplacement(alternative)}
                   >
-                    Substitute: {alternative.alternativeName} -{' '}
-                    {alternative.compatibilityScore}% match
-                  </Text>
+                    <Text style={styles.setPrescription}>
+                      Substitute: {alternative.alternativeName} -{' '}
+                      {alternative.compatibilityScore}% match
+                    </Text>
+                  </Pressable>
                 ))}
             </View>
           ))
