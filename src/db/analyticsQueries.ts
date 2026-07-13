@@ -12,6 +12,11 @@ export type AnalyticsSet = VolumeSet &
     exerciseCategory: string | null;
   };
 
+export type PlannedAnalyticsSet = MuscleExposureSet &
+  BlockComparisonSet & {
+    completedAt: string;
+  };
+
 export type StrengthTrendPoint = {
   exerciseId: string;
   exerciseName: string;
@@ -62,6 +67,35 @@ export async function getCompletedAnalyticsSets(
        AND wl.status = 'completed'
        AND wl.completed_at IS NOT NULL
      ORDER BY wl.completed_at, el.sort_order, sl.set_order`,
+  );
+}
+
+export async function getPlannedAnalyticsSets(
+  db: Pick<TrainingDatabase, 'getAllAsync'>,
+): Promise<PlannedAnalyticsSet[]> {
+  return db.getAllAsync<PlannedAnalyticsSet>(
+    `WITH RECURSIVE set_numbers(n) AS (
+       SELECT 1
+       UNION ALL
+       SELECT n + 1 FROM set_numbers WHERE n < 20
+     )
+     SELECT
+       wi.scheduled_date || 'T00:00:00Z' AS completedAt,
+       pe.exercise_id AS exerciseId,
+       pb.block_number AS blockNumber,
+       pb.phase_code AS phaseCode,
+       psp.set_type AS setType,
+       1 AS completed,
+       NULL AS weight,
+       NULL AS reps
+     FROM workout_instances wi
+     JOIN program_workouts pw ON pw.id = wi.program_workout_id
+     JOIN program_weeks pweek ON pweek.id = pw.program_week_id
+     JOIN program_blocks pb ON pb.id = pweek.program_block_id
+     JOIN program_exercises pe ON pe.program_workout_id = pw.id
+     JOIN program_set_prescriptions psp ON psp.program_exercise_id = pe.id
+     JOIN set_numbers sn ON sn.n <= psp.target_sets
+     ORDER BY wi.scheduled_date, pe.sort_order, psp.set_order, sn.n`,
   );
 }
 

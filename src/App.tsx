@@ -14,9 +14,11 @@ import {
   getCalendarWorkouts,
   getCompletedAnalyticsSets,
   getEstimatedOneRmTrend,
+  getPlannedAnalyticsSets,
   getPlannedVsActualWorkouts,
   getSessionDurationPoints,
   type AnalyticsSet,
+  type PlannedAnalyticsSet,
   type PlannedVsActualWorkout,
   type SessionDurationPoint,
   type StrengthTrendPoint,
@@ -201,6 +203,9 @@ export default function App() {
   const [nextWorkoutInstance, setNextWorkoutInstance] =
     useState<TodayWorkoutInstance | null>(null);
   const [analyticsSets, setAnalyticsSets] = useState<AnalyticsSet[]>([]);
+  const [plannedAnalyticsSets, setPlannedAnalyticsSets] = useState<
+    PlannedAnalyticsSet[]
+  >([]);
   const [plannedVsActual, setPlannedVsActual] = useState<PlannedVsActualWorkout[]>(
     [],
   );
@@ -262,6 +267,7 @@ export default function App() {
     setTodayInstance(await getTodayWorkoutInstance(database));
     setNextWorkoutInstance(await getNextWorkoutInstance(database));
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
+    setPlannedAnalyticsSets(await getPlannedAnalyticsSets(database));
     setPlannedVsActual(await getPlannedVsActualWorkouts(database));
     setStrengthTrend(await getEstimatedOneRmTrend(database));
     setSessionDurations(await getSessionDurationPoints(database));
@@ -343,6 +349,7 @@ export default function App() {
                 completedSets={analyticsSets}
                 dbStatus={dbStatus}
                 plannedVsActual={plannedVsActual}
+                plannedSets={plannedAnalyticsSets}
                 position={position}
                 sessionDurations={sessionDurations}
                 strengthTrend={strengthTrend}
@@ -888,6 +895,7 @@ function AnalyticsSummary({
   completedSets,
   dbStatus,
   plannedVsActual,
+  plannedSets,
   position,
   sessionDurations,
   strengthTrend,
@@ -896,6 +904,7 @@ function AnalyticsSummary({
   completedSets: AnalyticsSet[];
   dbStatus: string;
   plannedVsActual: PlannedVsActualWorkout[];
+  plannedSets: PlannedAnalyticsSet[];
   position: ProgramPosition;
   sessionDurations: SessionDurationPoint[];
   strengthTrend: StrengthTrendPoint[];
@@ -924,7 +933,13 @@ function AnalyticsSummary({
     customEndDate,
   );
   const heatmapSets = filterAnalyticsSets(completedSets, heatmapFilter);
+  const plannedHeatmapSets = filterAnalyticsSets(plannedSets, heatmapFilter);
   const muscleHeatmap = calculateMuscleHeatmap(calculateMuscleExposure(heatmapSets))
+    .sort((a, b) => b.intensity - a.intensity)
+    .slice(0, 8);
+  const plannedMuscleHeatmap = calculateMuscleHeatmap(
+    calculateMuscleExposure(plannedHeatmapSets),
+  )
     .sort((a, b) => b.intensity - a.intensity)
     .slice(0, 8);
   const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
@@ -1145,10 +1160,22 @@ function AnalyticsSummary({
         {muscleHeatmap.length === 0 ? (
           <Text style={styles.summaryText}>No heatmap data from completed sets yet.</Text>
         ) : (
-          <View style={styles.heatmapFigures}>
-            <MuscleHeatmapFigure regions={muscleHeatmap} view="front" />
-            <MuscleHeatmapFigure regions={muscleHeatmap} view="back" />
-          </View>
+          <>
+            <Text style={styles.setExercise}>Actual</Text>
+            <View style={styles.heatmapFigures}>
+              <MuscleHeatmapFigure regions={muscleHeatmap} view="front" />
+              <MuscleHeatmapFigure regions={muscleHeatmap} view="back" />
+            </View>
+          </>
+        )}
+        {plannedMuscleHeatmap.length === 0 ? null : (
+          <>
+            <Text style={styles.setExercise}>Planned</Text>
+            <View style={styles.heatmapFigures}>
+              <MuscleHeatmapFigure regions={plannedMuscleHeatmap} view="front" />
+              <MuscleHeatmapFigure regions={plannedMuscleHeatmap} view="back" />
+            </View>
+          </>
         )}
       </View>
 

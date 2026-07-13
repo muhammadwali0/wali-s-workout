@@ -8,6 +8,7 @@ const {
   getCalendarWorkouts,
   getCompletedAnalyticsSets,
   getEstimatedOneRmTrend,
+  getPlannedAnalyticsSets,
   getPlannedVsActualWorkouts,
   getSessionDurationPoints,
 } = await import('../src/db/analyticsQueries.ts');
@@ -45,6 +46,31 @@ assert.match(calls[0], /e\.category AS exerciseCategory/);
 assert.match(calls[0], /sl\.is_completed = 1/);
 assert.match(calls[0], /wl\.status = 'completed'/);
 assert.match(calls[0], /wl\.completed_at IS NOT NULL/);
+
+const plannedRows = [
+  {
+    completedAt: '2026-01-01T00:00:00Z',
+    exerciseId: 'back_squat',
+    blockNumber: 1,
+    phaseCode: 'phase1',
+    setType: 'working',
+    completed: 1,
+    weight: null,
+    reps: null,
+  },
+];
+const plannedCalls = [];
+const plannedDb = {
+  async getAllAsync(sql) {
+    plannedCalls.push(sql);
+    return plannedRows;
+  },
+};
+assert.deepEqual(await getPlannedAnalyticsSets(plannedDb), plannedRows);
+assert.match(plannedCalls[0], /WITH RECURSIVE set_numbers/);
+assert.match(plannedCalls[0], /JOIN program_set_prescriptions psp/);
+assert.match(plannedCalls[0], /sn\.n <= psp\.target_sets/);
+assert.match(plannedCalls[0], /wi\.scheduled_date \|\| 'T00:00:00Z' AS completedAt/);
 
 const workouts = [
   { scheduledDate: '2026-01-01', status: 'completed' },
