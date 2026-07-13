@@ -46,6 +46,7 @@ import {
   formatProgramPosition,
   getProgramPosition,
 } from './domain/program/yearEngine';
+import { getSuggestedLoad } from './domain/load/suggestedLoad';
 import { getDueWorkout } from './domain/program/seedResolver';
 import { createPlannedSets } from './domain/workout/sessionPlanner';
 import {
@@ -200,6 +201,7 @@ export default function App() {
                 dbStatus={dbStatus}
                 dueWorkout={dueWorkout}
                 onSaved={refreshLocalData}
+                oneRmRecords={oneRmRecords}
                 todayInstance={todayInstance}
               />
             ) : null}
@@ -269,6 +271,7 @@ function TodayWorkoutSummary({
   dbStatus,
   dueWorkout,
   onSaved,
+  oneRmRecords,
   todayInstance,
 }: {
   db: TrainingDatabase | null;
@@ -276,6 +279,7 @@ function TodayWorkoutSummary({
   dbStatus: string;
   dueWorkout: ReturnType<typeof getDueWorkout>;
   onSaved: (database: TrainingDatabase) => Promise<void>;
+  oneRmRecords: CurrentOneRmRecord[];
   todayInstance: TodayWorkoutInstance | null;
 }) {
   const [draft, setDraft] = useState<WorkoutDraft | null>(null);
@@ -347,20 +351,22 @@ function TodayWorkoutSummary({
             {draft && nextSet ? (
               <Pressable
                 accessibilityRole="button"
-                onPress={() =>
+                onPress={() => {
+                  const plannedSet = plannedSets.find(
+                    (set) => set.id === nextSet.plannedSetId,
+                  );
+                  const suggestion = plannedSet
+                    ? getSuggestedLoad(plannedSet, oneRmRecords, 2.5)
+                    : null;
+
                   void saveDraft(
                     completeSet(draft, nextSet.plannedSetId, {
-                      weight: 0,
-                      reps: getDefaultReps(
-                        plannedSets.find((set) => set.id === nextSet.plannedSetId)
-                          ?.targetReps ?? null,
-                      ),
-                      rpe:
-                        plannedSets.find((set) => set.id === nextSet.plannedSetId)
-                          ?.targetRpeHigh ?? null,
+                      weight: suggestion?.roundedLow ?? 0,
+                      reps: getDefaultReps(plannedSet?.targetReps ?? null),
+                      rpe: plannedSet?.targetRpeHigh ?? null,
                     }),
-                  )
-                }
+                  );
+                }}
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Log Next Set</Text>
@@ -397,6 +403,7 @@ function TodayWorkoutSummary({
                 Set {set.setNumber} - {set.setType}
                 {set.targetReps ? ` - ${set.targetReps} reps` : ''}
                 {formatPercentRange(set.percent1RmLow, set.percent1RmHigh)}
+                {formatSuggestedLoad(getSuggestedLoad(set, oneRmRecords, 2.5))}
                 {formatRpeRange(set.targetRpeLow, set.targetRpeHigh)}
               </Text>
             </View>
@@ -670,6 +677,12 @@ function formatRpeRange(low: number | null, high: number | null) {
   if (low === null && high === null) return '';
   if (low === high) return ` - RPE ${low}`;
   return ` - RPE ${low ?? high}-${high ?? low}`;
+}
+
+function formatSuggestedLoad(load: ReturnType<typeof getSuggestedLoad>) {
+  if (!load) return '';
+  if (load.roundedLow === load.roundedHigh) return ` - ${load.roundedLow} kg`;
+  return ` - ${load.roundedLow}-${load.roundedHigh} kg`;
 }
 
 function getDefaultReps(targetReps: string | null) {
