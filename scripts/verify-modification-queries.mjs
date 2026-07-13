@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 
-const { getActiveExerciseReplacements, saveExerciseReplacement } = await import(
-  '../src/db/modificationQueries.ts'
-);
+const {
+  getActiveExerciseReplacements,
+  restoreExerciseReplacement,
+  saveExerciseReplacement,
+} = await import('../src/db/modificationQueries.ts');
 
 const calls = [];
 const db = {
@@ -88,4 +90,21 @@ assert.deepEqual(replacements, [
     scope: 'today_only',
     reason: null,
   },
+]);
+
+const restoreCalls = [];
+await restoreExerciseReplacement(
+  {
+    async runAsync(sql, ...params) {
+      restoreCalls.push({ sql, params });
+    },
+  },
+  'replace_back_squat_front_squat_today_only',
+  '2026-01-02T00:00:00Z',
+);
+assert.match(restoreCalls[0].sql, /UPDATE program_modifications/);
+assert.match(restoreCalls[0].sql, /is_active = 0/);
+assert.deepEqual(restoreCalls[0].params, [
+  '2026-01-02T00:00:00Z',
+  'replace_back_squat_front_squat_today_only',
 ]);

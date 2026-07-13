@@ -39,6 +39,7 @@ import {
 } from './db/oneRmQueries';
 import {
   getActiveExerciseReplacements,
+  restoreExerciseReplacement,
   saveExerciseReplacement,
   type ActiveExerciseReplacement,
 } from './db/modificationQueries';
@@ -695,6 +696,13 @@ function LibrarySummary({
     await onSaved(db);
     setSaveStatus('Substitution saved for today');
   };
+  const restoreReplacement = async (replacement: ActiveExerciseReplacement) => {
+    if (!db) return;
+
+    await restoreExerciseReplacement(db, replacement.id);
+    await onSaved(db);
+    setSaveStatus('Original exercise restored');
+  };
 
   return (
     <View style={styles.summaryBlock}>
@@ -756,12 +764,22 @@ function LibrarySummary({
                 {exercise.alternativeCount} alternatives
               </Text>
               {replacementByExercise.has(exercise.exerciseId) ? (
-                <Text style={styles.setPrescription}>
-                  Current: {
-                    replacementByExercise.get(exercise.exerciseId)?.replacementName
-                  } -{' '}
-                  {replacementByExercise.get(exercise.exerciseId)?.scope}
-                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => {
+                    const replacement = replacementByExercise.get(
+                      exercise.exerciseId,
+                    );
+                    if (replacement) void restoreReplacement(replacement);
+                  }}
+                >
+                  <Text style={styles.setPrescription}>
+                    Current: {
+                      replacementByExercise.get(exercise.exerciseId)?.replacementName
+                    } -{' '}
+                    {replacementByExercise.get(exercise.exerciseId)?.scope} - restore
+                  </Text>
+                </Pressable>
               ) : null}
               {(alternativesByExercise.get(exercise.exerciseId) ?? [])
                 .slice(0, 2)

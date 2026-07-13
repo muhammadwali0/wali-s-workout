@@ -115,3 +115,19 @@ export async function saveExerciseReplacement(
 
   return id;
 }
+
+export async function restoreExerciseReplacement(
+  db: Pick<TrainingDatabase, 'runAsync'>,
+  modificationId: string,
+  recordedAt = new Date().toISOString(),
+) {
+  await db.runAsync(
+    `UPDATE program_modifications
+     SET is_active = 0,
+         updated_at = ?
+     WHERE id = ?
+       AND modification_type = 'replace_exercise'`,
+    recordedAt,
+    modificationId,
+  );
+}
