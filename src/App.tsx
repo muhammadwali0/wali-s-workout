@@ -15,6 +15,7 @@ import {
   getProgramPosition,
 } from './domain/program/yearEngine';
 import { getDueWorkout } from './domain/program/seedResolver';
+import { createPlannedSets } from './domain/workout/sessionPlanner';
 
 type TabKey = 'today' | 'year' | 'analytics' | 'history' | 'library';
 
@@ -158,16 +159,32 @@ function TodayWorkoutSummary({
   dueWorkout: ReturnType<typeof getDueWorkout>;
 }) {
   if (dueWorkout.status === 'workout_due') {
+    const plannedSets = createPlannedSets(dueWorkout.workout);
+    const previewSets = plannedSets.slice(0, 5);
+
     return (
       <View style={styles.summaryBlock}>
         <Text style={styles.summaryTitle}>{dueWorkout.workout.name}</Text>
         <Text style={styles.summaryText}>
           {dueWorkout.workout.estimatedDurationMin ?? 0} min -{' '}
-          {dueWorkout.workout.exercises.length} exercises
+          {dueWorkout.workout.exercises.length} exercises - {plannedSets.length} planned sets
         </Text>
         <Text style={styles.summaryText}>
           Main lifts: {dueWorkout.mainLifts.join(', ')}
         </Text>
+        <View style={styles.setPreview}>
+          {previewSets.map((set) => (
+            <View key={set.id} style={styles.setRow}>
+              <Text style={styles.setExercise}>{set.exerciseName}</Text>
+              <Text style={styles.setPrescription}>
+                Set {set.setNumber} - {set.setType}
+                {set.targetReps ? ` - ${set.targetReps} reps` : ''}
+                {formatPercentRange(set.percent1RmLow, set.percent1RmHigh)}
+                {formatRpeRange(set.targetRpeLow, set.targetRpeHigh)}
+              </Text>
+            </View>
+          ))}
+        </View>
       </View>
     );
   }
@@ -200,6 +217,18 @@ function getTodayTitle(dueWorkout: ReturnType<typeof getDueWorkout>) {
   if (dueWorkout.status === 'rest_day') return 'Rest Day';
   if (dueWorkout.status === 'buffer_week') return 'Buffer Week';
   return 'Training Year';
+}
+
+function formatPercentRange(low: number | null, high: number | null) {
+  if (low === null && high === null) return '';
+  if (low === high) return ` - ${low}%`;
+  return ` - ${low ?? high}-${high ?? low}%`;
+}
+
+function formatRpeRange(low: number | null, high: number | null) {
+  if (low === null && high === null) return '';
+  if (low === high) return ` - RPE ${low}`;
+  return ` - RPE ${low ?? high}-${high ?? low}`;
 }
 
 const styles = StyleSheet.create({
@@ -294,6 +323,26 @@ const styles = StyleSheet.create({
     color: '#475569',
     fontSize: 14,
     lineHeight: 20,
+  },
+  setPreview: {
+    marginTop: 14,
+    gap: 8,
+  },
+  setRow: {
+    borderLeftWidth: 3,
+    borderLeftColor: '#1E3A5F',
+    paddingLeft: 10,
+  },
+  setExercise: {
+    color: '#111827',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  setPrescription: {
+    marginTop: 2,
+    color: '#64748B',
+    fontSize: 12,
+    lineHeight: 17,
   },
   metricsRow: {
     flexDirection: 'row',
