@@ -73,6 +73,7 @@ import {
 import { compareBlocks } from './domain/analytics/blockComparison';
 import { calculateMuscleExposure } from './domain/analytics/muscleExposure';
 import { calculateMuscleHeatmap } from './domain/analytics/muscleHeatmap';
+import { getTrainingFrequency } from './domain/analytics/trainingFrequency';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
 import { programSeed } from './data/programSeed';
 import {
@@ -641,6 +642,7 @@ function AnalyticsSummary({
   const weeklyVolume = getWeeklyVolume(completedSets);
   const blockComparison = compareBlocks(completedSets);
   const consistency = getConsistencyCalendar(calendarWorkouts);
+  const trainingFrequency = getTrainingFrequency(calendarWorkouts);
   const muscleExposure = calculateMuscleExposure(completedSets)
     .sort((a, b) => b.volumeLoad - a.volumeLoad)
     .slice(0, 5);
@@ -652,6 +654,10 @@ function AnalyticsSummary({
   const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
   const maxBlockVolume = Math.max(
     ...blockComparison.map((point) => point.totalVolume),
+    1,
+  );
+  const maxFrequency = Math.max(
+    ...trainingFrequency.map((point) => point.scheduled),
     1,
   );
   const maxExposure = Math.max(
@@ -695,6 +701,22 @@ function AnalyticsSummary({
               label={`Block ${point.blockNumber} - ${point.phaseCode}`}
               value={`${point.workingSets} sets`}
               percent={(point.totalVolume / maxBlockVolume) * 100}
+            />
+          ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Training Frequency</Text>
+        {trainingFrequency.length === 0 ? (
+          <Text style={styles.summaryText}>No scheduled training frequency yet.</Text>
+        ) : (
+          trainingFrequency.slice(0, 8).map((point) => (
+            <BarRow
+              key={point.weekKey}
+              label={point.weekKey}
+              value={`${point.completed}/${point.scheduled} completed`}
+              percent={(point.scheduled / maxFrequency) * 100}
             />
           ))
         )}
