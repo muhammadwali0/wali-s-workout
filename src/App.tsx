@@ -195,7 +195,7 @@ const replacementScopes: ExerciseReplacementInput['scope'][] = [
   'block',
   'year',
 ];
-const emptySetEntry = { weight: '', reps: '', rpe: '' };
+const emptySetEntry = { weight: '', reps: '', rpe: '', rir: '' };
 const compositionColors = ['#1E3A5F', '#2563EB', '#0F766E', '#7C2D12', '#6D28D9'];
 
 export default function App() {
@@ -659,6 +659,8 @@ function TodayWorkoutSummary({
                     nextSetEntry.rpe.trim() === ''
                       ? plannedSet?.targetRpeHigh ?? null
                       : Number(nextSetEntry.rpe);
+                  const rir =
+                    nextSetEntry.rir.trim() === '' ? null : Number(nextSetEntry.rir);
                   let nextDraft: WorkoutDraft;
 
                   try {
@@ -666,6 +668,7 @@ function TodayWorkoutSummary({
                       weight,
                       reps,
                       rpe,
+                      rir,
                       notes: nextSetNote.trim() || null,
                     });
                   } catch (error) {
@@ -828,6 +831,16 @@ function TodayWorkoutSummary({
                   placeholder="RPE"
                   style={[styles.noteInput, styles.setEntryInput]}
                   value={nextSetEntry.rpe}
+                />
+                <TextInput
+                  accessibilityLabel="Next set RIR"
+                  keyboardType="decimal-pad"
+                  onChangeText={(rir) =>
+                    setNextSetEntry((entry) => ({ ...entry, rir }))
+                  }
+                  placeholder="RIR"
+                  style={[styles.noteInput, styles.setEntryInput]}
+                  value={nextSetEntry.rir}
                 />
               </View>
               <TextInput

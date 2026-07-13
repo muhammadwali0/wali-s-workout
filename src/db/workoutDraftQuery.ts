@@ -16,6 +16,7 @@ type SavedSetRow = {
   weight: number | null;
   reps: number | null;
   rpe: number | null;
+  rir: number | null;
   notes: string | null;
 };
 
@@ -45,6 +46,7 @@ export async function getSavedWorkoutDraft(
        sl.weight,
        sl.reps,
        sl.rpe,
+       sl.rir,
        sl.user_notes AS notes
      FROM set_logs sl
      JOIN exercise_logs el ON el.id = sl.exercise_log_id
@@ -93,6 +95,7 @@ export async function getSavedWorkoutDraft(
         weight: saved?.weight ?? null,
         reps: saved?.reps ?? null,
         rpe: saved?.rpe ?? null,
+        rir: saved?.rir ?? null,
         notes: saved?.notes ?? null,
       };
     }),

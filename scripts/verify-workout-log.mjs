@@ -39,11 +39,13 @@ const logged = completeSet(draft, plannedSets[0].id, {
   weight: 20,
   reps: 5,
   rpe: 6,
+  rir: 4,
   notes: 'Felt stable',
 });
 assert.equal(draft.actualSets[0].completed, false);
 assert.equal(logged.actualSets[0].completed, true);
 assert.equal(logged.actualSets[0].skipped, false);
+assert.equal(logged.actualSets[0].rir, 4);
 assert.equal(logged.actualSets[0].notes, 'Felt stable');
 assert.deepEqual(summarizeWorkoutDraft(logged), {
   plannedSets: 23,
@@ -55,6 +57,7 @@ assert.deepEqual(summarizeWorkoutDraft(logged), {
 
 assert.throws(() => completeSet(logged, 'missing', { weight: 1, reps: 1 }), /Unknown/);
 assert.throws(() => completeSet(logged, plannedSets[1].id, { weight: 1, reps: 0 }), /reps/);
+assert.throws(() => completeSet(logged, plannedSets[1].id, { weight: 1, reps: 1, rir: -1 }), /rir/);
 assert.throws(() => completeWorkout(logged), /unfinished/);
 
 const skipped = skipSet(logged, plannedSets[1].id);

@@ -7,10 +7,12 @@ const plannedSets = [
     id: 'set_1',
     exerciseId: 'back_squat',
     exerciseName: 'Back Squat',
+    exerciseRole: 'primary',
     originalExerciseId: 'back_squat',
     originalExerciseName: 'Back Squat',
     substitutionScope: null,
     exerciseOrder: 1,
+    supersetGroup: null,
     setNumber: 1,
     setType: 'working',
     targetReps: '5',
@@ -20,15 +22,19 @@ const plannedSets = [
     targetRpeHigh: null,
     restSecondsMin: 120,
     restSecondsMax: 180,
+    tempo: null,
+    notes: null,
   },
   {
     id: 'set_2',
     exerciseId: 'back_squat',
     exerciseName: 'Back Squat',
+    exerciseRole: 'primary',
     originalExerciseId: 'back_squat',
     originalExerciseName: 'Back Squat',
     substitutionScope: null,
     exerciseOrder: 1,
+    supersetGroup: null,
     setNumber: 2,
     setType: 'working',
     targetReps: '5',
@@ -38,6 +44,8 @@ const plannedSets = [
     targetRpeHigh: null,
     restSecondsMin: 120,
     restSecondsMax: 180,
+    tempo: null,
+    notes: null,
   },
 ];
 const calls = [];
@@ -61,6 +69,7 @@ const db = {
         weight: 100,
         reps: 5,
         rpe: 7,
+        rir: 3,
         notes: null,
       },
       {
@@ -71,6 +80,7 @@ const db = {
         weight: null,
         reps: null,
         rpe: null,
+        rir: null,
         notes: 'Skipped set',
       },
       {
@@ -81,6 +91,7 @@ const db = {
         weight: 90,
         reps: 8,
         rpe: 8,
+        rir: 2,
         notes: 'Back-off',
       },
     ];
@@ -94,13 +105,16 @@ assert.equal(draft.plannedSets.length, 3);
 assert.equal(draft.actualSets[0].completed, true);
 assert.equal(draft.actualSets[0].skipped, false);
 assert.equal(draft.actualSets[0].weight, 100);
+assert.equal(draft.actualSets[0].rir, 3);
 assert.equal(draft.actualSets[1].completed, false);
 assert.equal(draft.actualSets[1].skipped, true);
 assert.equal(draft.plannedSets[2].setType, 'added');
 assert.equal(draft.actualSets[2].completed, true);
 assert.equal(draft.actualSets[2].notes, 'Back-off');
+assert.equal(draft.actualSets[2].rir, 2);
 assert.match(calls[0].sql, /FROM workout_logs/);
 assert.match(calls[1].sql, /FROM set_logs/);
 assert.match(calls[1].sql, /sl\.set_type AS setType/);
+assert.match(calls[1].sql, /sl\.rir/);
 
 console.log('workout draft query verified');

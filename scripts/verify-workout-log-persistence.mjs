@@ -33,6 +33,7 @@ const draft = completeSet(
     weight: 20,
     reps: 5,
     rpe: 6,
+    rir: 4,
     notes: 'Felt stable',
   },
 );
@@ -65,7 +66,7 @@ assert.deepEqual(rows.setLogs[0], {
   unit: 'kg',
   reps: 5,
   rpe: 6,
-  rir: null,
+  rir: 4,
   duration_seconds: null,
   is_completed: 1,
   is_pr: 0,

@@ -7,6 +7,7 @@ export type ActualSet = {
   weight: number | null;
   reps: number | null;
   rpe: number | null;
+  rir: number | null;
   notes: string | null;
 };
 
@@ -37,6 +38,7 @@ export function createWorkoutDraft(
       weight: null,
       reps: null,
       rpe: null,
+      rir: null,
       notes: null,
     })),
   };
@@ -45,13 +47,22 @@ export function createWorkoutDraft(
 export function completeSet(
   draft: WorkoutDraft,
   plannedSetId: string,
-  result: { weight: number; reps: number; rpe?: number | null; notes?: string | null },
+  result: {
+    weight: number;
+    reps: number;
+    rpe?: number | null;
+    rir?: number | null;
+    notes?: string | null;
+  },
 ): WorkoutDraft {
   assertNonNegative(result.weight, 'weight');
   assertPositiveInteger(result.reps, 'reps');
 
   if (result.rpe !== undefined && result.rpe !== null) {
     assertRpe(result.rpe);
+  }
+  if (result.rir !== undefined && result.rir !== null) {
+    assertNonNegative(result.rir, 'rir');
   }
 
   let matched = false;
@@ -66,6 +77,7 @@ export function completeSet(
       weight: result.weight,
       reps: result.reps,
       rpe: result.rpe ?? null,
+      rir: result.rir ?? null,
       notes: result.notes ?? null,
     };
   });
@@ -94,6 +106,7 @@ export function skipSet(
       weight: null,
       reps: null,
       rpe: null,
+      rir: null,
       notes,
     };
   });
@@ -128,6 +141,7 @@ export function addSetAfter(draft: WorkoutDraft, plannedSetId: string): WorkoutD
     weight: null,
     reps: null,
     rpe: null,
+    rir: null,
     notes: null,
   };
 

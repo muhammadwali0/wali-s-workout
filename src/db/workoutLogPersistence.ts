@@ -68,7 +68,7 @@ export function buildWorkoutLogRows(
         unit: input.unit,
         reps: actual.reps,
         rpe: actual.rpe,
-        rir: null,
+        rir: actual.rir,
         duration_seconds: null,
         is_completed: actual.completed ? 1 : 0,
         is_pr: 0,
