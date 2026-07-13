@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 
@@ -27,6 +28,11 @@ import {
   getExerciseLibrary,
   type ExerciseLibraryItem,
 } from './db/libraryQueries';
+import {
+  getCurrentOneRmRecords,
+  saveOneRmRecord,
+  type CurrentOneRmRecord,
+} from './db/oneRmQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import {
   getConsistencyCalendar,
@@ -114,6 +120,7 @@ export default function App() {
   const [libraryExercises, setLibraryExercises] = useState<ExerciseLibraryItem[]>(
     [],
   );
+  const [oneRmRecords, setOneRmRecords] = useState<CurrentOneRmRecord[]>([]);
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -139,6 +146,7 @@ export default function App() {
     setCalendarWorkouts(await getCalendarWorkouts(database));
     setHistoryItems(await getRecentWorkoutHistory(database));
     setLibraryExercises(await getExerciseLibrary(database));
+    setOneRmRecords(await getCurrentOneRmRecords(database));
   };
 
   useEffect(() => {
@@ -207,8 +215,11 @@ export default function App() {
             ) : null}
             {activeTab === 'library' ? (
               <LibrarySummary
+                db={db}
                 dbStatus={dbStatus}
                 exercises={libraryExercises}
+                onSaved={refreshLocalData}
+                oneRmRecords={oneRmRecords}
               />
             ) : null}
           </View>
@@ -520,12 +531,42 @@ function HistorySummary({
 }
 
 function LibrarySummary({
+  db,
   dbStatus,
   exercises,
+  onSaved,
+  oneRmRecords,
 }: {
+  db: TrainingDatabase | null;
   dbStatus: string;
   exercises: ExerciseLibraryItem[];
+  onSaved: (database: TrainingDatabase) => Promise<void>;
+  oneRmRecords: CurrentOneRmRecord[];
 }) {
+  const [draftValues, setDraftValues] = useState<Record<string, string>>({});
+  const [saveStatus, setSaveStatus] = useState('Baselines not changed');
+  const recordByExercise = new Map(
+    oneRmRecords.map((record) => [record.exerciseId, record]),
+  );
+  const baselineExercises = exercises.slice(0, 5);
+  const saveBaseline = async (exerciseId: string) => {
+    if (!db) return;
+
+    const value = Number(draftValues[exerciseId]);
+    if (!Number.isFinite(value) || value <= 0) {
+      setSaveStatus('Enter a positive baseline');
+      return;
+    }
+
+    await saveOneRmRecord(db, {
+      exerciseId,
+      value,
+      unit: 'kg',
+    });
+    await onSaved(db);
+    setSaveStatus('Baseline saved locally');
+  };
+
   return (
     <View style={styles.summaryBlock}>
       <Text style={styles.summaryTitle}>Exercise Library</Text>
@@ -547,6 +588,44 @@ function LibrarySummary({
             </View>
           ))
         )}
+      </View>
+      <View style={styles.baselinePanel}>
+        <Text style={styles.sessionTitle}>Current Working 1RM</Text>
+        <Text style={styles.summaryText}>{saveStatus}</Text>
+        {baselineExercises.map((exercise) => {
+          const record = recordByExercise.get(exercise.exerciseId);
+
+          return (
+            <View key={exercise.exerciseId} style={styles.baselineRow}>
+              <View style={styles.baselineLabel}>
+                <Text style={styles.setExercise}>{exercise.name}</Text>
+                <Text style={styles.setPrescription}>
+                  {record ? `${record.value} ${record.unit}` : 'No baseline saved'}
+                </Text>
+              </View>
+              <TextInput
+                accessibilityLabel={`Current working 1RM for ${exercise.name}`}
+                inputMode="decimal"
+                onChangeText={(value) =>
+                  setDraftValues((current) => ({
+                    ...current,
+                    [exercise.exerciseId]: value,
+                  }))
+                }
+                placeholder="kg"
+                style={styles.baselineInput}
+                value={draftValues[exercise.exerciseId] ?? ''}
+              />
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => void saveBaseline(exercise.exerciseId)}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Save</Text>
+              </Pressable>
+            </View>
+          );
+        })}
       </View>
     </View>
   );
@@ -707,6 +786,28 @@ const styles = StyleSheet.create({
     color: '#111827',
     fontSize: 14,
     fontWeight: '700',
+  },
+  baselinePanel: {
+    marginTop: 16,
+    gap: 10,
+  },
+  baselineRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 8,
+  },
+  baselineLabel: {
+    flex: 1,
+  },
+  baselineInput: {
+    minHeight: 42,
+    minWidth: 76,
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    color: '#111827',
+    backgroundColor: '#FFFFFF',
   },
   actionRow: {
     flexDirection: 'row',
