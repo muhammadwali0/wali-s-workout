@@ -92,6 +92,7 @@ import {
 import {
   isValidNotificationTime,
   planRestTimerNotification,
+  planUnfinishedSessionNotification,
   planWorkoutDueNotification,
   type NotificationSettings,
 } from './domain/notifications/notificationPlanner';
@@ -309,6 +310,7 @@ export default function App() {
                 activeReplacements={activeReplacements}
                 appSettings={appSettings}
                 dueWorkout={dueWorkout}
+                notificationSettings={notificationSettings}
                 onSaved={refreshLocalData}
                 oneRmRecords={oneRmRecords}
                 nextWorkoutInstance={nextWorkoutInstance}
@@ -403,6 +405,7 @@ function TodayWorkoutSummary({
   activeReplacements,
   appSettings,
   dueWorkout,
+  notificationSettings,
   onSaved,
   oneRmRecords,
   nextWorkoutInstance,
@@ -414,6 +417,7 @@ function TodayWorkoutSummary({
   activeReplacements: ActiveExerciseReplacement[];
   appSettings: AppSettings;
   dueWorkout: ReturnType<typeof getDueWorkout>;
+  notificationSettings: NotificationSettings;
   onSaved: (database: TrainingDatabase) => Promise<void>;
   oneRmRecords: CurrentOneRmRecord[];
   nextWorkoutInstance: TodayWorkoutInstance | null;
@@ -504,6 +508,8 @@ function TodayWorkoutSummary({
       ? getRestTimerState(restTimer, timerNowMs)
       : null;
     const saveDraft = async (nextDraft: WorkoutDraft) => {
+      const nextSummary = summarizeWorkoutDraft(nextDraft);
+      const currentCompletedSets = draft ? summarizeWorkoutDraft(draft).completedSets : 0;
       setDraft(nextDraft);
       if (!db || !todayInstance) return;
 
@@ -513,6 +519,28 @@ function TodayWorkoutSummary({
         recordedAt: new Date().toISOString(),
         unit: appSettings.preferredUnit,
       });
+      if (
+        nextDraft.status !== 'completed' &&
+        currentCompletedSets === 0 &&
+        nextSummary.completedSets > 0
+      ) {
+        const notification = planUnfinishedSessionNotification(
+          new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
+          dueWorkout.workout.name,
+          notificationSettings,
+        );
+        if (notification) {
+          const externalNotificationId = await scheduleLocalNotification(notification);
+          if (externalNotificationId) {
+            await savePlannedNotification(
+              db,
+              notification,
+              todayInstance.instanceId,
+              externalNotificationId,
+            );
+          }
+        }
+      }
       await onSaved(db);
       setSaveStatus('Saved locally');
     };
@@ -1290,6 +1318,7 @@ function LibrarySummary({
   const toggleNotificationSetting = async (
     key:
       | 'missedWorkoutEnabled'
+      | 'unfinishedSessionEnabled'
       | 'deloadRemindersEnabled'
       | 'testWeekRemindersEnabled',
   ) => {
@@ -1408,7 +1437,8 @@ function LibrarySummary({
         <Text style={styles.summaryText}>
           Missed: {notificationSettings.missedWorkoutEnabled ? 'on' : 'off'} - Deload/taper:{' '}
           {notificationSettings.deloadRemindersEnabled ? 'on' : 'off'} - Test week:{' '}
-          {notificationSettings.testWeekRemindersEnabled ? 'on' : 'off'}
+          {notificationSettings.testWeekRemindersEnabled ? 'on' : 'off'} - Unfinished:{' '}
+          {notificationSettings.unfinishedSessionEnabled ? 'on' : 'off'}
         </Text>
         <View style={styles.actionRow}>
           <TextInput
@@ -1440,6 +1470,13 @@ function LibrarySummary({
             style={styles.secondaryButton}
           >
             <Text style={styles.secondaryButtonText}>Toggle Missed</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void toggleNotificationSetting('unfinishedSessionEnabled')}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Unfinished</Text>
           </Pressable>
           <Pressable
             accessibilityRole="button"
