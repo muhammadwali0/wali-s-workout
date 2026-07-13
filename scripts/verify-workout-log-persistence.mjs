@@ -42,6 +42,7 @@ assert.equal(rows.exerciseLogs.length, due.workout.exercises.length);
 assert.equal(rows.exerciseLogs[0].exercise_id, 'back_squat');
 assert.equal(rows.exerciseLogs[0].original_exercise_id, 'back_squat');
 assert.equal(rows.exerciseLogs[0].was_substituted, 0);
+assert.equal(rows.exerciseLogs[0].status, 'pending');
 assert.equal(rows.setLogs.length, plannedSets.length);
 assert.deepEqual(rows.setLogs[0], {
   id: `log_1_set_${plannedSets[0].id}`,
@@ -89,7 +90,12 @@ assert.equal(substitutedRows.exerciseLogs[0].was_substituted, 1);
 assert.equal(substitutedRows.exerciseLogs[0].substitution_reason, 'today_only');
 
 const skippedRows = buildWorkoutLogRows(
-  skipSet(createWorkoutDraft(due.workout.id, plannedSets), plannedSets[0].id),
+  plannedSets
+    .filter((set) => set.exerciseOrder === 1)
+    .reduce(
+      (current, set) => skipSet(current, set.id),
+      createWorkoutDraft(due.workout.id, plannedSets),
+    ),
   {
     workoutLogId: 'log_skip',
     workoutInstanceId: 'instance_1',
@@ -99,6 +105,7 @@ const skippedRows = buildWorkoutLogRows(
 );
 assert.equal(skippedRows.setLogs[0].is_completed, 0);
 assert.equal(skippedRows.setLogs[0].user_notes, 'Skipped set');
+assert.equal(skippedRows.exerciseLogs[0].status, 'skipped');
 
 const calls = [];
 const db = {
@@ -144,6 +151,15 @@ const completeDraft = completeWorkout(
     (current, set) => completeSet(current, set.id, { weight: 10, reps: 1 }),
     createWorkoutDraft(due.workout.id, plannedSets),
   ),
+);
+assert.equal(
+  buildWorkoutLogRows(completeDraft, {
+    workoutLogId: 'log_complete_rows',
+    workoutInstanceId: 'instance_rows',
+    recordedAt: '2026-01-02T10:00:00Z',
+    unit: 'kg',
+  }).exerciseLogs[0].status,
+  'completed',
 );
 await saveWorkoutDraft(db, completeDraft, {
   workoutLogId: 'log_2',

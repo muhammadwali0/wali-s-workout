@@ -25,7 +25,7 @@ export function buildWorkoutLogRows(
 ) {
   const summary = summarizeWorkoutDraft(draft);
   const plannedById = new Map(draft.plannedSets.map((set) => [set.id, set]));
-  const exerciseLogs = getExerciseLogRows(draft.plannedSets, input);
+  const exerciseLogs = getExerciseLogRows(draft.plannedSets, draft.actualSets, input);
   const exerciseLogByKey = new Map(
     exerciseLogs.map((row) => [`${row.exercise_id}:${row.sort_order}`, row.id]),
   );
@@ -152,8 +152,11 @@ export async function saveWorkoutDraft(
 
 function getExerciseLogRows(
   plannedSets: readonly PlannedSet[],
+  actualSets: WorkoutDraft['actualSets'],
   input: WorkoutLogPersistenceInput,
 ) {
+  const actualById = new Map(actualSets.map((set) => [set.plannedSetId, set]));
+
   return [
     ...new Map(
       plannedSets.map((set) => [
@@ -167,7 +170,10 @@ function getExerciseLogRows(
           was_substituted: set.exerciseId === set.originalExerciseId ? 0 : 1,
           substitution_reason: set.substitutionScope,
           sort_order: set.exerciseOrder,
-          status: 'pending',
+          status: getExerciseStatus(
+            plannedSets.filter((candidate) => candidate.exerciseOrder === set.exerciseOrder),
+            actualById,
+          ),
           user_notes: null,
           created_at: input.recordedAt,
           updated_at: input.recordedAt,
@@ -175,6 +181,16 @@ function getExerciseLogRows(
       ]),
     ).values(),
   ];
+}
+
+function getExerciseStatus(
+  plannedSets: readonly PlannedSet[],
+  actualById: ReadonlyMap<string, WorkoutDraft['actualSets'][number]>,
+) {
+  const actualSets = plannedSets.map((set) => actualById.get(set.id));
+  if (actualSets.every((set) => set?.skipped)) return 'skipped';
+  if (actualSets.every((set) => set?.completed || set?.skipped)) return 'completed';
+  return 'pending';
 }
 
 type PriorSetRow = {
