@@ -10,7 +10,7 @@ const { createPlannedSets } = await import(
 const { applyExerciseReplacements } = await import(
   '../src/domain/workout/sessionPlanner.ts'
 );
-const { completeSet, completeWorkout, createWorkoutDraft } = await import(
+const { completeSet, completeWorkout, createWorkoutDraft, skipSet } = await import(
   '../src/domain/workout/workoutLog.ts'
 );
 const { buildWorkoutLogRows, saveWorkoutDraft } = await import(
@@ -87,6 +87,18 @@ assert.equal(substitutedRows.exerciseLogs[0].exercise_id, 'front_squat');
 assert.equal(substitutedRows.exerciseLogs[0].original_exercise_id, 'back_squat');
 assert.equal(substitutedRows.exerciseLogs[0].was_substituted, 1);
 assert.equal(substitutedRows.exerciseLogs[0].substitution_reason, 'today_only');
+
+const skippedRows = buildWorkoutLogRows(
+  skipSet(createWorkoutDraft(due.workout.id, plannedSets), plannedSets[0].id),
+  {
+    workoutLogId: 'log_skip',
+    workoutInstanceId: 'instance_1',
+    recordedAt: '2026-01-01T10:00:00Z',
+    unit: 'kg',
+  },
+);
+assert.equal(skippedRows.setLogs[0].is_completed, 0);
+assert.equal(skippedRows.setLogs[0].user_notes, 'Skipped set');
 
 const calls = [];
 const db = {

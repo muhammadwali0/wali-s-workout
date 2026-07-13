@@ -58,6 +58,15 @@ const db = {
         rpe: 7,
         notes: null,
       },
+      {
+        exerciseOrder: 1,
+        setOrder: 2,
+        completed: 0,
+        weight: null,
+        reps: null,
+        rpe: null,
+        notes: 'Skipped set',
+      },
     ];
   },
 };
@@ -65,8 +74,10 @@ const db = {
 const draft = await getSavedWorkoutDraft(db, 'instance_1', 'workout_1', plannedSets);
 assert.equal(draft.status, 'draft');
 assert.equal(draft.actualSets[0].completed, true);
+assert.equal(draft.actualSets[0].skipped, false);
 assert.equal(draft.actualSets[0].weight, 100);
 assert.equal(draft.actualSets[1].completed, false);
+assert.equal(draft.actualSets[1].skipped, true);
 assert.match(calls[0].sql, /FROM workout_logs/);
 assert.match(calls[1].sql, /FROM set_logs/);
 

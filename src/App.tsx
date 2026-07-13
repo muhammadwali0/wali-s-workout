@@ -97,6 +97,7 @@ import {
   completeSet,
   completeWorkout,
   createWorkoutDraft,
+  skipSet,
   summarizeWorkoutDraft,
   type WorkoutDraft,
 } from './domain/workout/workoutLog';
@@ -449,7 +450,7 @@ function TodayWorkoutSummary({
     );
     const previewSets = plannedSets.slice(0, 5);
     const summary = draft ? summarizeWorkoutDraft(draft) : null;
-    const nextSet = draft?.actualSets.find((set) => !set.completed);
+    const nextSet = draft?.actualSets.find((set) => !set.completed && !set.skipped);
     const timerState = restTimer
       ? getRestTimerState(restTimer, timerNowMs)
       : null;
@@ -537,6 +538,15 @@ function TodayWorkoutSummary({
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Log Next Set</Text>
+              </Pressable>
+            ) : null}
+            {draft && nextSet ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => void saveDraft(skipSet(draft, nextSet.plannedSetId))}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Skip Next Set</Text>
               </Pressable>
             ) : null}
             {draft && summary?.isComplete && draft.status !== 'completed' ? (

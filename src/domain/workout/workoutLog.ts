@@ -3,6 +3,7 @@ import type { PlannedSet } from './sessionPlanner';
 export type ActualSet = {
   plannedSetId: string;
   completed: boolean;
+  skipped: boolean;
   weight: number | null;
   reps: number | null;
   rpe: number | null;
@@ -16,6 +17,8 @@ export type WorkoutDraft = {
   actualSets: readonly ActualSet[];
 };
 
+export const skippedSetNote = 'Skipped set';
+
 export function createWorkoutDraft(
   workoutId: string,
   plannedSets: readonly PlannedSet[],
@@ -27,6 +30,7 @@ export function createWorkoutDraft(
     actualSets: plannedSets.map((set) => ({
       plannedSetId: set.id,
       completed: false,
+      skipped: false,
       weight: null,
       reps: null,
       rpe: null,
@@ -55,10 +59,39 @@ export function completeSet(
     return {
       plannedSetId,
       completed: true,
+      skipped: false,
       weight: result.weight,
       reps: result.reps,
       rpe: result.rpe ?? null,
       notes: result.notes ?? null,
+    };
+  });
+
+  if (!matched) {
+    throw new Error(`Unknown planned set: ${plannedSetId}`);
+  }
+
+  return { ...draft, status: 'draft', actualSets };
+}
+
+export function skipSet(
+  draft: WorkoutDraft,
+  plannedSetId: string,
+  notes = skippedSetNote,
+): WorkoutDraft {
+  let matched = false;
+  const actualSets = draft.actualSets.map((set) => {
+    if (set.plannedSetId !== plannedSetId) return set;
+    matched = true;
+
+    return {
+      plannedSetId,
+      completed: false,
+      skipped: true,
+      weight: null,
+      reps: null,
+      rpe: null,
+      notes,
     };
   });
 
@@ -86,7 +119,7 @@ export function summarizeWorkoutDraft(draft: WorkoutDraft) {
     completedSets: completedSets.length,
     totalVolume,
     averageRpe,
-    isComplete: completedSets.length === draft.plannedSets.length,
+    isComplete: draft.actualSets.every((set) => set.completed || set.skipped),
   };
 }
 

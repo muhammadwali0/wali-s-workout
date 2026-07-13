@@ -1,6 +1,6 @@
 import type { TrainingDatabase } from './database.ts';
 import type { PlannedSet } from '../domain/workout/sessionPlanner.ts';
-import type { WorkoutDraft } from '../domain/workout/workoutLog.ts';
+import { skippedSetNote, type WorkoutDraft } from '../domain/workout/workoutLog.ts';
 
 type SavedWorkoutRow = {
   workoutLogId: string;
@@ -63,6 +63,7 @@ export async function getSavedWorkoutDraft(
       return {
         plannedSetId: set.id,
         completed: saved?.completed === 1,
+        skipped: saved?.completed !== 1 && saved?.notes === skippedSetNote,
         weight: saved?.weight ?? null,
         reps: saved?.reps ?? null,
         rpe: saved?.rpe ?? null,

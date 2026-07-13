@@ -11,6 +11,7 @@ const {
   completeSet,
   completeWorkout,
   createWorkoutDraft,
+  skipSet,
   summarizeWorkoutDraft,
 } = await import('../src/domain/workout/workoutLog.ts');
 
@@ -22,6 +23,7 @@ const plannedSets = createPlannedSets(due.workout);
 const draft = createWorkoutDraft(due.workout.id, plannedSets);
 assert.equal(draft.actualSets.length, plannedSets.length);
 assert.equal(summarizeWorkoutDraft(draft).completedSets, 0);
+assert.equal(draft.actualSets[0].skipped, false);
 
 const logged = completeSet(draft, plannedSets[0].id, {
   weight: 20,
@@ -30,6 +32,7 @@ const logged = completeSet(draft, plannedSets[0].id, {
 });
 assert.equal(draft.actualSets[0].completed, false);
 assert.equal(logged.actualSets[0].completed, true);
+assert.equal(logged.actualSets[0].skipped, false);
 assert.deepEqual(summarizeWorkoutDraft(logged), {
   plannedSets: 23,
   completedSets: 1,
@@ -42,10 +45,24 @@ assert.throws(() => completeSet(logged, 'missing', { weight: 1, reps: 1 }), /Unk
 assert.throws(() => completeSet(logged, plannedSets[1].id, { weight: 1, reps: 0 }), /reps/);
 assert.throws(() => completeWorkout(logged), /unfinished/);
 
+const skipped = skipSet(logged, plannedSets[1].id);
+assert.equal(skipped.actualSets[1].completed, false);
+assert.equal(skipped.actualSets[1].skipped, true);
+assert.equal(summarizeWorkoutDraft(skipped).completedSets, 1);
+assert.throws(() => skipSet(skipped, 'missing'), /Unknown/);
+
 const completeDraft = plannedSets.reduce(
   (current, set) => completeSet(current, set.id, { weight: 10, reps: 1 }),
   draft,
 );
 assert.equal(completeWorkout(completeDraft).status, 'completed');
+
+const completeWithSkipped = plannedSets
+  .slice(1)
+  .reduce(
+    (current, set) => completeSet(current, set.id, { weight: 10, reps: 1 }),
+    skipSet(draft, plannedSets[0].id),
+  );
+assert.equal(completeWorkout(completeWithSkipped).status, 'completed');
 
 console.log('workout log verified');
