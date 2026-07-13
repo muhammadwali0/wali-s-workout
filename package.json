@@ -9,6 +9,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "verify": "npm run verify:adherence && npm run verify:alternatives && npm run verify:consistency && npm run verify:load && npm run verify:missed-workout && npm run verify:muscle-exposure && npm run verify:modifications && npm run verify:notifications && npm run verify:one-rm && npm run verify:personal-records && npm run verify:progression && npm run verify:program-seed && npm run verify:rest-timer && npm run verify:schema && npm run verify:seed-resolver && npm run verify:seed-alternatives && npm run verify:session-planner && npm run verify:settings && npm run verify:weekly-volume && npm run verify:workout-log && npm run verify:year && npm run typecheck",
     "verify:adherence": "node --experimental-strip-types scripts/verify-adherence.mjs",
     "verify:alternatives": "node --experimental-strip-types scripts/verify-alternatives.mjs",
     "verify:consistency": "node --experimental-strip-types scripts/verify-consistency-calendar.mjs",
