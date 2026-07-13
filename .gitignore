@@ -39,6 +39,7 @@ dist/
 coverage/
 
 # Native generated files
+/android/
 android/.gradle/
 android/app/build/
 android/build/
