@@ -79,6 +79,7 @@ import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import { getSavedWorkoutDraft } from './db/workoutDraftQuery';
 import {
   getConsistencyCalendar,
+  type CalendarDay,
   type CalendarWorkout,
 } from './domain/analytics/consistencyCalendar';
 import { compareBlocks, comparePhases } from './domain/analytics/blockComparison';
@@ -1106,6 +1107,15 @@ function AnalyticsSummary({
       </View>
 
       <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Consistency Calendar</Text>
+        {consistency.length === 0 ? (
+          <Text style={styles.summaryText}>No scheduled training days yet.</Text>
+        ) : (
+          <CalendarHeatmap days={consistency.slice(-56)} />
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
         <Text style={styles.analyticsHeading}>Planned vs Actual</Text>
         {plannedVsActual.length === 0 ? (
           <Text style={styles.summaryText}>No planned-versus-actual sessions yet.</Text>
@@ -1949,6 +1959,28 @@ function BarRow({
   );
 }
 
+function CalendarHeatmap({ days }: { days: CalendarDay[] }) {
+  return (
+    <View>
+      <View accessibilityLabel="Training consistency calendar heatmap" style={styles.calendarGrid}>
+        {days.map((day) => (
+          <View
+            key={day.date}
+            style={[
+              styles.calendarCell,
+              { backgroundColor: getCalendarCellColor(day) },
+            ]}
+          />
+        ))}
+      </View>
+      <Text style={styles.setPrescription}>
+        Dark: completed - amber: missed - gray: skipped or moved. Latest {days.length}{' '}
+        scheduled days shown.
+      </Text>
+    </View>
+  );
+}
+
 function MuscleHeatmapFigure({
   regions,
   view,
@@ -1994,6 +2026,13 @@ function MuscleHeatmapFigure({
       </View>
     </View>
   );
+}
+
+function getCalendarCellColor(day: CalendarDay) {
+  if (day.completed > 0) return '#1E3A5F';
+  if (day.missed > 0) return '#92400E';
+  if (day.skipped > 0 || day.rescheduled > 0) return '#94A3B8';
+  return '#E2E8F0';
 }
 
 function CompositionBar({
@@ -2511,6 +2550,16 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: '#1E3A5F',
+  },
+  calendarGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 4,
+  },
+  calendarCell: {
+    width: 14,
+    height: 14,
+    borderRadius: 3,
   },
   compositionTrack: {
     flexDirection: 'row',
