@@ -10,6 +10,19 @@ import {
 } from 'react-native';
 
 import {
+  getConsistencyCalendar,
+  type CalendarWorkout,
+} from './domain/analytics/consistencyCalendar';
+import {
+  calculateMuscleExposure,
+  type MuscleExposureSet,
+} from './domain/analytics/muscleExposure';
+import {
+  getWeeklyVolume,
+  type VolumeSet,
+} from './domain/analytics/weeklyVolume';
+import { programSeed } from './data/programSeed';
+import {
   createTrainingYear,
   formatProgramPosition,
   getProgramPosition,
@@ -65,6 +78,52 @@ const tabs: Tab[] = [
   },
 ];
 
+const sampleCompletedSets: (VolumeSet & MuscleExposureSet)[] = [
+  {
+    completedAt: '2026-01-01T10:00:00Z',
+    exerciseId: 'back_squat',
+    setType: 'working',
+    completed: true,
+    weight: 100,
+    reps: 5,
+  },
+  {
+    completedAt: '2026-01-01T10:08:00Z',
+    exerciseId: 'back_squat',
+    setType: 'working',
+    completed: true,
+    weight: 100,
+    reps: 5,
+  },
+  {
+    completedAt: '2026-01-03T10:00:00Z',
+    exerciseId: 'barbell_bench_press',
+    setType: 'working',
+    completed: true,
+    weight: 80,
+    reps: 6,
+  },
+  {
+    completedAt: '2026-01-08T10:00:00Z',
+    exerciseId: 'deadlift',
+    setType: 'working',
+    completed: true,
+    weight: 140,
+    reps: 4,
+  },
+];
+
+const sampleScheduledWorkouts: CalendarWorkout[] = [
+  { scheduledDate: '2026-01-01', status: 'completed' },
+  { scheduledDate: '2026-01-03', status: 'completed' },
+  { scheduledDate: '2026-01-05', status: 'missed' },
+  { scheduledDate: '2026-01-08', status: 'completed' },
+];
+
+const muscleNameById: Map<string, string> = new Map(
+  programSeed.muscles.map((muscle) => [muscle.id, muscle.name]),
+);
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabKey>('today');
   const trainingYear = useMemo(() => {
@@ -112,6 +171,7 @@ export default function App() {
             </Text>
             <Text style={styles.body}>{active.body}</Text>
             {activeTab === 'today' ? <TodayWorkoutSummary dueWorkout={dueWorkout} /> : null}
+            {activeTab === 'analytics' ? <AnalyticsSummary /> : null}
           </View>
 
           <View style={styles.metricsRow}>
@@ -210,6 +270,81 @@ function TodayWorkoutSummary({
   }
 
   return null;
+}
+
+function AnalyticsSummary() {
+  const weeklyVolume = getWeeklyVolume(sampleCompletedSets);
+  const consistency = getConsistencyCalendar(sampleScheduledWorkouts);
+  const muscleExposure = calculateMuscleExposure(sampleCompletedSets)
+    .sort((a, b) => b.volumeLoad - a.volumeLoad)
+    .slice(0, 5);
+  const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
+  const maxExposure = Math.max(
+    ...muscleExposure.map((exposure) => exposure.volumeLoad),
+    1,
+  );
+  const completed = consistency.reduce((sum, day) => sum + day.completed, 0);
+  const missed = consistency.reduce((sum, day) => sum + day.missed, 0);
+
+  return (
+    <View style={styles.summaryBlock}>
+      <Text style={styles.summaryTitle}>Analytics Preview</Text>
+      <Text style={styles.summaryText}>
+        Uses local sample logs until persisted workout history is wired into the app.
+      </Text>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Weekly Volume</Text>
+        {weeklyVolume.map((point) => (
+          <BarRow
+            key={point.weekKey}
+            label={point.weekKey}
+            value={`${point.totalVolume} kg reps`}
+            percent={(point.totalVolume / maxVolume) * 100}
+          />
+        ))}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Muscle Exposure</Text>
+        {muscleExposure.map((exposure) => (
+          <BarRow
+            key={exposure.muscleId}
+            label={muscleNameById.get(exposure.muscleId) ?? exposure.muscleId}
+            value={`${exposure.hardSets.toFixed(1)} hard sets`}
+            percent={(exposure.volumeLoad / maxExposure) * 100}
+          />
+        ))}
+      </View>
+
+      <View style={styles.analyticsFooter}>
+        <Metric label="Completed" value={String(completed)} />
+        <Metric label="Missed" value={String(missed)} />
+      </View>
+    </View>
+  );
+}
+
+function BarRow({
+  label,
+  value,
+  percent,
+}: {
+  label: string;
+  value: string;
+  percent: number;
+}) {
+  return (
+    <View style={styles.barRow}>
+      <View style={styles.barLabels}>
+        <Text style={styles.barLabel}>{label}</Text>
+        <Text style={styles.barValue}>{value}</Text>
+      </View>
+      <View style={styles.barTrack}>
+        <View style={[styles.barFill, { width: `${Math.max(percent, 4)}%` }]} />
+      </View>
+    </View>
+  );
 }
 
 function getTodayTitle(dueWorkout: ReturnType<typeof getDueWorkout>) {
@@ -393,5 +528,50 @@ const styles = StyleSheet.create({
   },
   activeTabText: {
     color: '#1E3A5F',
+  },
+  analyticsSection: {
+    marginTop: 16,
+    gap: 10,
+  },
+  analyticsHeading: {
+    color: '#334155',
+    fontSize: 13,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+  },
+  barRow: {
+    gap: 6,
+  },
+  barLabels: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  barLabel: {
+    flex: 1,
+    color: '#111827',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  barValue: {
+    color: '#64748B',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  barTrack: {
+    height: 8,
+    overflow: 'hidden',
+    borderRadius: 4,
+    backgroundColor: '#E2E8F0',
+  },
+  barFill: {
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#1E3A5F',
+  },
+  analyticsFooter: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 16,
   },
 });
