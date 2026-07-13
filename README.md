@@ -1,5 +1,7 @@
 # Wali's Workout
 
-A personal workout tracking app I built for my own training.
+An offline-first Android training logbook built with Expo and React Native.
 
-Nothing fancy.
+The app is scoped to gym training: annual program navigation, workout logging,
+load calculations, substitutions, history, analytics, reminders, and local data
+integrity.
