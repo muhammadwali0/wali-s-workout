@@ -26,6 +26,7 @@
     "verify:seed-alternatives": "node --experimental-strip-types scripts/verify-seed-alternatives.mjs",
     "verify:session-planner": "node --experimental-strip-types scripts/verify-session-planner.mjs",
     "verify:settings": "node --experimental-strip-types scripts/verify-settings.mjs",
+    "verify:weekly-volume": "node --experimental-strip-types scripts/verify-weekly-volume.mjs",
     "verify:workout-log": "node --experimental-strip-types scripts/verify-workout-log.mjs",
     "verify:year": "node --experimental-strip-types scripts/verify-year-engine.mjs",
     "typecheck": "tsc --noEmit"
