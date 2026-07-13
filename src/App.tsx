@@ -15,8 +15,10 @@ import {
   getCompletedAnalyticsSets,
   getEstimatedOneRmTrend,
   getPlannedVsActualWorkouts,
+  getSessionDurationPoints,
   type AnalyticsSet,
   type PlannedVsActualWorkout,
+  type SessionDurationPoint,
   type StrengthTrendPoint,
 } from './db/analyticsQueries';
 import {
@@ -196,6 +198,9 @@ export default function App() {
     [],
   );
   const [strengthTrend, setStrengthTrend] = useState<StrengthTrendPoint[]>([]);
+  const [sessionDurations, setSessionDurations] = useState<SessionDurationPoint[]>(
+    [],
+  );
   const [calendarWorkouts, setCalendarWorkouts] = useState<CalendarWorkout[]>([]);
   const [historyItems, setHistoryItems] = useState<WorkoutHistoryItem[]>([]);
   const [libraryExercises, setLibraryExercises] = useState<ExerciseLibraryItem[]>(
@@ -252,6 +257,7 @@ export default function App() {
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
     setPlannedVsActual(await getPlannedVsActualWorkouts(database));
     setStrengthTrend(await getEstimatedOneRmTrend(database));
+    setSessionDurations(await getSessionDurationPoints(database));
     setCalendarWorkouts(await getCalendarWorkouts(database));
     setHistoryItems(await getRecentWorkoutHistory(database));
     setLibraryExercises(await getExerciseLibrary(database));
@@ -330,6 +336,7 @@ export default function App() {
                 completedSets={analyticsSets}
                 dbStatus={dbStatus}
                 plannedVsActual={plannedVsActual}
+                sessionDurations={sessionDurations}
                 strengthTrend={strengthTrend}
               />
             ) : null}
@@ -853,12 +860,14 @@ function AnalyticsSummary({
   completedSets,
   dbStatus,
   plannedVsActual,
+  sessionDurations,
   strengthTrend,
 }: {
   calendarWorkouts: CalendarWorkout[];
   completedSets: AnalyticsSet[];
   dbStatus: string;
   plannedVsActual: PlannedVsActualWorkout[];
+  sessionDurations: SessionDurationPoint[];
   strengthTrend: StrengthTrendPoint[];
 }) {
   const weeklyVolume = getWeeklyVolume(completedSets);
@@ -891,6 +900,10 @@ function AnalyticsSummary({
   );
   const maxFrequency = Math.max(
     ...trainingFrequency.map((point) => point.scheduled),
+    1,
+  );
+  const maxDuration = Math.max(
+    ...sessionDurations.map((point) => point.durationSeconds),
     1,
   );
   const maxExposure = Math.max(
@@ -994,6 +1007,22 @@ function AnalyticsSummary({
         ) : (
           plannedVsActual.map((item) => (
             <PlannedActualRow key={item.instanceId} item={item} />
+          ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Session Duration</Text>
+        {sessionDurations.length === 0 ? (
+          <Text style={styles.summaryText}>No completed session durations yet.</Text>
+        ) : (
+          sessionDurations.map((point) => (
+            <BarRow
+              key={point.workoutLogId}
+              label={point.workoutName}
+              value={formatDuration(point.durationSeconds)}
+              percent={(point.durationSeconds / maxDuration) * 100}
+            />
           ))
         )}
       </View>

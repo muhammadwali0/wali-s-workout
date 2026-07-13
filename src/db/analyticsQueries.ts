@@ -28,6 +28,13 @@ export type PlannedVsActualWorkout = {
   actualWorkingSets: number;
 };
 
+export type SessionDurationPoint = {
+  workoutLogId: string;
+  workoutName: string;
+  completedAt: string;
+  durationSeconds: number;
+};
+
 export async function getCompletedAnalyticsSets(
   db: Pick<TrainingDatabase, 'getAllAsync'>,
 ): Promise<AnalyticsSet[]> {
@@ -118,6 +125,28 @@ export async function getPlannedVsActualWorkouts(
      JOIN program_workouts pw ON pw.id = wi.program_workout_id
      WHERE wi.status IN ('in_progress', 'completed')
      ORDER BY wi.scheduled_date DESC, wi.sequence_index DESC
+     LIMIT ?`,
+    limit,
+  );
+}
+
+export async function getSessionDurationPoints(
+  db: Pick<TrainingDatabase, 'getAllAsync'>,
+  limit = 8,
+): Promise<SessionDurationPoint[]> {
+  return db.getAllAsync<SessionDurationPoint>(
+    `SELECT
+       wl.id AS workoutLogId,
+       pw.name AS workoutName,
+       wl.completed_at AS completedAt,
+       wl.duration_seconds AS durationSeconds
+     FROM workout_logs wl
+     JOIN workout_instances wi ON wi.id = wl.workout_instance_id
+     JOIN program_workouts pw ON pw.id = wi.program_workout_id
+     WHERE wl.status = 'completed'
+       AND wl.completed_at IS NOT NULL
+       AND wl.duration_seconds IS NOT NULL
+     ORDER BY wl.completed_at DESC
      LIMIT ?`,
     limit,
   );

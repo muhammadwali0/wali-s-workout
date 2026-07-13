@@ -9,6 +9,7 @@ const {
   getCompletedAnalyticsSets,
   getEstimatedOneRmTrend,
   getPlannedVsActualWorkouts,
+  getSessionDurationPoints,
 } = await import('../src/db/analyticsQueries.ts');
 
 const rows = [
@@ -109,5 +110,27 @@ assert.equal(plannedActualCalls[0].limit, 4);
 assert.match(plannedActualCalls[0].sql, /program_set_prescriptions/);
 assert.match(plannedActualCalls[0].sql, /wl\.total_working_sets/);
 assert.match(plannedActualCalls[0].sql, /wi\.status IN \('in_progress', 'completed'\)/);
+
+const durationRows = [
+  {
+    workoutLogId: 'log_1',
+    workoutName: 'Day 1',
+    completedAt: '2026-01-01T10:30:00Z',
+    durationSeconds: 1800,
+  },
+];
+const durationCalls = [];
+const durationDb = {
+  async getAllAsync(sql, limit) {
+    durationCalls.push({ sql, limit });
+    return durationRows;
+  },
+};
+assert.deepEqual(await getSessionDurationPoints(durationDb, 6), durationRows);
+assert.equal(durationCalls[0].limit, 6);
+assert.match(durationCalls[0].sql, /wl\.duration_seconds AS durationSeconds/);
+assert.match(durationCalls[0].sql, /JOIN workout_instances/);
+assert.match(durationCalls[0].sql, /wl\.status = 'completed'/);
+assert.match(durationCalls[0].sql, /wl\.duration_seconds IS NOT NULL/);
 
 console.log('analytics queries verified');
