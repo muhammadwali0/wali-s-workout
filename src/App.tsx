@@ -179,6 +179,7 @@ const replacementScopes: ExerciseReplacementInput['scope'][] = [
   'year',
 ];
 const emptySetEntry = { weight: '', reps: '', rpe: '' };
+const compositionColors = ['#1E3A5F', '#2563EB', '#0F766E', '#7C2D12', '#6D28D9'];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabKey>('today');
@@ -860,6 +861,10 @@ function AnalyticsSummary({
   const muscleExposure = calculateMuscleExposure(completedSets)
     .sort((a, b) => b.volumeLoad - a.volumeLoad)
     .slice(0, 5);
+  const totalMuscleVolume = muscleExposure.reduce(
+    (total, exposure) => total + exposure.volumeLoad,
+    0,
+  );
   const muscleHeatmap = calculateMuscleHeatmap(
     calculateMuscleExposure(completedSets),
   )
@@ -985,6 +990,21 @@ function AnalyticsSummary({
               percent={(exposure.volumeLoad / maxExposure) * 100}
             />
           ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Muscle Distribution</Text>
+        {muscleExposure.length === 0 || totalMuscleVolume === 0 ? (
+          <Text style={styles.summaryText}>No muscle distribution yet.</Text>
+        ) : (
+          <CompositionBar
+            items={muscleExposure.map((exposure) => ({
+              id: exposure.muscleId,
+              label: muscleNameById.get(exposure.muscleId) ?? exposure.muscleId,
+              value: exposure.volumeLoad,
+            }))}
+          />
         )}
       </View>
 
@@ -1695,6 +1715,48 @@ function MuscleHeatmapFigure({
   );
 }
 
+function CompositionBar({
+  items,
+}: {
+  items: { id: string; label: string; value: number }[];
+}) {
+  const total = items.reduce((sum, item) => sum + item.value, 0);
+
+  return (
+    <View>
+      <View accessibilityLabel="Muscle distribution composition" style={styles.compositionTrack}>
+        {items.map((item, index) => (
+          <View
+            key={item.id}
+            style={[
+              styles.compositionSegment,
+              {
+                flex: item.value,
+                backgroundColor: compositionColors[index % compositionColors.length],
+              },
+            ]}
+          />
+        ))}
+      </View>
+      <View style={styles.compositionLegend}>
+        {items.map((item, index) => (
+          <View key={item.id} style={styles.compositionLegendItem}>
+            <View
+              style={[
+                styles.compositionSwatch,
+                { backgroundColor: compositionColors[index % compositionColors.length] },
+              ]}
+            />
+            <Text style={styles.setPrescription}>
+              {item.label}: {Math.round((item.value / total) * 100)}%
+            </Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
+
 function getTodayTitle(dueWorkout: ReturnType<typeof getDueWorkout>) {
   if (dueWorkout.status === 'workout_due') return 'Workout Due';
   if (dueWorkout.status === 'rest_day') return 'Rest Day';
@@ -2062,6 +2124,30 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: '#1E3A5F',
+  },
+  compositionTrack: {
+    flexDirection: 'row',
+    height: 18,
+    overflow: 'hidden',
+    borderRadius: 6,
+    backgroundColor: '#E2E8F0',
+  },
+  compositionSegment: {
+    minWidth: 2,
+  },
+  compositionLegend: {
+    gap: 4,
+    marginTop: 8,
+  },
+  compositionLegendItem: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 6,
+  },
+  compositionSwatch: {
+    width: 10,
+    height: 10,
+    borderRadius: 2,
   },
   heatmapFigures: {
     flexDirection: 'row',
