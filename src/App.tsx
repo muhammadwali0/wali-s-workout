@@ -64,6 +64,7 @@ import {
 } from './db/modificationQueries';
 import { getAppSettings, saveAppSettings } from './db/settingsQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
+import { getSavedWorkoutDraft } from './db/workoutDraftQuery';
 import {
   getConsistencyCalendar,
   type CalendarWorkout,
@@ -396,6 +397,31 @@ function TodayWorkoutSummary({
     setDraft(null);
     setRestTimer(null);
   }, [dueWorkout.status === 'workout_due' ? dueWorkout.workout.id : dueWorkout.status]);
+
+  useEffect(() => {
+    if (!db || !todayInstance || dueWorkout.status !== 'workout_due') return;
+
+    const plannedSets = applyExerciseReplacements(
+      createPlannedSets(dueWorkout.workout),
+      activeReplacements,
+    );
+    void getSavedWorkoutDraft(
+      db,
+      todayInstance.instanceId,
+      dueWorkout.workout.id,
+      plannedSets,
+    ).then((savedDraft) => {
+      if (savedDraft) {
+        setDraft(savedDraft);
+        setSaveStatus('Recovered saved workout');
+      }
+    });
+  }, [
+    activeReplacements,
+    db,
+    dueWorkout.status === 'workout_due' ? dueWorkout.workout.id : dueWorkout.status,
+    todayInstance,
+  ]);
 
   useEffect(() => {
     if (!restTimer) return;
