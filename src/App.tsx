@@ -38,6 +38,12 @@ import {
   type CurrentOneRmRecord,
 } from './db/oneRmQueries';
 import {
+  getMissedWorkoutInstances,
+  markOverdueWorkoutsMissed,
+  resolveMissedWorkoutInstance,
+  type MissedWorkoutItem,
+} from './db/missedWorkoutQueries';
+import {
   getActiveExerciseReplacements,
   restoreExerciseReplacement,
   saveExerciseReplacement,
@@ -149,6 +155,7 @@ export default function App() {
   const [activeReplacements, setActiveReplacements] = useState<
     ActiveExerciseReplacement[]
   >([]);
+  const [missedWorkouts, setMissedWorkouts] = useState<MissedWorkoutItem[]>([]);
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -169,6 +176,7 @@ export default function App() {
   const weekType =
     position.status === 'in_year' ? position.week.weekType : position.status;
   const refreshLocalData = async (database: TrainingDatabase) => {
+    await markOverdueWorkoutsMissed(database);
     setTodayInstance(await getTodayWorkoutInstance(database));
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
     setCalendarWorkouts(await getCalendarWorkouts(database));
@@ -178,6 +186,7 @@ export default function App() {
     setAppSettings(await getAppSettings(database));
     setExerciseAlternatives(await getExerciseAlternatives(database));
     setActiveReplacements(await getActiveExerciseReplacements(database));
+    setMissedWorkouts(await getMissedWorkoutInstances(database));
   };
 
   useEffect(() => {
@@ -246,6 +255,14 @@ export default function App() {
             ) : null}
             {activeTab === 'history' ? (
               <HistorySummary dbStatus={dbStatus} historyItems={historyItems} />
+            ) : null}
+            {activeTab === 'year' ? (
+              <YearSummary
+                db={db}
+                dbStatus={dbStatus}
+                missedWorkouts={missedWorkouts}
+                onSaved={refreshLocalData}
+              />
             ) : null}
             {activeTab === 'library' ? (
               <LibrarySummary
@@ -606,6 +623,76 @@ function HistorySummary({
                 {item.status} - {item.completedAt ?? item.scheduledDate} -{' '}
                 {item.totalWorkingSets ?? 0} working sets - {item.totalVolume ?? 0} kg reps
               </Text>
+            </View>
+          ))
+        )}
+      </View>
+    </View>
+  );
+}
+
+function YearSummary({
+  db,
+  dbStatus,
+  missedWorkouts,
+  onSaved,
+}: {
+  db: TrainingDatabase | null;
+  dbStatus: string;
+  missedWorkouts: MissedWorkoutItem[];
+  onSaved: (database: TrainingDatabase) => Promise<void>;
+}) {
+  const [status, setStatus] = useState('No schedule change selected');
+  const resolve = async (
+    workout: MissedWorkoutItem,
+    action: 'skip' | 'do_today_and_shift',
+  ) => {
+    if (!db) return;
+
+    await resolveMissedWorkoutInstance(
+      db,
+      workout.instanceId,
+      action === 'skip'
+        ? { action, reason: 'Skipped from Year view' }
+        : { action, today: new Date().toISOString().slice(0, 10) },
+    );
+    await onSaved(db);
+    setStatus(action === 'skip' ? 'Workout skipped' : 'Workout moved to today');
+  };
+
+  return (
+    <View style={styles.summaryBlock}>
+      <Text style={styles.summaryTitle}>Missed Sessions</Text>
+      <Text style={styles.summaryText}>
+        {dbStatus} - {missedWorkouts.length} unresolved missed workouts.
+      </Text>
+      <Text style={styles.summaryText}>{status}</Text>
+      <View style={styles.setPreview}>
+        {missedWorkouts.length === 0 ? (
+          <Text style={styles.summaryText}>No missed sessions need a decision.</Text>
+        ) : (
+          missedWorkouts.map((workout) => (
+            <View key={workout.instanceId} style={styles.setRow}>
+              <Text style={styles.setExercise}>{workout.workoutName}</Text>
+              <Text style={styles.setPrescription}>
+                {workout.scheduledDate} - {workout.status}
+              </Text>
+              <View style={styles.actionRow}>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => void resolve(workout, 'do_today_and_shift')}
+                  style={styles.secondaryButton}
+                >
+                  <Text style={styles.secondaryButtonText}>Do Today</Text>
+                </Pressable>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => void resolve(workout, 'skip')}
+                  style={styles.secondaryButton}
+                >
+                  <Text style={styles.secondaryButtonText}>Skip</Text>
+                </Pressable>
+              </View>
             </View>
           ))
         )}
