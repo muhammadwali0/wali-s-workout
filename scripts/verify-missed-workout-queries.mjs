@@ -64,4 +64,14 @@ assert.equal(moved.scheduledDate, '2026-01-04');
 assert.equal(calls[5].params[0], '2026-01-04');
 assert.equal(calls[5].params[2], 1);
 
+const manuallyMoved = await resolveMissedWorkoutInstance(db, 'instance_1', {
+  action: 'move_to_date',
+  date: '2026-01-06',
+  reason: 'manual reschedule',
+});
+assert.equal(manuallyMoved.status, 'rescheduled');
+assert.equal(manuallyMoved.scheduledDate, '2026-01-06');
+assert.equal(calls[7].params[0], '2026-01-06');
+assert.equal(calls[7].params[3], 'manual reschedule');
+
 console.log('missed workout queries verified');

@@ -55,7 +55,8 @@ export async function resolveMissedWorkoutInstance(
   instanceId: string,
   resolution:
     | { action: 'skip'; reason?: string }
-    | { action: 'do_today_and_shift'; today: string },
+    | { action: 'do_today_and_shift'; today: string }
+    | { action: 'move_to_date'; date: string; reason?: string },
 ) {
   const row = await db.getFirstAsync<MissedWorkoutItem>(
     `SELECT

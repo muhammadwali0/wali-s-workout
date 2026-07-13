@@ -801,6 +801,7 @@ function YearSummary({
   onSaved: (database: TrainingDatabase) => Promise<void>;
 }) {
   const [status, setStatus] = useState('No schedule change selected');
+  const [moveDates, setMoveDates] = useState<Record<string, string>>({});
   const completed = calendarWorkouts.filter(
     (workout) => workout.status === 'completed',
   ).length;
@@ -812,19 +813,37 @@ function YearSummary({
   ).length;
   const resolve = async (
     workout: MissedWorkoutItem,
-    action: 'skip' | 'do_today_and_shift',
+    action: 'skip' | 'do_today_and_shift' | 'move_to_date',
   ) => {
     if (!db) return;
+
+    const moveDate = moveDates[workout.instanceId];
+    if (action === 'move_to_date' && !/^\d{4}-\d{2}-\d{2}$/.test(moveDate ?? '')) {
+      setStatus('Enter move date as YYYY-MM-DD');
+      return;
+    }
 
     await resolveMissedWorkoutInstance(
       db,
       workout.instanceId,
       action === 'skip'
         ? { action, reason: 'Skipped from Year view' }
-        : { action, today: new Date().toISOString().slice(0, 10) },
+        : action === 'move_to_date'
+          ? {
+              action,
+              date: moveDate,
+              reason: 'Manual move from Year view',
+            }
+          : { action, today: new Date().toISOString().slice(0, 10) },
     );
     await onSaved(db);
-    setStatus(action === 'skip' ? 'Workout skipped' : 'Workout moved to today');
+    setStatus(
+      action === 'skip'
+        ? 'Workout skipped'
+        : action === 'move_to_date'
+          ? 'Workout moved manually'
+          : 'Workout moved to today',
+    );
   };
 
   return (
@@ -849,6 +868,18 @@ function YearSummary({
               <Text style={styles.setPrescription}>
                 {workout.scheduledDate} - {workout.status}
               </Text>
+              <TextInput
+                accessibilityLabel={`Move date for ${workout.workoutName}`}
+                onChangeText={(value) =>
+                  setMoveDates((current) => ({
+                    ...current,
+                    [workout.instanceId]: value,
+                  }))
+                }
+                placeholder="YYYY-MM-DD"
+                style={styles.baselineInput}
+                value={moveDates[workout.instanceId] ?? ''}
+              />
               <View style={styles.actionRow}>
                 <Pressable
                   accessibilityRole="button"
@@ -863,6 +894,13 @@ function YearSummary({
                   style={styles.secondaryButton}
                 >
                   <Text style={styles.secondaryButtonText}>Skip</Text>
+                </Pressable>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => void resolve(workout, 'move_to_date')}
+                  style={styles.secondaryButton}
+                >
+                  <Text style={styles.secondaryButtonText}>Move</Text>
                 </Pressable>
               </View>
             </View>
