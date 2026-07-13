@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 
 const {
+  getLastCompletedWorkout,
   getLatestExercisePerformances,
   getNextWorkoutInstance,
   getTodayWorkoutInstance,
@@ -15,10 +16,18 @@ const row = {
   workoutType: 'training',
   estimatedDurationMin: 55,
 };
+const lastCompletedRow = {
+  workoutLogId: 'log_1',
+  workoutName: 'Day 1',
+  completedAt: '2026-01-01T10:00:00Z',
+  totalWorkingSets: 12,
+  totalVolume: 5000,
+};
 const calls = [];
 const db = {
   async getFirstAsync(sql, date) {
     calls.push({ sql, date });
+    if (sql.includes('FROM workout_logs wl')) return lastCompletedRow;
     return row;
   },
   async getAllAsync(sql, ...exerciseIds) {
@@ -48,6 +57,11 @@ assert.match(calls[1].sql, /wi\.scheduled_date > \?/);
 assert.match(calls[1].sql, /pw\.workout_type IN/);
 assert.match(calls[1].sql, /ORDER BY wi\.scheduled_date, wi\.sequence_index/);
 
+assert.deepEqual(await getLastCompletedWorkout(db), lastCompletedRow);
+assert.match(calls[2].sql, /FROM workout_logs wl/);
+assert.match(calls[2].sql, /wl\.status = 'completed'/);
+assert.match(calls[2].sql, /ORDER BY wl\.completed_at DESC/);
+
 assert.deepEqual(await getLatestExercisePerformances(db, []), []);
 assert.deepEqual(await getLatestExercisePerformances(db, ['back_squat', 'back_squat']), [
   {
@@ -58,9 +72,9 @@ assert.deepEqual(await getLatestExercisePerformances(db, ['back_squat', 'back_sq
     completedAt: '2026-01-01T10:00:00Z',
   },
 ]);
-assert.deepEqual(calls[2].exerciseIds, ['back_squat']);
-assert.match(calls[2].sql, /FROM set_logs sl/);
-assert.match(calls[2].sql, /ROW_NUMBER\(\) OVER/);
-assert.match(calls[2].sql, /PARTITION BY el\.exercise_id/);
+assert.deepEqual(calls[3].exerciseIds, ['back_squat']);
+assert.match(calls[3].sql, /FROM set_logs sl/);
+assert.match(calls[3].sql, /ROW_NUMBER\(\) OVER/);
+assert.match(calls[3].sql, /PARTITION BY el\.exercise_id/);
 
 console.log('today workout query verified');

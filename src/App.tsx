@@ -29,9 +29,11 @@ import {
 } from './db/alternativeQueries';
 import { openTrainingDatabase, type TrainingDatabase } from './db/database';
 import {
+  getLastCompletedWorkout,
   getLatestExercisePerformances,
   getNextWorkoutInstance,
   getTodayWorkoutInstance,
+  type LastCompletedWorkout,
   type LatestExercisePerformance,
   type TodayWorkoutInstance,
 } from './db/todayWorkoutQuery';
@@ -204,6 +206,8 @@ export default function App() {
   );
   const [nextWorkoutInstance, setNextWorkoutInstance] =
     useState<TodayWorkoutInstance | null>(null);
+  const [lastCompletedWorkout, setLastCompletedWorkout] =
+    useState<LastCompletedWorkout | null>(null);
   const [analyticsSets, setAnalyticsSets] = useState<AnalyticsSet[]>([]);
   const [plannedAnalyticsSets, setPlannedAnalyticsSets] = useState<
     PlannedAnalyticsSet[]
@@ -268,6 +272,7 @@ export default function App() {
     await markOverdueWorkoutsMissed(database);
     setTodayInstance(await getTodayWorkoutInstance(database));
     setNextWorkoutInstance(await getNextWorkoutInstance(database));
+    setLastCompletedWorkout(await getLastCompletedWorkout(database));
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
     setPlannedAnalyticsSets(await getPlannedAnalyticsSets(database));
     setPlannedVsActual(await getPlannedVsActualWorkouts(database));
@@ -338,6 +343,7 @@ export default function App() {
                 activeReplacements={activeReplacements}
                 appSettings={appSettings}
                 dueWorkout={dueWorkout}
+                lastCompletedWorkout={lastCompletedWorkout}
                 notificationSettings={notificationSettings}
                 onSaved={refreshLocalData}
                 oneRmRecords={oneRmRecords}
@@ -438,6 +444,7 @@ function TodayWorkoutSummary({
   activeReplacements,
   appSettings,
   dueWorkout,
+  lastCompletedWorkout,
   notificationSettings,
   onSaved,
   oneRmRecords,
@@ -450,6 +457,7 @@ function TodayWorkoutSummary({
   activeReplacements: ActiveExerciseReplacement[];
   appSettings: AppSettings;
   dueWorkout: ReturnType<typeof getDueWorkout>;
+  lastCompletedWorkout: LastCompletedWorkout | null;
   notificationSettings: NotificationSettings;
   onSaved: (database: TrainingDatabase) => Promise<void>;
   oneRmRecords: CurrentOneRmRecord[];
@@ -597,6 +605,13 @@ function TodayWorkoutSummary({
         <Text style={styles.summaryText}>
           Main lifts: {dueWorkout.mainLifts.join(', ')}
         </Text>
+        {lastCompletedWorkout ? (
+          <Text style={styles.summaryText}>
+            Last completed: {lastCompletedWorkout.workoutName} -{' '}
+            {lastCompletedWorkout.totalWorkingSets ?? 0} working sets -{' '}
+            {lastCompletedWorkout.totalVolume ?? 0} kg reps
+          </Text>
+        ) : null}
         <View style={styles.sessionPanel}>
           <Text style={styles.sessionTitle}>Workout Execution</Text>
           <Text style={styles.summaryText}>

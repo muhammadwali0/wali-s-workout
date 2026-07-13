@@ -10,6 +10,14 @@ export type TodayWorkoutInstance = {
   estimatedDurationMin: number | null;
 };
 
+export type LastCompletedWorkout = {
+  workoutLogId: string;
+  workoutName: string;
+  completedAt: string;
+  totalWorkingSets: number | null;
+  totalVolume: number | null;
+};
+
 export type LatestExercisePerformance = {
   exerciseId: string;
   weight: number;
@@ -61,6 +69,26 @@ export async function getNextWorkoutInstance(
      ORDER BY wi.scheduled_date, wi.sequence_index
      LIMIT 1`,
     toIsoDate(date),
+  );
+}
+
+export async function getLastCompletedWorkout(
+  db: Pick<TrainingDatabase, 'getFirstAsync'>,
+): Promise<LastCompletedWorkout | null> {
+  return db.getFirstAsync<LastCompletedWorkout>(
+    `SELECT
+       wl.id AS workoutLogId,
+       pw.name AS workoutName,
+       wl.completed_at AS completedAt,
+       wl.total_working_sets AS totalWorkingSets,
+       wl.total_volume AS totalVolume
+     FROM workout_logs wl
+     JOIN workout_instances wi ON wi.id = wl.workout_instance_id
+     JOIN program_workouts pw ON pw.id = wi.program_workout_id
+     WHERE wl.status = 'completed'
+       AND wl.completed_at IS NOT NULL
+     ORDER BY wl.completed_at DESC
+     LIMIT 1`,
   );
 }
 
