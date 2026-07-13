@@ -56,6 +56,11 @@ import {
   summarizeWorkoutDraft,
   type WorkoutDraft,
 } from './domain/workout/workoutLog';
+import {
+  createRestTimer,
+  getRestTimerState,
+  type RestTimer,
+} from './domain/workout/restTimer';
 
 type TabKey = 'today' | 'year' | 'analytics' | 'history' | 'library';
 
@@ -283,17 +288,30 @@ function TodayWorkoutSummary({
   todayInstance: TodayWorkoutInstance | null;
 }) {
   const [draft, setDraft] = useState<WorkoutDraft | null>(null);
+  const [restTimer, setRestTimer] = useState<RestTimer | null>(null);
+  const [timerNowMs, setTimerNowMs] = useState(Date.now());
   const [saveStatus, setSaveStatus] = useState('Not saved');
 
   useEffect(() => {
     setDraft(null);
+    setRestTimer(null);
   }, [dueWorkout.status === 'workout_due' ? dueWorkout.workout.id : dueWorkout.status]);
+
+  useEffect(() => {
+    if (!restTimer) return;
+
+    const id = setInterval(() => setTimerNowMs(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [restTimer]);
 
   if (dueWorkout.status === 'workout_due') {
     const plannedSets = createPlannedSets(dueWorkout.workout);
     const previewSets = plannedSets.slice(0, 5);
     const summary = draft ? summarizeWorkoutDraft(draft) : null;
     const nextSet = draft?.actualSets.find((set) => !set.completed);
+    const timerState = restTimer
+      ? getRestTimerState(restTimer, timerNowMs)
+      : null;
     const saveDraft = async (nextDraft: WorkoutDraft) => {
       setDraft(nextDraft);
       if (!db || !todayInstance) return;
@@ -359,6 +377,10 @@ function TodayWorkoutSummary({
                     ? getSuggestedLoad(plannedSet, oneRmRecords, 2.5)
                     : null;
 
+                  if (plannedSet) {
+                    setRestTimer(createRestTimer(plannedSet, Date.now()));
+                    setTimerNowMs(Date.now());
+                  }
                   void saveDraft(
                     completeSet(draft, nextSet.plannedSetId, {
                       weight: suggestion?.roundedLow ?? 0,
@@ -392,6 +414,12 @@ function TodayWorkoutSummary({
                 : draft.status === 'completed'
                   ? 'Workout completed'
                   : 'All sets logged'}
+            </Text>
+          ) : null}
+          {timerState && restTimer ? (
+            <Text style={styles.currentSetText}>
+              Rest: {formatDuration(timerState.remainingSeconds)}
+              {timerState.isComplete ? ' complete' : ''}
             </Text>
           ) : null}
         </View>
@@ -688,6 +716,12 @@ function formatSuggestedLoad(load: ReturnType<typeof getSuggestedLoad>) {
 function getDefaultReps(targetReps: string | null) {
   const match = targetReps?.match(/\d+/);
   return match ? Number(match[0]) : 1;
+}
+
+function formatDuration(totalSeconds: number) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${String(seconds).padStart(2, '0')}`;
 }
 
 const styles = StyleSheet.create({
