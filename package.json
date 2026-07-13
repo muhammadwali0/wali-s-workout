@@ -18,6 +18,7 @@
     "verify:rest-timer": "node --experimental-strip-types scripts/verify-rest-timer.mjs",
     "verify:schema": "node scripts/verify-schema.mjs",
     "verify:seed-resolver": "node --experimental-strip-types scripts/verify-seed-resolver.mjs",
+    "verify:seed-alternatives": "node --experimental-strip-types scripts/verify-seed-alternatives.mjs",
     "verify:session-planner": "node --experimental-strip-types scripts/verify-session-planner.mjs",
     "verify:workout-log": "node --experimental-strip-types scripts/verify-workout-log.mjs",
     "verify:year": "node --experimental-strip-types scripts/verify-year-engine.mjs",
