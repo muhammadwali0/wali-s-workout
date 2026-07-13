@@ -14,6 +14,8 @@ const rows = [
   {
     completedAt: '2026-01-01T10:00:00Z',
     exerciseId: 'back_squat',
+    blockNumber: 1,
+    phaseCode: 'phase1',
     setType: 'working',
     completed: 1,
     weight: 100,
@@ -31,6 +33,8 @@ const db = {
 assert.deepEqual(await getCompletedAnalyticsSets(db), rows);
 assert.match(calls[0], /JOIN exercise_logs/);
 assert.match(calls[0], /JOIN workout_logs/);
+assert.match(calls[0], /JOIN workout_instances/);
+assert.match(calls[0], /JOIN program_blocks/);
 assert.match(calls[0], /sl\.is_completed = 1/);
 assert.match(calls[0], /wl\.status = 'completed'/);
 assert.match(calls[0], /wl\.completed_at IS NOT NULL/);

@@ -69,6 +69,7 @@ import {
   getConsistencyCalendar,
   type CalendarWorkout,
 } from './domain/analytics/consistencyCalendar';
+import { compareBlocks } from './domain/analytics/blockComparison';
 import { calculateMuscleExposure } from './domain/analytics/muscleExposure';
 import { calculateMuscleHeatmap } from './domain/analytics/muscleHeatmap';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
@@ -619,6 +620,7 @@ function AnalyticsSummary({
   strengthTrend: StrengthTrendPoint[];
 }) {
   const weeklyVolume = getWeeklyVolume(completedSets);
+  const blockComparison = compareBlocks(completedSets);
   const consistency = getConsistencyCalendar(calendarWorkouts);
   const muscleExposure = calculateMuscleExposure(completedSets)
     .sort((a, b) => b.volumeLoad - a.volumeLoad)
@@ -629,6 +631,10 @@ function AnalyticsSummary({
     .sort((a, b) => b.intensity - a.intensity)
     .slice(0, 8);
   const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
+  const maxBlockVolume = Math.max(
+    ...blockComparison.map((point) => point.totalVolume),
+    1,
+  );
   const maxExposure = Math.max(
     ...muscleExposure.map((exposure) => exposure.volumeLoad),
     1,
@@ -654,6 +660,22 @@ function AnalyticsSummary({
               label={point.weekKey}
               value={`${point.totalVolume} kg reps`}
               percent={(point.totalVolume / maxVolume) * 100}
+            />
+          ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Block Comparison</Text>
+        {blockComparison.length === 0 ? (
+          <Text style={styles.summaryText}>No completed block data yet.</Text>
+        ) : (
+          blockComparison.map((point) => (
+            <BarRow
+              key={point.blockNumber}
+              label={`Block ${point.blockNumber} - ${point.phaseCode}`}
+              value={`${point.workingSets} sets`}
+              percent={(point.totalVolume / maxBlockVolume) * 100}
             />
           ))
         )}

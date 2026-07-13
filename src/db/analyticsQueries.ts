@@ -1,9 +1,10 @@
 import type { CalendarWorkout } from '../domain/analytics/consistencyCalendar.ts';
+import type { BlockComparisonSet } from '../domain/analytics/blockComparison.ts';
 import type { MuscleExposureSet } from '../domain/analytics/muscleExposure.ts';
 import type { VolumeSet } from '../domain/analytics/weeklyVolume.ts';
 import type { TrainingDatabase } from './database.ts';
 
-export type AnalyticsSet = VolumeSet & MuscleExposureSet;
+export type AnalyticsSet = VolumeSet & MuscleExposureSet & BlockComparisonSet;
 
 export type StrengthTrendPoint = {
   exerciseId: string;
@@ -20,6 +21,8 @@ export async function getCompletedAnalyticsSets(
     `SELECT
        wl.completed_at AS completedAt,
        el.exercise_id AS exerciseId,
+       pb.block_number AS blockNumber,
+       pb.phase_code AS phaseCode,
        sl.set_type AS setType,
        sl.is_completed = 1 AS completed,
        sl.weight AS weight,
@@ -27,6 +30,10 @@ export async function getCompletedAnalyticsSets(
      FROM set_logs sl
      JOIN exercise_logs el ON el.id = sl.exercise_log_id
      JOIN workout_logs wl ON wl.id = el.workout_log_id
+     JOIN workout_instances wi ON wi.id = wl.workout_instance_id
+     JOIN program_workouts pw ON pw.id = wi.program_workout_id
+     JOIN program_weeks pweek ON pweek.id = pw.program_week_id
+     JOIN program_blocks pb ON pb.id = pweek.program_block_id
      WHERE sl.is_completed = 1
        AND wl.status = 'completed'
        AND wl.completed_at IS NOT NULL
