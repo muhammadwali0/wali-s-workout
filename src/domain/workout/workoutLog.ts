@@ -152,6 +152,9 @@ export function removeSet(draft: WorkoutDraft, plannedSetId: string): WorkoutDra
   if (!actual) {
     throw new Error(`Unknown planned set: ${plannedSetId}`);
   }
+  if (draft.actualSets.length <= 1) {
+    throw new Error('Cannot remove the final set');
+  }
   if (actual.completed || actual.skipped) {
     throw new Error('Cannot remove a completed or skipped set');
   }
@@ -187,6 +190,9 @@ export function summarizeWorkoutDraft(draft: WorkoutDraft) {
 
 export function completeWorkout(draft: WorkoutDraft): WorkoutDraft {
   const summary = summarizeWorkoutDraft(draft);
+  if (summary.plannedSets === 0) {
+    throw new Error('Cannot complete workout with no sets');
+  }
   if (!summary.isComplete) {
     throw new Error('Cannot complete workout with unfinished sets');
   }

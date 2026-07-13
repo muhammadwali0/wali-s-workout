@@ -67,6 +67,11 @@ assert.equal(withAddedSet.plannedSets[1].setType, 'added');
 assert.equal(removeSet(withAddedSet, withAddedSet.plannedSets[1].id).plannedSets.length, plannedSets.length);
 assert.throws(() => addSetAfter(draft, 'missing'), /Unknown/);
 assert.throws(() => removeSet(logged, plannedSets[0].id), /completed or skipped/);
+assert.throws(() => removeSet(createWorkoutDraft('single', [plannedSets[0]]), plannedSets[0].id), /final set/);
+assert.throws(
+  () => completeWorkout({ ...draft, plannedSets: [], actualSets: [] }),
+  /no sets/,
+);
 
 const completeDraft = plannedSets.reduce(
   (current, set) => completeSet(current, set.id, { weight: 10, reps: 1 }),
