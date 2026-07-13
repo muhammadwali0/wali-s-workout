@@ -73,7 +73,7 @@ export function buildWorkoutLogRows(
         is_completed: actual.completed ? 1 : 0,
         is_pr: 0,
         is_warmup: planned.setType === 'warmup' ? 1 : 0,
-        is_failed: 0,
+        is_failed: actual.failed ? 1 : 0,
         user_notes: actual.notes,
         created_at: input.recordedAt,
         updated_at: input.recordedAt,

@@ -13,6 +13,7 @@ type SavedSetRow = {
   setOrder: number;
   setType: string;
   completed: number;
+  failed: number;
   weight: number | null;
   reps: number | null;
   rpe: number | null;
@@ -43,6 +44,7 @@ export async function getSavedWorkoutDraft(
        sl.set_order AS setOrder,
        sl.set_type AS setType,
        sl.is_completed AS completed,
+       sl.is_failed AS failed,
        sl.weight,
        sl.reps,
        sl.rpe,
@@ -92,6 +94,7 @@ export async function getSavedWorkoutDraft(
         plannedSetId: set.id,
         completed: saved?.completed === 1,
         skipped: saved?.completed !== 1 && saved?.notes === skippedSetNote,
+        failed: saved?.failed === 1,
         weight: saved?.weight ?? null,
         reps: saved?.reps ?? null,
         rpe: saved?.rpe ?? null,

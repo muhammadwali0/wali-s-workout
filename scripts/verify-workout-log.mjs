@@ -40,11 +40,13 @@ const logged = completeSet(draft, plannedSets[0].id, {
   reps: 5,
   rpe: 6,
   rir: 4,
+  failed: true,
   notes: 'Felt stable',
 });
 assert.equal(draft.actualSets[0].completed, false);
 assert.equal(logged.actualSets[0].completed, true);
 assert.equal(logged.actualSets[0].skipped, false);
+assert.equal(logged.actualSets[0].failed, true);
 assert.equal(logged.actualSets[0].rir, 4);
 assert.equal(logged.actualSets[0].notes, 'Felt stable');
 assert.deepEqual(summarizeWorkoutDraft(logged), {

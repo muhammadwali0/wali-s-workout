@@ -585,6 +585,69 @@ function TodayWorkoutSummary({
       await onSaved(db);
       setSaveStatus('Saved locally');
     };
+    const logNextSet = (failed = false) => {
+      if (!draft || !nextSet) return;
+
+      const plannedSet = activePlannedSets.find(
+        (set) => set.id === nextSet.plannedSetId,
+      );
+      const suggestion = plannedSet
+        ? getSuggestedLoad(plannedSet, oneRmRecords, appSettings.plateIncrement)
+        : null;
+      const weight =
+        nextSetEntry.weight.trim() === ''
+          ? suggestion?.roundedLow ?? 0
+          : Number(nextSetEntry.weight);
+      const reps =
+        nextSetEntry.reps.trim() === ''
+          ? getDefaultReps(plannedSet?.targetReps ?? null)
+          : Number(nextSetEntry.reps);
+      const rpe =
+        nextSetEntry.rpe.trim() === ''
+          ? plannedSet?.targetRpeHigh ?? null
+          : Number(nextSetEntry.rpe);
+      const rir = nextSetEntry.rir.trim() === '' ? null : Number(nextSetEntry.rir);
+      let nextDraft: WorkoutDraft;
+
+      try {
+        nextDraft = completeSet(draft, nextSet.plannedSetId, {
+          weight,
+          reps,
+          rpe,
+          rir,
+          failed,
+          notes: nextSetNote.trim() || null,
+        });
+      } catch (error) {
+        setSaveStatus(error instanceof Error ? error.message : 'Invalid set entry');
+        return;
+      }
+
+      if (plannedSet) {
+        const nowMs = Date.now();
+        const nextTimer = createRestTimer(plannedSet, nowMs);
+        setRestTimer(nextTimer);
+        setTimerNowMs(Date.now());
+        if (db && todayInstance && nextTimer) {
+          const notification = planRestTimerNotification(
+            new Date(nowMs + nextTimer.durationSeconds * 1000).toISOString(),
+            plannedSet.exerciseName,
+          );
+          void scheduleLocalNotification(notification).then((externalNotificationId) => {
+            if (!externalNotificationId) return;
+            void savePlannedNotification(
+              db,
+              notification,
+              plannedSet.id,
+              externalNotificationId,
+            );
+          });
+        }
+      }
+      void saveDraft(nextDraft);
+      setNextSetEntry(emptySetEntry);
+      setNextSetNote('');
+    };
 
     return (
       <View style={styles.summaryBlock}>
@@ -636,78 +699,19 @@ function TodayWorkoutSummary({
             {draft && nextSet ? (
               <Pressable
                 accessibilityRole="button"
-                onPress={() => {
-                  const plannedSet = activePlannedSets.find(
-                    (set) => set.id === nextSet.plannedSetId,
-                  );
-                  const suggestion = plannedSet
-                    ? getSuggestedLoad(
-                        plannedSet,
-                        oneRmRecords,
-                        appSettings.plateIncrement,
-                      )
-                    : null;
-                  const weight =
-                    nextSetEntry.weight.trim() === ''
-                      ? suggestion?.roundedLow ?? 0
-                      : Number(nextSetEntry.weight);
-                  const reps =
-                    nextSetEntry.reps.trim() === ''
-                      ? getDefaultReps(plannedSet?.targetReps ?? null)
-                      : Number(nextSetEntry.reps);
-                  const rpe =
-                    nextSetEntry.rpe.trim() === ''
-                      ? plannedSet?.targetRpeHigh ?? null
-                      : Number(nextSetEntry.rpe);
-                  const rir =
-                    nextSetEntry.rir.trim() === '' ? null : Number(nextSetEntry.rir);
-                  let nextDraft: WorkoutDraft;
-
-                  try {
-                    nextDraft = completeSet(draft, nextSet.plannedSetId, {
-                      weight,
-                      reps,
-                      rpe,
-                      rir,
-                      notes: nextSetNote.trim() || null,
-                    });
-                  } catch (error) {
-                    setSaveStatus(
-                      error instanceof Error ? error.message : 'Invalid set entry',
-                    );
-                    return;
-                  }
-
-                  if (plannedSet) {
-                    const nowMs = Date.now();
-                    const nextTimer = createRestTimer(plannedSet, nowMs);
-                    setRestTimer(nextTimer);
-                    setTimerNowMs(Date.now());
-                    if (db && todayInstance && nextTimer) {
-                      const notification = planRestTimerNotification(
-                        new Date(nowMs + nextTimer.durationSeconds * 1000).toISOString(),
-                        plannedSet.exerciseName,
-                      );
-                      void scheduleLocalNotification(notification).then(
-                        (externalNotificationId) => {
-                          if (!externalNotificationId) return;
-                          void savePlannedNotification(
-                            db,
-                            notification,
-                            plannedSet.id,
-                            externalNotificationId,
-                          );
-                        },
-                      );
-                    }
-                  }
-                  void saveDraft(nextDraft);
-                  setNextSetEntry(emptySetEntry);
-                  setNextSetNote('');
-                }}
+                onPress={() => logNextSet()}
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Log Next Set</Text>
+              </Pressable>
+            ) : null}
+            {draft && nextSet ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => logNextSet(true)}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Fail Next Set</Text>
               </Pressable>
             ) : null}
             {draft && nextSet ? (

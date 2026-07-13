@@ -4,6 +4,7 @@ export type ActualSet = {
   plannedSetId: string;
   completed: boolean;
   skipped: boolean;
+  failed: boolean;
   weight: number | null;
   reps: number | null;
   rpe: number | null;
@@ -35,6 +36,7 @@ export function createWorkoutDraft(
       plannedSetId: set.id,
       completed: false,
       skipped: false,
+      failed: false,
       weight: null,
       reps: null,
       rpe: null,
@@ -52,6 +54,7 @@ export function completeSet(
     reps: number;
     rpe?: number | null;
     rir?: number | null;
+    failed?: boolean;
     notes?: string | null;
   },
 ): WorkoutDraft {
@@ -74,6 +77,7 @@ export function completeSet(
       plannedSetId,
       completed: true,
       skipped: false,
+      failed: result.failed ?? false,
       weight: result.weight,
       reps: result.reps,
       rpe: result.rpe ?? null,
@@ -103,6 +107,7 @@ export function skipSet(
       plannedSetId,
       completed: false,
       skipped: true,
+      failed: false,
       weight: null,
       reps: null,
       rpe: null,
@@ -138,6 +143,7 @@ export function addSetAfter(draft: WorkoutDraft, plannedSetId: string): WorkoutD
     plannedSetId: addedSet.id,
     completed: false,
     skipped: false,
+    failed: false,
     weight: null,
     reps: null,
     rpe: null,

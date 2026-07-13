@@ -66,6 +66,7 @@ const db = {
         setOrder: 1,
         setType: 'working',
         completed: 1,
+        failed: 1,
         weight: 100,
         reps: 5,
         rpe: 7,
@@ -77,6 +78,7 @@ const db = {
         setOrder: 2,
         setType: 'working',
         completed: 0,
+        failed: 0,
         weight: null,
         reps: null,
         rpe: null,
@@ -88,6 +90,7 @@ const db = {
         setOrder: 3,
         setType: 'added',
         completed: 1,
+        failed: 0,
         weight: 90,
         reps: 8,
         rpe: 8,
@@ -104,6 +107,7 @@ assert.equal(draft.startedAt, '2026-01-01T09:55:00Z');
 assert.equal(draft.plannedSets.length, 3);
 assert.equal(draft.actualSets[0].completed, true);
 assert.equal(draft.actualSets[0].skipped, false);
+assert.equal(draft.actualSets[0].failed, true);
 assert.equal(draft.actualSets[0].weight, 100);
 assert.equal(draft.actualSets[0].rir, 3);
 assert.equal(draft.actualSets[1].completed, false);
@@ -115,6 +119,7 @@ assert.equal(draft.actualSets[2].rir, 2);
 assert.match(calls[0].sql, /FROM workout_logs/);
 assert.match(calls[1].sql, /FROM set_logs/);
 assert.match(calls[1].sql, /sl\.set_type AS setType/);
+assert.match(calls[1].sql, /sl\.is_failed AS failed/);
 assert.match(calls[1].sql, /sl\.rir/);
 
 console.log('workout draft query verified');
