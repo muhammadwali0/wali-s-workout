@@ -5,7 +5,12 @@ import type { RpeSet } from '../domain/analytics/weeklyRpe.ts';
 import type { VolumeSet } from '../domain/analytics/weeklyVolume.ts';
 import type { TrainingDatabase } from './database.ts';
 
-export type AnalyticsSet = VolumeSet & MuscleExposureSet & BlockComparisonSet & RpeSet;
+export type AnalyticsSet = VolumeSet &
+  MuscleExposureSet &
+  BlockComparisonSet &
+  RpeSet & {
+    exerciseCategory: string | null;
+  };
 
 export type StrengthTrendPoint = {
   exerciseId: string;
@@ -22,6 +27,7 @@ export async function getCompletedAnalyticsSets(
     `SELECT
        wl.completed_at AS completedAt,
        el.exercise_id AS exerciseId,
+       e.category AS exerciseCategory,
        pb.block_number AS blockNumber,
        pb.phase_code AS phaseCode,
        sl.set_type AS setType,
@@ -31,6 +37,7 @@ export async function getCompletedAnalyticsSets(
        sl.rpe
      FROM set_logs sl
      JOIN exercise_logs el ON el.id = sl.exercise_log_id
+     JOIN exercises e ON e.id = el.exercise_id
      JOIN workout_logs wl ON wl.id = el.workout_log_id
      JOIN workout_instances wi ON wi.id = wl.workout_instance_id
      JOIN program_workouts pw ON pw.id = wi.program_workout_id

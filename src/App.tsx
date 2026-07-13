@@ -865,6 +865,7 @@ function AnalyticsSummary({
     (total, exposure) => total + exposure.volumeLoad,
     0,
   );
+  const categoryDistribution = getCategoryDistribution(completedSets);
   const muscleHeatmap = calculateMuscleHeatmap(
     calculateMuscleExposure(completedSets),
   )
@@ -1005,6 +1006,15 @@ function AnalyticsSummary({
               value: exposure.volumeLoad,
             }))}
           />
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Exercise Category Distribution</Text>
+        {categoryDistribution.length === 0 ? (
+          <Text style={styles.summaryText}>No exercise category distribution yet.</Text>
+        ) : (
+          <CompositionBar items={categoryDistribution} />
         )}
       </View>
 
@@ -1755,6 +1765,31 @@ function CompositionBar({
       </View>
     </View>
   );
+}
+
+function getCategoryDistribution(completedSets: AnalyticsSet[]) {
+  const volumeByCategory = new Map<string, number>();
+  for (const set of completedSets) {
+    const category = set.exerciseCategory ?? 'Uncategorized';
+    volumeByCategory.set(
+      category,
+      (volumeByCategory.get(category) ?? 0) + (set.weight ?? 0) * (set.reps ?? 0),
+    );
+  }
+
+  return [...volumeByCategory.entries()]
+    .map(([id, value]) => ({ id, label: formatCategoryLabel(id), value }))
+    .filter((item) => item.value > 0)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
+}
+
+function formatCategoryLabel(category: string) {
+  return category
+    .split(/[_-]/)
+    .filter(Boolean)
+    .map((part) => part.slice(0, 1).toUpperCase() + part.slice(1))
+    .join(' ');
 }
 
 function getTodayTitle(dueWorkout: ReturnType<typeof getDueWorkout>) {
