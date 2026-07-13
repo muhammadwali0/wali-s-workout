@@ -86,6 +86,10 @@ import {
 import { getTrainingFrequency } from './domain/analytics/trainingFrequency';
 import { getWeeklyAverageRpe } from './domain/analytics/weeklyRpe';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
+import {
+  filterAnalyticsSets,
+  type AnalyticsSetFilter,
+} from './domain/analytics/setFilters';
 import { programSeed } from './data/programSeed';
 import {
   createTrainingYear,
@@ -127,6 +131,7 @@ import {
 import { scheduleLocalNotification } from './notifications/localNotifications';
 
 type TabKey = 'today' | 'year' | 'analytics' | 'history' | 'library';
+type HeatmapRange = 'year' | 'week' | 'block' | 'phase' | 'custom';
 
 type Tab = {
   key: TabKey;
@@ -338,6 +343,7 @@ export default function App() {
                 completedSets={analyticsSets}
                 dbStatus={dbStatus}
                 plannedVsActual={plannedVsActual}
+                position={position}
                 sessionDurations={sessionDurations}
                 strengthTrend={strengthTrend}
               />
@@ -882,6 +888,7 @@ function AnalyticsSummary({
   completedSets,
   dbStatus,
   plannedVsActual,
+  position,
   sessionDurations,
   strengthTrend,
 }: {
@@ -889,9 +896,13 @@ function AnalyticsSummary({
   completedSets: AnalyticsSet[];
   dbStatus: string;
   plannedVsActual: PlannedVsActualWorkout[];
+  position: ProgramPosition;
   sessionDurations: SessionDurationPoint[];
   strengthTrend: StrengthTrendPoint[];
 }) {
+  const [heatmapRange, setHeatmapRange] = useState<HeatmapRange>('year');
+  const [customStartDate, setCustomStartDate] = useState('');
+  const [customEndDate, setCustomEndDate] = useState('');
   const weeklyVolume = getWeeklyVolume(completedSets);
   const weeklyRpe = getWeeklyAverageRpe(completedSets);
   const blockComparison = compareBlocks(completedSets);
@@ -906,9 +917,14 @@ function AnalyticsSummary({
     0,
   );
   const categoryDistribution = getCategoryDistribution(completedSets);
-  const muscleHeatmap = calculateMuscleHeatmap(
-    calculateMuscleExposure(completedSets),
-  )
+  const heatmapFilter = getHeatmapFilter(
+    heatmapRange,
+    position,
+    customStartDate,
+    customEndDate,
+  );
+  const heatmapSets = filterAnalyticsSets(completedSets, heatmapFilter);
+  const muscleHeatmap = calculateMuscleHeatmap(calculateMuscleExposure(heatmapSets))
     .sort((a, b) => b.intensity - a.intensity)
     .slice(0, 8);
   const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
@@ -1091,6 +1107,41 @@ function AnalyticsSummary({
 
       <View style={styles.analyticsSection}>
         <Text style={styles.analyticsHeading}>Muscle Heatmap</Text>
+        <View style={styles.actionRow}>
+          {(['year', 'week', 'block', 'phase', 'custom'] as const).map((range) => (
+            <Pressable
+              accessibilityRole="button"
+              key={range}
+              onPress={() => setHeatmapRange(range)}
+              style={[
+                styles.secondaryButton,
+                heatmapRange === range ? styles.selectedButton : null,
+              ]}
+            >
+              <Text style={styles.secondaryButtonText}>
+                {formatHeatmapRange(range)}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+        {heatmapRange === 'custom' ? (
+          <View style={styles.setEntryRow}>
+            <TextInput
+              accessibilityLabel="Heatmap start date"
+              onChangeText={setCustomStartDate}
+              placeholder="YYYY-MM-DD"
+              style={[styles.baselineInput, styles.setEntryInput]}
+              value={customStartDate}
+            />
+            <TextInput
+              accessibilityLabel="Heatmap end date"
+              onChangeText={setCustomEndDate}
+              placeholder="YYYY-MM-DD"
+              style={[styles.baselineInput, styles.setEntryInput]}
+              value={customEndDate}
+            />
+          </View>
+        ) : null}
         {muscleHeatmap.length === 0 ? (
           <Text style={styles.summaryText}>No heatmap data from completed sets yet.</Text>
         ) : (
@@ -1906,6 +1957,51 @@ function PlannedActualRow({ item }: { item: PlannedVsActualWorkout }) {
       <Text style={styles.setPrescription}>{item.scheduledDate}</Text>
     </View>
   );
+}
+
+function getHeatmapFilter(
+  range: HeatmapRange,
+  position: ProgramPosition,
+  customStartDate: string,
+  customEndDate: string,
+): AnalyticsSetFilter {
+  if (range === 'custom') {
+    return isIsoDate(customStartDate) && isIsoDate(customEndDate)
+      ? { mode: 'date_range', fromDate: customStartDate, toDate: customEndDate }
+      : { mode: 'date_range', fromDate: '9999-12-31', toDate: '0000-01-01' };
+  }
+
+  if (position.status !== 'in_year') return { mode: 'all' };
+
+  if (range === 'week') {
+    return {
+      mode: 'date_range',
+      fromDate: position.week.startDate,
+      toDate: position.week.endDate,
+    };
+  }
+  if (range === 'block') {
+    return { mode: 'block', blockNumber: position.week.blockNumber };
+  }
+  if (range === 'phase' && position.week.phaseCode) {
+    return { mode: 'phase', phaseCode: position.week.phaseCode };
+  }
+
+  return { mode: 'all' };
+}
+
+function formatHeatmapRange(range: HeatmapRange) {
+  return {
+    year: 'Year',
+    week: 'Week',
+    block: 'Block',
+    phase: 'Phase',
+    custom: 'Custom',
+  }[range];
+}
+
+function isIsoDate(value: string) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
 
 function getCategoryDistribution(completedSets: AnalyticsSet[]) {
