@@ -14,7 +14,9 @@ import {
   getCalendarWorkouts,
   getCompletedAnalyticsSets,
   getEstimatedOneRmTrend,
+  getPlannedVsActualWorkouts,
   type AnalyticsSet,
+  type PlannedVsActualWorkout,
   type StrengthTrendPoint,
 } from './db/analyticsQueries';
 import {
@@ -190,6 +192,9 @@ export default function App() {
   const [nextWorkoutInstance, setNextWorkoutInstance] =
     useState<TodayWorkoutInstance | null>(null);
   const [analyticsSets, setAnalyticsSets] = useState<AnalyticsSet[]>([]);
+  const [plannedVsActual, setPlannedVsActual] = useState<PlannedVsActualWorkout[]>(
+    [],
+  );
   const [strengthTrend, setStrengthTrend] = useState<StrengthTrendPoint[]>([]);
   const [calendarWorkouts, setCalendarWorkouts] = useState<CalendarWorkout[]>([]);
   const [historyItems, setHistoryItems] = useState<WorkoutHistoryItem[]>([]);
@@ -245,6 +250,7 @@ export default function App() {
     setTodayInstance(await getTodayWorkoutInstance(database));
     setNextWorkoutInstance(await getNextWorkoutInstance(database));
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
+    setPlannedVsActual(await getPlannedVsActualWorkouts(database));
     setStrengthTrend(await getEstimatedOneRmTrend(database));
     setCalendarWorkouts(await getCalendarWorkouts(database));
     setHistoryItems(await getRecentWorkoutHistory(database));
@@ -323,6 +329,7 @@ export default function App() {
                 calendarWorkouts={calendarWorkouts}
                 completedSets={analyticsSets}
                 dbStatus={dbStatus}
+                plannedVsActual={plannedVsActual}
                 strengthTrend={strengthTrend}
               />
             ) : null}
@@ -845,11 +852,13 @@ function AnalyticsSummary({
   calendarWorkouts,
   completedSets,
   dbStatus,
+  plannedVsActual,
   strengthTrend,
 }: {
   calendarWorkouts: CalendarWorkout[];
   completedSets: AnalyticsSet[];
   dbStatus: string;
+  plannedVsActual: PlannedVsActualWorkout[];
   strengthTrend: StrengthTrendPoint[];
 }) {
   const weeklyVolume = getWeeklyVolume(completedSets);
@@ -974,6 +983,17 @@ function AnalyticsSummary({
               value={`${point.completed}/${point.scheduled} completed`}
               percent={(point.scheduled / maxFrequency) * 100}
             />
+          ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Planned vs Actual</Text>
+        {plannedVsActual.length === 0 ? (
+          <Text style={styles.summaryText}>No planned-versus-actual sessions yet.</Text>
+        ) : (
+          plannedVsActual.map((item) => (
+            <PlannedActualRow key={item.instanceId} item={item} />
           ))
         )}
       </View>
@@ -1767,6 +1787,36 @@ function CompositionBar({
   );
 }
 
+function PlannedActualRow({ item }: { item: PlannedVsActualWorkout }) {
+  const maxSets = Math.max(item.plannedWorkingSets, item.actualWorkingSets, 1);
+
+  return (
+    <View style={styles.barRow}>
+      <View style={styles.barLabels}>
+        <Text style={styles.barLabel}>{item.workoutName}</Text>
+        <Text style={styles.barValue}>
+          {item.actualWorkingSets}/{item.plannedWorkingSets} sets
+        </Text>
+      </View>
+      <View accessibilityLabel="Planned versus actual working sets" style={styles.stackedTrack}>
+        <View
+          style={[
+            styles.plannedSegment,
+            { flex: Math.max(item.plannedWorkingSets, 0.1) / maxSets },
+          ]}
+        />
+        <View
+          style={[
+            styles.actualSegment,
+            { flex: Math.max(item.actualWorkingSets, 0.1) / maxSets },
+          ]}
+        />
+      </View>
+      <Text style={styles.setPrescription}>{item.scheduledDate}</Text>
+    </View>
+  );
+}
+
 function getCategoryDistribution(completedSets: AnalyticsSet[]) {
   const volumeByCategory = new Map<string, number>();
   for (const set of completedSets) {
@@ -2183,6 +2233,19 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 2,
+  },
+  stackedTrack: {
+    flexDirection: 'row',
+    height: 10,
+    overflow: 'hidden',
+    borderRadius: 4,
+    backgroundColor: '#E2E8F0',
+  },
+  plannedSegment: {
+    backgroundColor: '#CBD5E1',
+  },
+  actualSegment: {
+    backgroundColor: '#1E3A5F',
   },
   heatmapFigures: {
     flexDirection: 'row',

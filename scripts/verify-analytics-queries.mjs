@@ -8,6 +8,7 @@ const {
   getCalendarWorkouts,
   getCompletedAnalyticsSets,
   getEstimatedOneRmTrend,
+  getPlannedVsActualWorkouts,
 } = await import('../src/db/analyticsQueries.ts');
 
 const rows = [
@@ -86,5 +87,27 @@ assert.equal(strengthCalls[0].limit, 3);
 assert.match(strengthCalls[0].sql, /FROM personal_records/);
 assert.match(strengthCalls[0].sql, /pr_type = 'estimated_1rm'/);
 assert.match(strengthCalls[0].sql, /ORDER BY pr\.achieved_at DESC/);
+
+const plannedActualRows = [
+  {
+    instanceId: 'instance_1',
+    workoutName: 'Day 1',
+    scheduledDate: '2026-01-01',
+    plannedWorkingSets: 12,
+    actualWorkingSets: 10,
+  },
+];
+const plannedActualCalls = [];
+const plannedActualDb = {
+  async getAllAsync(sql, limit) {
+    plannedActualCalls.push({ sql, limit });
+    return plannedActualRows;
+  },
+};
+assert.deepEqual(await getPlannedVsActualWorkouts(plannedActualDb, 4), plannedActualRows);
+assert.equal(plannedActualCalls[0].limit, 4);
+assert.match(plannedActualCalls[0].sql, /program_set_prescriptions/);
+assert.match(plannedActualCalls[0].sql, /wl\.total_working_sets/);
+assert.match(plannedActualCalls[0].sql, /wi\.status IN \('in_progress', 'completed'\)/);
 
 console.log('analytics queries verified');

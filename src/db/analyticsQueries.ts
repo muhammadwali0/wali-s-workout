@@ -20,6 +20,14 @@ export type StrengthTrendPoint = {
   achievedAt: string;
 };
 
+export type PlannedVsActualWorkout = {
+  instanceId: string;
+  workoutName: string;
+  scheduledDate: string;
+  plannedWorkingSets: number;
+  actualWorkingSets: number;
+};
+
 export async function getCompletedAnalyticsSets(
   db: Pick<TrainingDatabase, 'getAllAsync'>,
 ): Promise<AnalyticsSet[]> {
@@ -78,6 +86,38 @@ export async function getEstimatedOneRmTrend(
      WHERE pr.pr_type = 'estimated_1rm'
        AND pr.estimated_1rm IS NOT NULL
      ORDER BY pr.achieved_at DESC
+     LIMIT ?`,
+    limit,
+  );
+}
+
+export async function getPlannedVsActualWorkouts(
+  db: Pick<TrainingDatabase, 'getAllAsync'>,
+  limit = 8,
+): Promise<PlannedVsActualWorkout[]> {
+  return db.getAllAsync<PlannedVsActualWorkout>(
+    `SELECT
+       wi.id AS instanceId,
+       pw.name AS workoutName,
+       wi.scheduled_date AS scheduledDate,
+       COALESCE((
+         SELECT SUM(psp.target_sets)
+         FROM program_exercises pe
+         JOIN program_set_prescriptions psp ON psp.program_exercise_id = pe.id
+         WHERE pe.program_workout_id = pw.id
+           AND psp.set_type != 'warmup'
+       ), 0) AS plannedWorkingSets,
+       COALESCE((
+         SELECT wl.total_working_sets
+         FROM workout_logs wl
+         WHERE wl.workout_instance_id = wi.id
+         ORDER BY COALESCE(wl.completed_at, wl.started_at, wl.updated_at) DESC
+         LIMIT 1
+       ), 0) AS actualWorkingSets
+     FROM workout_instances wi
+     JOIN program_workouts pw ON pw.id = wi.program_workout_id
+     WHERE wi.status IN ('in_progress', 'completed')
+     ORDER BY wi.scheduled_date DESC, wi.sequence_index DESC
      LIMIT ?`,
     limit,
   );
