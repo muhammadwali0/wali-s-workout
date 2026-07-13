@@ -38,6 +38,10 @@ import {
   type CurrentOneRmRecord,
 } from './db/oneRmQueries';
 import {
+  getRecentPersonalRecords,
+  type PersonalRecordItem,
+} from './db/personalRecordQueries';
+import {
   getMissedWorkoutInstances,
   markOverdueWorkoutsMissed,
   resolveMissedWorkoutInstance,
@@ -156,6 +160,9 @@ export default function App() {
     ActiveExerciseReplacement[]
   >([]);
   const [missedWorkouts, setMissedWorkouts] = useState<MissedWorkoutItem[]>([]);
+  const [personalRecords, setPersonalRecords] = useState<PersonalRecordItem[]>(
+    [],
+  );
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -187,6 +194,7 @@ export default function App() {
     setExerciseAlternatives(await getExerciseAlternatives(database));
     setActiveReplacements(await getActiveExerciseReplacements(database));
     setMissedWorkouts(await getMissedWorkoutInstances(database));
+    setPersonalRecords(await getRecentPersonalRecords(database));
   };
 
   useEffect(() => {
@@ -254,7 +262,11 @@ export default function App() {
               />
             ) : null}
             {activeTab === 'history' ? (
-              <HistorySummary dbStatus={dbStatus} historyItems={historyItems} />
+              <HistorySummary
+                dbStatus={dbStatus}
+                historyItems={historyItems}
+                personalRecords={personalRecords}
+              />
             ) : null}
             {activeTab === 'year' ? (
               <YearSummary
@@ -603,9 +615,11 @@ function AnalyticsSummary({
 function HistorySummary({
   dbStatus,
   historyItems,
+  personalRecords,
 }: {
   dbStatus: string;
   historyItems: WorkoutHistoryItem[];
+  personalRecords: PersonalRecordItem[];
 }) {
   return (
     <View style={styles.summaryBlock}>
@@ -623,6 +637,21 @@ function HistorySummary({
               <Text style={styles.setPrescription}>
                 {item.status} - {item.completedAt ?? item.scheduledDate} -{' '}
                 {item.totalWorkingSets ?? 0} working sets - {item.totalVolume ?? 0} kg reps
+              </Text>
+            </View>
+          ))
+        )}
+      </View>
+      <View style={styles.baselinePanel}>
+        <Text style={styles.summaryTitle}>Personal Records</Text>
+        {personalRecords.length === 0 ? (
+          <Text style={styles.summaryText}>No personal records saved yet.</Text>
+        ) : (
+          personalRecords.map((record) => (
+            <View key={record.recordId} style={styles.setRow}>
+              <Text style={styles.setExercise}>{record.exerciseName}</Text>
+              <Text style={styles.setPrescription}>
+                {formatPersonalRecord(record)} - {record.achievedAt}
               </Text>
             </View>
           ))
@@ -993,6 +1022,21 @@ function formatSuggestedLoad(
   if (!load) return '';
   if (load.roundedLow === load.roundedHigh) return ` - ${load.roundedLow} ${unit}`;
   return ` - ${load.roundedLow}-${load.roundedHigh} ${unit}`;
+}
+
+function formatPersonalRecord(record: PersonalRecordItem) {
+  if (record.prType === 'max_weight') {
+    return `Max weight ${record.weight ?? 0} ${record.unit ?? ''}`.trim();
+  }
+  if (record.prType === 'rep_pr') {
+    return `${record.reps ?? 0} reps at ${record.weight ?? 0} ${record.unit ?? ''}`.trim();
+  }
+  if (record.prType === 'estimated_1rm') {
+    return `Estimated 1RM ${Math.round((record.estimatedOneRm ?? 0) * 10) / 10} ${
+      record.unit ?? ''
+    }`.trim();
+  }
+  return `Volume ${record.volume ?? 0} ${record.unit ?? ''} reps`.trim();
 }
 
 function getDefaultReps(targetReps: string | null) {
