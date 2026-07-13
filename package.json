@@ -9,6 +9,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "verify:alternatives": "node --experimental-strip-types scripts/verify-alternatives.mjs",
     "verify:load": "node --experimental-strip-types scripts/verify-load-calculator.mjs",
     "verify:schema": "node scripts/verify-schema.mjs",
     "verify:year": "node --experimental-strip-types scripts/verify-year-engine.mjs",
