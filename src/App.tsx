@@ -15,6 +15,10 @@ import {
   getCompletedAnalyticsSets,
   type AnalyticsSet,
 } from './db/analyticsQueries';
+import {
+  getExerciseAlternatives,
+  type ExerciseAlternativeItem,
+} from './db/alternativeQueries';
 import { openTrainingDatabase, type TrainingDatabase } from './db/database';
 import {
   getTodayWorkoutInstance,
@@ -130,6 +134,9 @@ export default function App() {
   );
   const [oneRmRecords, setOneRmRecords] = useState<CurrentOneRmRecord[]>([]);
   const [appSettings, setAppSettings] = useState<AppSettings>(defaultSettings);
+  const [exerciseAlternatives, setExerciseAlternatives] = useState<
+    ExerciseAlternativeItem[]
+  >([]);
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -157,6 +164,7 @@ export default function App() {
     setLibraryExercises(await getExerciseLibrary(database));
     setOneRmRecords(await getCurrentOneRmRecords(database));
     setAppSettings(await getAppSettings(database));
+    setExerciseAlternatives(await getExerciseAlternatives(database));
   };
 
   useEffect(() => {
@@ -230,6 +238,7 @@ export default function App() {
                 db={db}
                 appSettings={appSettings}
                 dbStatus={dbStatus}
+                exerciseAlternatives={exerciseAlternatives}
                 exercises={libraryExercises}
                 onSaved={refreshLocalData}
                 oneRmRecords={oneRmRecords}
@@ -584,6 +593,7 @@ function LibrarySummary({
   appSettings,
   db,
   dbStatus,
+  exerciseAlternatives,
   exercises,
   onSaved,
   oneRmRecords,
@@ -591,6 +601,7 @@ function LibrarySummary({
   appSettings: AppSettings;
   db: TrainingDatabase | null;
   dbStatus: string;
+  exerciseAlternatives: ExerciseAlternativeItem[];
   exercises: ExerciseLibraryItem[];
   onSaved: (database: TrainingDatabase) => Promise<void>;
   oneRmRecords: CurrentOneRmRecord[];
@@ -601,6 +612,13 @@ function LibrarySummary({
   const recordByExercise = new Map(
     oneRmRecords.map((record) => [record.exerciseId, record]),
   );
+  const alternativesByExercise = new Map<string, ExerciseAlternativeItem[]>();
+  for (const alternative of exerciseAlternatives) {
+    alternativesByExercise.set(alternative.sourceExerciseId, [
+      ...(alternativesByExercise.get(alternative.sourceExerciseId) ?? []),
+      alternative,
+    ]);
+  }
   const baselineExercises = exercises.slice(0, 5);
   const saveBaseline = async (exerciseId: string) => {
     if (!db) return;
@@ -694,6 +712,17 @@ function LibrarySummary({
                 {exercise.primaryMuscles ?? 'No primary muscle'} -{' '}
                 {exercise.alternativeCount} alternatives
               </Text>
+              {(alternativesByExercise.get(exercise.exerciseId) ?? [])
+                .slice(0, 2)
+                .map((alternative) => (
+                  <Text
+                    key={alternative.alternativeExerciseId}
+                    style={styles.setPrescription}
+                  >
+                    Substitute: {alternative.alternativeName} -{' '}
+                    {alternative.compatibilityScore}% match
+                  </Text>
+                ))}
             </View>
           ))
         )}
