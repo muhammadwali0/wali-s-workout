@@ -1,0 +1,70 @@
+# Private instructions and project references
+/AGENTS.md
+/docs/
+/data/program/
+/.codex-private/
+
+# Source documents
+*.pdf
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+
+secrets/
+credentials/
+
+# Android
+local.properties
+.gradle/
+**/build/
+*.apk
+*.aab
+captures/
+
+# JavaScript / TypeScript
+node_modules/
+dist/
+.next/
+.expo/
+.expo-shared/
+coverage/
+
+# Native generated files
+android/.gradle/
+android/app/build/
+android/build/
+ios/Pods/
+ios/build/
+DerivedData/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+tmp/
+temp/
+.cache/
+
+# Tests and tooling
+.nyc_output/
+playwright-report/
+test-results/
