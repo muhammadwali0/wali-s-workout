@@ -12,6 +12,7 @@ export type ActualSet = {
 
 export type WorkoutDraft = {
   workoutId: string;
+  startedAt: string;
   status: 'draft' | 'completed';
   plannedSets: readonly PlannedSet[];
   actualSets: readonly ActualSet[];
@@ -22,9 +23,11 @@ export const skippedSetNote = 'Skipped set';
 export function createWorkoutDraft(
   workoutId: string,
   plannedSets: readonly PlannedSet[],
+  startedAt = new Date().toISOString(),
 ): WorkoutDraft {
   return {
     workoutId,
+    startedAt,
     status: 'draft',
     plannedSets,
     actualSets: plannedSets.map((set) => ({

@@ -34,9 +34,12 @@ export function buildWorkoutLogRows(
     workoutLog: {
       id: input.workoutLogId,
       workout_instance_id: input.workoutInstanceId,
-      started_at: input.recordedAt,
+      started_at: draft.startedAt,
       completed_at: draft.status === 'completed' ? input.recordedAt : null,
-      duration_seconds: null,
+      duration_seconds:
+        draft.status === 'completed'
+          ? getDurationSeconds(draft.startedAt, input.recordedAt)
+          : null,
       status: draft.status,
       average_rpe: summary.averageRpe,
       total_volume: summary.totalVolume,
@@ -148,6 +151,13 @@ export async function saveWorkoutDraft(
     await db.execAsync('ROLLBACK');
     throw error;
   }
+}
+
+function getDurationSeconds(startedAt: string, completedAt: string) {
+  const started = new Date(startedAt).getTime();
+  const completed = new Date(completedAt).getTime();
+  if (!Number.isFinite(started) || !Number.isFinite(completed)) return null;
+  return Math.max(0, Math.floor((completed - started) / 1000));
 }
 
 function getExerciseLogRows(

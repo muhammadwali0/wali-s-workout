@@ -5,6 +5,7 @@ import { skippedSetNote, type WorkoutDraft } from '../domain/workout/workoutLog.
 type SavedWorkoutRow = {
   workoutLogId: string;
   status: 'draft' | 'completed' | 'discarded';
+  startedAt: string | null;
 };
 
 type SavedSetRow = {
@@ -24,7 +25,7 @@ export async function getSavedWorkoutDraft(
   plannedSets: readonly PlannedSet[],
 ): Promise<WorkoutDraft | null> {
   const log = await db.getFirstAsync<SavedWorkoutRow>(
-    `SELECT id AS workoutLogId, status
+    `SELECT id AS workoutLogId, status, started_at AS startedAt
      FROM workout_logs
      WHERE workout_instance_id = ?
        AND status IN ('draft', 'completed')
@@ -55,6 +56,7 @@ export async function getSavedWorkoutDraft(
 
   return {
     workoutId,
+    startedAt: log.startedAt ?? new Date().toISOString(),
     status: log.status === 'completed' ? 'completed' : 'draft',
     plannedSets,
     actualSets: plannedSets.map((set) => {

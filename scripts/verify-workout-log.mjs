@@ -20,7 +20,12 @@ const due = getDueWorkout(getProgramPosition('2026-01-01', year));
 assert.equal(due.status, 'workout_due');
 
 const plannedSets = createPlannedSets(due.workout);
-const draft = createWorkoutDraft(due.workout.id, plannedSets);
+const draft = createWorkoutDraft(
+  due.workout.id,
+  plannedSets,
+  '2026-01-01T10:00:00Z',
+);
+assert.equal(draft.startedAt, '2026-01-01T10:00:00Z');
 assert.equal(draft.actualSets.length, plannedSets.length);
 assert.equal(summarizeWorkoutDraft(draft).completedSets, 0);
 assert.equal(draft.actualSets[0].skipped, false);

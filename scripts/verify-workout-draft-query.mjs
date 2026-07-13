@@ -44,7 +44,11 @@ const calls = [];
 const db = {
   async getFirstAsync(sql, instanceId) {
     calls.push({ sql, instanceId });
-    return { workoutLogId: 'log_1', status: 'draft' };
+    return {
+      workoutLogId: 'log_1',
+      status: 'draft',
+      startedAt: '2026-01-01T09:55:00Z',
+    };
   },
   async getAllAsync(sql, workoutLogId) {
     calls.push({ sql, workoutLogId });
@@ -73,6 +77,7 @@ const db = {
 
 const draft = await getSavedWorkoutDraft(db, 'instance_1', 'workout_1', plannedSets);
 assert.equal(draft.status, 'draft');
+assert.equal(draft.startedAt, '2026-01-01T09:55:00Z');
 assert.equal(draft.actualSets[0].completed, true);
 assert.equal(draft.actualSets[0].skipped, false);
 assert.equal(draft.actualSets[0].weight, 100);

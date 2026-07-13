@@ -22,11 +22,15 @@ const due = getDueWorkout(getProgramPosition('2026-01-01', year));
 assert.equal(due.status, 'workout_due');
 
 const plannedSets = createPlannedSets(due.workout);
-const draft = completeSet(createWorkoutDraft(due.workout.id, plannedSets), plannedSets[0].id, {
-  weight: 20,
-  reps: 5,
-  rpe: 6,
-});
+const draft = completeSet(
+  createWorkoutDraft(due.workout.id, plannedSets, '2026-01-01T09:55:00Z'),
+  plannedSets[0].id,
+  {
+    weight: 20,
+    reps: 5,
+    rpe: 6,
+  },
+);
 const rows = buildWorkoutLogRows(draft, {
   workoutLogId: 'log_1',
   workoutInstanceId: 'instance_1',
@@ -36,6 +40,8 @@ const rows = buildWorkoutLogRows(draft, {
 
 assert.equal(rows.workoutLog.id, 'log_1');
 assert.equal(rows.workoutLog.status, 'draft');
+assert.equal(rows.workoutLog.started_at, '2026-01-01T09:55:00Z');
+assert.equal(rows.workoutLog.duration_seconds, null);
 assert.equal(rows.workoutLog.total_volume, 100);
 assert.equal(rows.workoutLog.total_working_sets, 0);
 assert.equal(rows.exerciseLogs.length, due.workout.exercises.length);
@@ -94,7 +100,7 @@ const skippedRows = buildWorkoutLogRows(
     .filter((set) => set.exerciseOrder === 1)
     .reduce(
       (current, set) => skipSet(current, set.id),
-      createWorkoutDraft(due.workout.id, plannedSets),
+      createWorkoutDraft(due.workout.id, plannedSets, '2026-01-01T09:55:00Z'),
     ),
   {
     workoutLogId: 'log_skip',
@@ -149,16 +155,19 @@ calls.length = 0;
 const completeDraft = completeWorkout(
   plannedSets.reduce(
     (current, set) => completeSet(current, set.id, { weight: 10, reps: 1 }),
-    createWorkoutDraft(due.workout.id, plannedSets),
+    createWorkoutDraft(due.workout.id, plannedSets, '2026-01-02T09:50:00Z'),
   ),
 );
+const completeRows = buildWorkoutLogRows(completeDraft, {
+  workoutLogId: 'log_complete_rows',
+  workoutInstanceId: 'instance_rows',
+  recordedAt: '2026-01-02T10:00:00Z',
+  unit: 'kg',
+});
+assert.equal(completeRows.workoutLog.started_at, '2026-01-02T09:50:00Z');
+assert.equal(completeRows.workoutLog.duration_seconds, 600);
 assert.equal(
-  buildWorkoutLogRows(completeDraft, {
-    workoutLogId: 'log_complete_rows',
-    workoutInstanceId: 'instance_rows',
-    recordedAt: '2026-01-02T10:00:00Z',
-    unit: 'kg',
-  }).exerciseLogs[0].status,
+  completeRows.exerciseLogs[0].status,
   'completed',
 );
 await saveWorkoutDraft(db, completeDraft, {
