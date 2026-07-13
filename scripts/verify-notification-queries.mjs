@@ -34,6 +34,7 @@ const db = {
         title: 'Training session due',
         body: 'Day 1',
         status: 'scheduled',
+        externalNotificationId: 'native_1',
       },
     ];
   },
@@ -62,12 +63,17 @@ const id = await savePlannedNotification(
     body: 'Day 1',
   },
   'instance_1',
+  'native_1',
 );
 assert.equal(id, 'workout_due_2026-01-01T07:30:00_instance_1');
 assert.match(calls[3].sql, /INSERT OR REPLACE INTO scheduled_notifications/);
+assert.equal(calls[3].params[8], 'native_1');
 
-assert.equal((await getScheduledNotifications(db, 5))[0].type, 'workout_due');
+const scheduled = await getScheduledNotifications(db, 5);
+assert.equal(scheduled[0].type, 'workout_due');
+assert.equal(scheduled[0].externalNotificationId, 'native_1');
 assert.equal(calls[4].limit, 5);
 assert.match(calls[4].sql, /WHERE status = 'scheduled'/);
+assert.match(calls[4].sql, /external_notification_id AS externalNotificationId/);
 
 console.log('notification queries verified');

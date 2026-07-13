@@ -9,6 +9,7 @@ const settingsId = 'default';
 export type ScheduledNotificationItem = PlannedNotification & {
   id: string;
   status: 'scheduled' | 'sent' | 'cancelled';
+  externalNotificationId: string | null;
 };
 
 type NotificationSettingsRow = {
@@ -96,6 +97,7 @@ export async function savePlannedNotification(
   db: Pick<TrainingDatabase, 'runAsync'>,
   notification: PlannedNotification,
   relatedEntityId: string | null = null,
+  externalNotificationId: string | null = null,
 ) {
   const now = new Date().toISOString();
   const id = `${notification.type}_${notification.scheduledFor}_${relatedEntityId ?? 'app'}`;
@@ -121,7 +123,7 @@ export async function savePlannedNotification(
     notification.title,
     notification.body,
     'scheduled',
-    null,
+    externalNotificationId,
     now,
     now,
   );
@@ -139,7 +141,8 @@ export async function getScheduledNotifications(
        scheduled_for AS scheduledFor,
        title,
        body,
-       status
+       status,
+       external_notification_id AS externalNotificationId
      FROM scheduled_notifications
      WHERE status = 'scheduled'
      ORDER BY scheduled_for

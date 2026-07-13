@@ -102,6 +102,7 @@ import {
   getRestTimerState,
   type RestTimer,
 } from './domain/workout/restTimer';
+import { scheduleLocalNotification } from './notifications/localNotifications';
 
 type TabKey = 'today' | 'year' | 'analytics' | 'history' | 'library';
 
@@ -971,7 +972,13 @@ function LibrarySummary({
       return;
     }
 
-    await savePlannedNotification(db, notification);
+    const externalNotificationId = await scheduleLocalNotification(notification);
+    if (!externalNotificationId) {
+      setSaveStatus('Notification permission denied or time has passed');
+      return;
+    }
+
+    await savePlannedNotification(db, notification, null, externalNotificationId);
     await onSaved(db);
     setSaveStatus('Workout reminder scheduled');
   };
