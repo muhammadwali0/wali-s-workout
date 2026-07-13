@@ -59,7 +59,10 @@ import {
 import { defaultSettings, type AppSettings } from './domain/settings/appSettings';
 import { getSuggestedLoad } from './domain/load/suggestedLoad';
 import { getDueWorkout } from './domain/program/seedResolver';
-import { createPlannedSets } from './domain/workout/sessionPlanner';
+import {
+  applyExerciseReplacements,
+  createPlannedSets,
+} from './domain/workout/sessionPlanner';
 import {
   completeSet,
   completeWorkout,
@@ -225,6 +228,7 @@ export default function App() {
                 db={db}
                 dbReady={db !== null}
                 dbStatus={dbStatus}
+                activeReplacements={activeReplacements}
                 appSettings={appSettings}
                 dueWorkout={dueWorkout}
                 onSaved={refreshLocalData}
@@ -299,6 +303,7 @@ function TodayWorkoutSummary({
   db,
   dbReady,
   dbStatus,
+  activeReplacements,
   appSettings,
   dueWorkout,
   onSaved,
@@ -308,6 +313,7 @@ function TodayWorkoutSummary({
   db: TrainingDatabase | null;
   dbReady: boolean;
   dbStatus: string;
+  activeReplacements: ActiveExerciseReplacement[];
   appSettings: AppSettings;
   dueWorkout: ReturnType<typeof getDueWorkout>;
   onSaved: (database: TrainingDatabase) => Promise<void>;
@@ -332,7 +338,10 @@ function TodayWorkoutSummary({
   }, [restTimer]);
 
   if (dueWorkout.status === 'workout_due') {
-    const plannedSets = createPlannedSets(dueWorkout.workout);
+    const plannedSets = applyExerciseReplacements(
+      createPlannedSets(dueWorkout.workout),
+      activeReplacements,
+    );
     const previewSets = plannedSets.slice(0, 5);
     const summary = draft ? summarizeWorkoutDraft(draft) : null;
     const nextSet = draft?.actualSets.find((set) => !set.completed);
@@ -458,6 +467,11 @@ function TodayWorkoutSummary({
           {previewSets.map((set) => (
             <View key={set.id} style={styles.setRow}>
               <Text style={styles.setExercise}>{set.exerciseName}</Text>
+              {set.substitutionScope ? (
+                <Text style={styles.setPrescription}>
+                  Original: {set.originalExerciseName} - {set.substitutionScope}
+                </Text>
+              ) : null}
               <Text style={styles.setPrescription}>
                 Set {set.setNumber} - {set.setType}
                 {set.targetReps ? ` - ${set.targetReps} reps` : ''}

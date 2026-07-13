@@ -4,6 +4,9 @@ export type PlannedSet = {
   id: string;
   exerciseId: string;
   exerciseName: string;
+  originalExerciseId: string;
+  originalExerciseName: string;
+  substitutionScope: string | null;
   exerciseOrder: number;
   setNumber: number;
   setType: string;
@@ -14,6 +17,13 @@ export type PlannedSet = {
   targetRpeHigh: number | null;
   restSecondsMin: number | null;
   restSecondsMax: number | null;
+};
+
+export type PlannedExerciseReplacement = {
+  originalExerciseId: string;
+  replacementExerciseId: string;
+  replacementName: string;
+  scope: string;
 };
 
 export function createPlannedSets(workout: SeedWorkout): PlannedSet[] {
@@ -28,6 +38,9 @@ export function createPlannedSets(workout: SeedWorkout): PlannedSet[] {
           id: `${prescription.id}_${index + 1}`,
           exerciseId: exercise.exerciseId,
           exerciseName: exercise.name,
+          originalExerciseId: exercise.exerciseId,
+          originalExerciseName: exercise.name,
+          substitutionScope: null,
           exerciseOrder: exercise.sortOrder,
           setNumber,
           setType: prescription.setType,
@@ -45,6 +58,30 @@ export function createPlannedSets(workout: SeedWorkout): PlannedSet[] {
         };
       }),
     );
+  });
+}
+
+export function applyExerciseReplacements(
+  plannedSets: readonly PlannedSet[],
+  replacements: readonly PlannedExerciseReplacement[],
+): PlannedSet[] {
+  const replacementByExercise = new Map(
+    replacements.map((replacement) => [
+      replacement.originalExerciseId,
+      replacement,
+    ]),
+  );
+
+  return plannedSets.map((set) => {
+    const replacement = replacementByExercise.get(set.originalExerciseId);
+    if (!replacement) return set;
+
+    return {
+      ...set,
+      exerciseId: replacement.replacementExerciseId,
+      exerciseName: replacement.replacementName,
+      substitutionScope: replacement.scope,
+    };
   });
 }
 

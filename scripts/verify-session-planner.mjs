@@ -4,7 +4,7 @@ const { createTrainingYear, getProgramPosition } = await import(
   '../src/domain/program/yearEngine.ts'
 );
 const { getDueWorkout } = await import('../src/domain/program/seedResolver.ts');
-const { createPlannedSets } = await import(
+const { applyExerciseReplacements, createPlannedSets } = await import(
   '../src/domain/workout/sessionPlanner.ts'
 );
 
@@ -18,6 +18,9 @@ assert.deepEqual(sets[0], {
   id: 'phase1_w01_d1_e01_s01_1',
   exerciseId: 'back_squat',
   exerciseName: 'Back Squat',
+  originalExerciseId: 'back_squat',
+  originalExerciseName: 'Back Squat',
+  substitutionScope: null,
   exerciseOrder: 1,
   setNumber: 1,
   setType: 'warmup',
@@ -31,5 +34,20 @@ assert.deepEqual(sets[0], {
 });
 assert.equal(sets.filter((set) => set.exerciseId === 'back_squat').length, 7);
 assert.equal(sets.find((set) => set.setType === 'working').targetReps, '5');
+
+const personalized = applyExerciseReplacements(sets, [
+  {
+    originalExerciseId: 'back_squat',
+    replacementExerciseId: 'front_squat',
+    replacementName: 'Front Squat',
+    scope: 'today_only',
+  },
+]);
+assert.equal(personalized[0].exerciseId, 'front_squat');
+assert.equal(personalized[0].exerciseName, 'Front Squat');
+assert.equal(personalized[0].originalExerciseId, 'back_squat');
+assert.equal(personalized[0].originalExerciseName, 'Back Squat');
+assert.equal(personalized[0].substitutionScope, 'today_only');
+assert.equal(sets[0].exerciseId, 'back_squat');
 
 console.log('session planner verified');
