@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Pressable,
   SafeAreaView,
@@ -29,6 +29,13 @@ import {
 } from './domain/program/yearEngine';
 import { getDueWorkout } from './domain/program/seedResolver';
 import { createPlannedSets } from './domain/workout/sessionPlanner';
+import {
+  completeSet,
+  completeWorkout,
+  createWorkoutDraft,
+  summarizeWorkoutDraft,
+  type WorkoutDraft,
+} from './domain/workout/workoutLog';
 
 type TabKey = 'today' | 'year' | 'analytics' | 'history' | 'library';
 
@@ -218,9 +225,17 @@ function TodayWorkoutSummary({
 }: {
   dueWorkout: ReturnType<typeof getDueWorkout>;
 }) {
+  const [draft, setDraft] = useState<WorkoutDraft | null>(null);
+
+  useEffect(() => {
+    setDraft(null);
+  }, [dueWorkout.status === 'workout_due' ? dueWorkout.workout.id : dueWorkout.status]);
+
   if (dueWorkout.status === 'workout_due') {
     const plannedSets = createPlannedSets(dueWorkout.workout);
     const previewSets = plannedSets.slice(0, 5);
+    const summary = draft ? summarizeWorkoutDraft(draft) : null;
+    const nextSet = draft?.actualSets.find((set) => !set.completed);
 
     return (
       <View style={styles.summaryBlock}>
@@ -232,6 +247,70 @@ function TodayWorkoutSummary({
         <Text style={styles.summaryText}>
           Main lifts: {dueWorkout.mainLifts.join(', ')}
         </Text>
+        <View style={styles.sessionPanel}>
+          <Text style={styles.sessionTitle}>Workout Execution</Text>
+          <Text style={styles.summaryText}>
+            {summary
+              ? `${summary.completedSets}/${summary.plannedSets} sets - ${summary.totalVolume} kg reps`
+              : 'No active local draft'}
+          </Text>
+          <View style={styles.actionRow}>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() =>
+                setDraft(createWorkoutDraft(dueWorkout.workout.id, plannedSets))
+              }
+              style={styles.primaryButton}
+            >
+              <Text style={styles.primaryButtonText}>
+                {draft ? 'Restart' : 'Start'}
+              </Text>
+            </Pressable>
+            {draft && nextSet ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() =>
+                  setDraft(
+                    completeSet(draft, nextSet.plannedSetId, {
+                      weight: 0,
+                      reps: getDefaultReps(
+                        plannedSets.find((set) => set.id === nextSet.plannedSetId)
+                          ?.targetReps ?? null,
+                      ),
+                      rpe:
+                        plannedSets.find((set) => set.id === nextSet.plannedSetId)
+                          ?.targetRpeHigh ?? null,
+                    }),
+                  )
+                }
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Log Next Set</Text>
+              </Pressable>
+            ) : null}
+            {draft && summary?.isComplete && draft.status !== 'completed' ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => setDraft(completeWorkout(draft))}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Finish</Text>
+              </Pressable>
+            ) : null}
+          </View>
+          {draft ? (
+            <Text style={styles.currentSetText}>
+              {nextSet
+                ? `Next: ${
+                    plannedSets.find((set) => set.id === nextSet.plannedSetId)
+                      ?.exerciseName ?? 'Set'
+                  }`
+                : draft.status === 'completed'
+                  ? 'Workout completed'
+                  : 'All sets logged'}
+            </Text>
+          ) : null}
+        </View>
         <View style={styles.setPreview}>
           {previewSets.map((set) => (
             <View key={set.id} style={styles.setRow}>
@@ -366,6 +445,11 @@ function formatRpeRange(low: number | null, high: number | null) {
   return ` - RPE ${low ?? high}-${high ?? low}`;
 }
 
+function getDefaultReps(targetReps: string | null) {
+  const match = targetReps?.match(/\d+/);
+  return match ? Number(match[0]) : 1;
+}
+
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -462,6 +546,57 @@ const styles = StyleSheet.create({
   setPreview: {
     marginTop: 14,
     gap: 8,
+  },
+  sessionPanel: {
+    marginTop: 14,
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    borderRadius: 8,
+    padding: 12,
+    backgroundColor: '#F8FAFC',
+  },
+  sessionTitle: {
+    color: '#111827',
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  actionRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginTop: 10,
+  },
+  primaryButton: {
+    minHeight: 42,
+    justifyContent: 'center',
+    borderRadius: 6,
+    paddingHorizontal: 14,
+    backgroundColor: '#1E3A5F',
+  },
+  primaryButtonText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  secondaryButton: {
+    minHeight: 42,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#1E3A5F',
+    borderRadius: 6,
+    paddingHorizontal: 14,
+    backgroundColor: '#FFFFFF',
+  },
+  secondaryButtonText: {
+    color: '#1E3A5F',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  currentSetText: {
+    marginTop: 10,
+    color: '#475569',
+    fontSize: 13,
+    lineHeight: 18,
   },
   setRow: {
     borderLeftWidth: 3,
