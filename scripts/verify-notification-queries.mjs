@@ -46,13 +46,16 @@ assert.match(calls[0].sql, /INSERT OR IGNORE INTO notification_settings/);
 await saveNotificationSettings(db, {
   workoutRemindersEnabled: false,
   workoutReminderTime: null,
-  missedWorkoutEnabled: true,
+  missedWorkoutEnabled: false,
   missedWorkoutTime: '21:00',
   unfinishedSessionEnabled: true,
-  deloadRemindersEnabled: true,
-  testWeekRemindersEnabled: true,
+  deloadRemindersEnabled: false,
+  testWeekRemindersEnabled: false,
 });
 assert.equal(calls[2].params[1], 0);
+assert.equal(calls[2].params[3], 0);
+assert.equal(calls[2].params[6], 0);
+assert.equal(calls[2].params[7], 0);
 
 const id = await savePlannedNotification(
   db,

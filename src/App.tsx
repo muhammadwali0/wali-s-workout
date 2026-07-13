@@ -1031,6 +1031,21 @@ function LibrarySummary({
     await onSaved(db);
     setSaveStatus('Notification settings saved');
   };
+  const toggleNotificationSetting = async (
+    key:
+      | 'missedWorkoutEnabled'
+      | 'deloadRemindersEnabled'
+      | 'testWeekRemindersEnabled',
+  ) => {
+    if (!db) return;
+
+    await saveNotificationSettings(db, {
+      ...notificationSettings,
+      [key]: !notificationSettings[key],
+    });
+    await onSaved(db);
+    setSaveStatus('Notification settings saved');
+  };
   const saveReminderTimes = async () => {
     if (!db) return;
 
@@ -1134,6 +1149,11 @@ function LibrarySummary({
         <Text style={styles.summaryText}>
           Missed workout reminder: {notificationSettings.missedWorkoutTime ?? 'unset'}
         </Text>
+        <Text style={styles.summaryText}>
+          Missed: {notificationSettings.missedWorkoutEnabled ? 'on' : 'off'} - Deload/taper:{' '}
+          {notificationSettings.deloadRemindersEnabled ? 'on' : 'off'} - Test week:{' '}
+          {notificationSettings.testWeekRemindersEnabled ? 'on' : 'off'}
+        </Text>
         <View style={styles.actionRow}>
           <TextInput
             accessibilityLabel="Workout reminder time"
@@ -1157,6 +1177,27 @@ function LibrarySummary({
             style={styles.secondaryButton}
           >
             <Text style={styles.secondaryButtonText}>Toggle Reminders</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void toggleNotificationSetting('missedWorkoutEnabled')}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Missed</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void toggleNotificationSetting('deloadRemindersEnabled')}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Deload</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void toggleNotificationSetting('testWeekRemindersEnabled')}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Test</Text>
           </Pressable>
           <Pressable
             accessibilityRole="button"
