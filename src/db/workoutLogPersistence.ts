@@ -112,6 +112,16 @@ export async function saveWorkoutDraft(
       );
     }
 
+    await db.runAsync(
+      `UPDATE workout_instances
+       SET status = ?, actual_date = ?, updated_at = ?
+       WHERE id = ?`,
+      draft.status === 'completed' ? 'completed' : 'in_progress',
+      draft.status === 'completed' ? input.recordedAt.slice(0, 10) : null,
+      input.recordedAt,
+      input.workoutInstanceId,
+    );
+
     await db.execAsync('COMMIT');
   } catch (error) {
     await db.execAsync('ROLLBACK');

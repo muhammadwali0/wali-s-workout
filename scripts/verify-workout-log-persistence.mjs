@@ -7,10 +7,10 @@ const { getDueWorkout } = await import('../src/domain/program/seedResolver.ts');
 const { createPlannedSets } = await import(
   '../src/domain/workout/sessionPlanner.ts'
 );
-const { completeSet, createWorkoutDraft } = await import(
+const { completeSet, completeWorkout, createWorkoutDraft } = await import(
   '../src/domain/workout/workoutLog.ts'
 );
-const { buildWorkoutLogRows } = await import(
+const { buildWorkoutLogRows, saveWorkoutDraft } = await import(
   '../src/db/workoutLogPersistence.ts'
 );
 
@@ -57,5 +57,54 @@ assert.deepEqual(rows.setLogs[0], {
   created_at: '2026-01-01T10:00:00Z',
   updated_at: '2026-01-01T10:00:00Z',
 });
+
+const calls = [];
+const db = {
+  async execAsync(sql) {
+    calls.push({ type: 'exec', sql });
+  },
+  async runAsync(sql, ...params) {
+    calls.push({ type: 'run', sql, params });
+  },
+};
+
+await saveWorkoutDraft(db, draft, {
+  workoutLogId: 'log_1',
+  workoutInstanceId: 'instance_1',
+  recordedAt: '2026-01-01T10:00:00Z',
+  unit: 'kg',
+});
+const inProgressUpdate = calls.find((call) =>
+  call.sql?.startsWith('UPDATE workout_instances'),
+);
+assert.deepEqual(inProgressUpdate?.params, [
+  'in_progress',
+  null,
+  '2026-01-01T10:00:00Z',
+  'instance_1',
+]);
+
+calls.length = 0;
+const completeDraft = completeWorkout(
+  plannedSets.reduce(
+    (current, set) => completeSet(current, set.id, { weight: 10, reps: 1 }),
+    createWorkoutDraft(due.workout.id, plannedSets),
+  ),
+);
+await saveWorkoutDraft(db, completeDraft, {
+  workoutLogId: 'log_2',
+  workoutInstanceId: 'instance_2',
+  recordedAt: '2026-01-02T10:00:00Z',
+  unit: 'kg',
+});
+const completeUpdate = calls.find((call) =>
+  call.sql?.startsWith('UPDATE workout_instances'),
+);
+assert.deepEqual(completeUpdate?.params, [
+  'completed',
+  '2026-01-02',
+  '2026-01-02T10:00:00Z',
+  'instance_2',
+]);
 
 console.log('workout log persistence verified');
