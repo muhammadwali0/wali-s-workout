@@ -40,6 +40,13 @@ import {
   type CurrentOneRmRecord,
 } from './db/oneRmQueries';
 import {
+  getNotificationSettings,
+  getScheduledNotifications,
+  saveNotificationSettings,
+  savePlannedNotification,
+  type ScheduledNotificationItem,
+} from './db/notificationQueries';
+import {
   getRecentPersonalRecords,
   type PersonalRecordItem,
 } from './db/personalRecordQueries';
@@ -68,7 +75,12 @@ import {
   createTrainingYear,
   formatProgramPosition,
   getProgramPosition,
+  type ProgramPosition,
 } from './domain/program/yearEngine';
+import {
+  planWorkoutDueNotification,
+  type NotificationSettings,
+} from './domain/notifications/notificationPlanner';
 import { defaultSettings, type AppSettings } from './domain/settings/appSettings';
 import { getSuggestedLoad } from './domain/load/suggestedLoad';
 import { getDueWorkout } from './domain/program/seedResolver';
@@ -166,6 +178,19 @@ export default function App() {
   const [personalRecords, setPersonalRecords] = useState<PersonalRecordItem[]>(
     [],
   );
+  const [notificationSettings, setNotificationSettings] =
+    useState<NotificationSettings>({
+      workoutRemindersEnabled: true,
+      workoutReminderTime: '07:30',
+      missedWorkoutEnabled: true,
+      missedWorkoutTime: '21:00',
+      unfinishedSessionEnabled: true,
+      deloadRemindersEnabled: true,
+      testWeekRemindersEnabled: true,
+    });
+  const [scheduledNotifications, setScheduledNotifications] = useState<
+    ScheduledNotificationItem[]
+  >([]);
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -199,6 +224,8 @@ export default function App() {
     setActiveReplacements(await getActiveExerciseReplacements(database));
     setMissedWorkouts(await getMissedWorkoutInstances(database));
     setPersonalRecords(await getRecentPersonalRecords(database));
+    setNotificationSettings(await getNotificationSettings(database));
+    setScheduledNotifications(await getScheduledNotifications(database));
   };
 
   useEffect(() => {
@@ -290,8 +317,12 @@ export default function App() {
                 exerciseAlternatives={exerciseAlternatives}
                 exercises={libraryExercises}
                 activeReplacements={activeReplacements}
+                dueWorkout={dueWorkout}
+                notificationSettings={notificationSettings}
                 onSaved={refreshLocalData}
                 oneRmRecords={oneRmRecords}
+                position={position}
+                scheduledNotifications={scheduledNotifications}
               />
             ) : null}
           </View>
@@ -775,20 +806,28 @@ function LibrarySummary({
   appSettings,
   db,
   dbStatus,
+  dueWorkout,
   exerciseAlternatives,
   exercises,
   activeReplacements,
+  notificationSettings,
   onSaved,
   oneRmRecords,
+  position,
+  scheduledNotifications,
 }: {
   appSettings: AppSettings;
   db: TrainingDatabase | null;
   dbStatus: string;
+  dueWorkout: ReturnType<typeof getDueWorkout>;
   exerciseAlternatives: ExerciseAlternativeItem[];
   exercises: ExerciseLibraryItem[];
   activeReplacements: ActiveExerciseReplacement[];
+  notificationSettings: NotificationSettings;
   onSaved: (database: TrainingDatabase) => Promise<void>;
   oneRmRecords: CurrentOneRmRecord[];
+  position: ProgramPosition;
+  scheduledNotifications: ScheduledNotificationItem[];
 }) {
   const [draftValues, setDraftValues] = useState<Record<string, string>>({});
   const [draftPlateIncrement, setDraftPlateIncrement] = useState('');
@@ -860,6 +899,34 @@ function LibrarySummary({
     await onSaved(db);
     setSaveStatus('Original exercise restored');
   };
+  const toggleWorkoutReminder = async () => {
+    if (!db) return;
+
+    await saveNotificationSettings(db, {
+      ...notificationSettings,
+      workoutRemindersEnabled: !notificationSettings.workoutRemindersEnabled,
+    });
+    await onSaved(db);
+    setSaveStatus('Notification settings saved');
+  };
+  const scheduleTodayReminder = async () => {
+    if (!db) return;
+
+    const notification = planWorkoutDueNotification(
+      new Date().toISOString().slice(0, 10),
+      position,
+      dueWorkout,
+      notificationSettings,
+    );
+    if (!notification) {
+      setSaveStatus('No workout reminder due');
+      return;
+    }
+
+    await savePlannedNotification(db, notification);
+    await onSaved(db);
+    setSaveStatus('Workout reminder scheduled');
+  };
 
   return (
     <View style={styles.summaryBlock}>
@@ -907,6 +974,34 @@ function LibrarySummary({
             <Text style={styles.secondaryButtonText}>Save Increment</Text>
           </Pressable>
         </View>
+      </View>
+      <View style={styles.baselinePanel}>
+        <Text style={styles.sessionTitle}>Notifications</Text>
+        <Text style={styles.summaryText}>
+          Workout reminders: {notificationSettings.workoutRemindersEnabled ? 'on' : 'off'} -{' '}
+          {notificationSettings.workoutReminderTime ?? 'unset'}
+        </Text>
+        <View style={styles.actionRow}>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void toggleWorkoutReminder()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Reminders</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void scheduleTodayReminder()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Schedule Today</Text>
+          </Pressable>
+        </View>
+        {scheduledNotifications.slice(0, 3).map((notification) => (
+          <Text key={notification.id} style={styles.setPrescription}>
+            {notification.title} - {notification.scheduledFor}
+          </Text>
+        ))}
       </View>
       <View style={styles.setPreview}>
         {exercises.length === 0 ? (
