@@ -13,6 +13,7 @@
     "verify:alternatives": "node --experimental-strip-types scripts/verify-alternatives.mjs",
     "verify:load": "node --experimental-strip-types scripts/verify-load-calculator.mjs",
     "verify:muscle-exposure": "node --experimental-strip-types scripts/verify-muscle-exposure.mjs",
+    "verify:modifications": "node --experimental-strip-types scripts/verify-modification-resolver.mjs",
     "verify:personal-records": "node --experimental-strip-types scripts/verify-personal-records.mjs",
     "verify:program-seed": "node --experimental-strip-types scripts/verify-program-seed.mjs",
     "verify:rest-timer": "node --experimental-strip-types scripts/verify-rest-timer.mjs",
