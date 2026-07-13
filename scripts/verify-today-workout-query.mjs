@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 
-const { getTodayWorkoutInstance } = await import('../src/db/todayWorkoutQuery.ts');
+const { getNextWorkoutInstance, getTodayWorkoutInstance } = await import(
+  '../src/db/todayWorkoutQuery.ts'
+);
 
 const row = {
   instanceId: 'instance_1',
@@ -25,5 +27,11 @@ assert.match(calls[0].sql, /FROM workout_instances/);
 assert.match(calls[0].sql, /JOIN program_workouts/);
 assert.match(calls[0].sql, /WHERE wi\.scheduled_date = \?/);
 assert.match(calls[0].sql, /LIMIT 1/);
+
+assert.deepEqual(await getNextWorkoutInstance(db, '2026-01-01T10:00:00Z'), row);
+assert.equal(calls[1].date, '2026-01-01');
+assert.match(calls[1].sql, /wi\.scheduled_date > \?/);
+assert.match(calls[1].sql, /pw\.workout_type IN/);
+assert.match(calls[1].sql, /ORDER BY wi\.scheduled_date, wi\.sequence_index/);
 
 console.log('today workout query verified');

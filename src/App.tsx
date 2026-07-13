@@ -23,6 +23,7 @@ import {
 } from './db/alternativeQueries';
 import { openTrainingDatabase, type TrainingDatabase } from './db/database';
 import {
+  getNextWorkoutInstance,
   getTodayWorkoutInstance,
   type TodayWorkoutInstance,
 } from './db/todayWorkoutQuery';
@@ -175,6 +176,8 @@ export default function App() {
   const [todayInstance, setTodayInstance] = useState<TodayWorkoutInstance | null>(
     null,
   );
+  const [nextWorkoutInstance, setNextWorkoutInstance] =
+    useState<TodayWorkoutInstance | null>(null);
   const [analyticsSets, setAnalyticsSets] = useState<AnalyticsSet[]>([]);
   const [strengthTrend, setStrengthTrend] = useState<StrengthTrendPoint[]>([]);
   const [calendarWorkouts, setCalendarWorkouts] = useState<CalendarWorkout[]>([]);
@@ -229,6 +232,7 @@ export default function App() {
   const refreshLocalData = async (database: TrainingDatabase) => {
     await markOverdueWorkoutsMissed(database);
     setTodayInstance(await getTodayWorkoutInstance(database));
+    setNextWorkoutInstance(await getNextWorkoutInstance(database));
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
     setStrengthTrend(await getEstimatedOneRmTrend(database));
     setCalendarWorkouts(await getCalendarWorkouts(database));
@@ -298,6 +302,7 @@ export default function App() {
                 dueWorkout={dueWorkout}
                 onSaved={refreshLocalData}
                 oneRmRecords={oneRmRecords}
+                nextWorkoutInstance={nextWorkoutInstance}
                 todayInstance={todayInstance}
               />
             ) : null}
@@ -391,6 +396,7 @@ function TodayWorkoutSummary({
   dueWorkout,
   onSaved,
   oneRmRecords,
+  nextWorkoutInstance,
   todayInstance,
 }: {
   db: TrainingDatabase | null;
@@ -401,6 +407,7 @@ function TodayWorkoutSummary({
   dueWorkout: ReturnType<typeof getDueWorkout>;
   onSaved: (database: TrainingDatabase) => Promise<void>;
   oneRmRecords: CurrentOneRmRecord[];
+  nextWorkoutInstance: TodayWorkoutInstance | null;
   todayInstance: TodayWorkoutInstance | null;
 }) {
   const [draft, setDraft] = useState<WorkoutDraft | null>(null);
@@ -632,6 +639,12 @@ function TodayWorkoutSummary({
         <Text style={styles.summaryText}>
           Next session: {dueWorkout.nextWorkout?.name ?? 'No later session this week'}
         </Text>
+        {nextWorkoutInstance ? (
+          <Text style={styles.summaryText}>
+            Upcoming: {nextWorkoutInstance.workoutName} -{' '}
+            {nextWorkoutInstance.scheduledDate}
+          </Text>
+        ) : null}
       </View>
     );
   }
@@ -641,6 +654,12 @@ function TodayWorkoutSummary({
       <View style={styles.summaryBlock}>
         <Text style={styles.summaryTitle}>Buffer Week</Text>
         <Text style={styles.summaryText}>No training is prescribed for this week.</Text>
+        {nextWorkoutInstance ? (
+          <Text style={styles.summaryText}>
+            Upcoming: {nextWorkoutInstance.workoutName} -{' '}
+            {nextWorkoutInstance.scheduledDate}
+          </Text>
+        ) : null}
       </View>
     );
   }
