@@ -12,6 +12,7 @@ const {
   completeSet,
   completeWorkout,
   createWorkoutDraft,
+  removeExercise,
   removeSet,
   skipSet,
   summarizeWorkoutDraft,
@@ -72,6 +73,22 @@ assert.throws(
   () => completeWorkout({ ...draft, plannedSets: [], actualSets: [] }),
   /no sets/,
 );
+
+const firstExerciseSetCount = plannedSets.filter(
+  (set) => set.exerciseOrder === plannedSets[0].exerciseOrder,
+).length;
+const exerciseRemoved = removeExercise(draft, plannedSets[0].id);
+assert.equal(exerciseRemoved.plannedSets.length, plannedSets.length - firstExerciseSetCount);
+assert.equal(
+  exerciseRemoved.actualSets.some((set) => set.plannedSetId === plannedSets[0].id),
+  false,
+);
+assert.throws(() => removeExercise(draft, 'missing'), /Unknown/);
+assert.throws(
+  () => removeExercise(createWorkoutDraft('single_exercise', [plannedSets[0]]), plannedSets[0].id),
+  /final exercise/,
+);
+assert.throws(() => removeExercise(logged, plannedSets[0].id), /completed or skipped/);
 
 const completeDraft = plannedSets.reduce(
   (current, set) => completeSet(current, set.id, { weight: 10, reps: 1 }),

@@ -167,6 +167,36 @@ export function removeSet(draft: WorkoutDraft, plannedSetId: string): WorkoutDra
   };
 }
 
+export function removeExercise(draft: WorkoutDraft, plannedSetId: string): WorkoutDraft {
+  const planned = draft.plannedSets.find((set) => set.id === plannedSetId);
+  if (!planned) {
+    throw new Error(`Unknown planned set: ${plannedSetId}`);
+  }
+
+  const exerciseSetIds = new Set(
+    draft.plannedSets
+      .filter((set) => set.exerciseOrder === planned.exerciseOrder)
+      .map((set) => set.id),
+  );
+  if (exerciseSetIds.size === draft.plannedSets.length) {
+    throw new Error('Cannot remove the final exercise');
+  }
+  if (
+    draft.actualSets.some(
+      (set) => exerciseSetIds.has(set.plannedSetId) && (set.completed || set.skipped),
+    )
+  ) {
+    throw new Error('Cannot remove an exercise with completed or skipped sets');
+  }
+
+  return {
+    ...draft,
+    status: 'draft',
+    plannedSets: draft.plannedSets.filter((set) => !exerciseSetIds.has(set.id)),
+    actualSets: draft.actualSets.filter((set) => !exerciseSetIds.has(set.plannedSetId)),
+  };
+}
+
 export function summarizeWorkoutDraft(draft: WorkoutDraft) {
   const completedSets = draft.actualSets.filter((set) => set.completed);
   const totalVolume = completedSets.reduce(

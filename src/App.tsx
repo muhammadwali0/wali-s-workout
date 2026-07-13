@@ -113,6 +113,7 @@ import {
   completeSet,
   completeWorkout,
   createWorkoutDraft,
+  removeExercise,
   removeSet,
   skipSet,
   summarizeWorkoutDraft,
@@ -713,6 +714,25 @@ function TodayWorkoutSummary({
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Remove Set</Text>
+              </Pressable>
+            ) : null}
+            {draft && nextSet ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => {
+                  try {
+                    void saveDraft(removeExercise(draft, nextSet.plannedSetId));
+                  } catch (error) {
+                    setSaveStatus(
+                      error instanceof Error
+                        ? error.message
+                        : 'Cannot remove exercise',
+                    );
+                  }
+                }}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Remove Exercise</Text>
               </Pressable>
             ) : null}
             {draft && summary?.isComplete && draft.status !== 'completed' ? (
