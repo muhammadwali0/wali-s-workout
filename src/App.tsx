@@ -23,6 +23,10 @@ import {
   getRecentWorkoutHistory,
   type WorkoutHistoryItem,
 } from './db/historyQueries';
+import {
+  getExerciseLibrary,
+  type ExerciseLibraryItem,
+} from './db/libraryQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import {
   getConsistencyCalendar,
@@ -107,6 +111,9 @@ export default function App() {
   const [analyticsSets, setAnalyticsSets] = useState<AnalyticsSet[]>([]);
   const [calendarWorkouts, setCalendarWorkouts] = useState<CalendarWorkout[]>([]);
   const [historyItems, setHistoryItems] = useState<WorkoutHistoryItem[]>([]);
+  const [libraryExercises, setLibraryExercises] = useState<ExerciseLibraryItem[]>(
+    [],
+  );
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -131,6 +138,7 @@ export default function App() {
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
     setCalendarWorkouts(await getCalendarWorkouts(database));
     setHistoryItems(await getRecentWorkoutHistory(database));
+    setLibraryExercises(await getExerciseLibrary(database));
   };
 
   useEffect(() => {
@@ -196,6 +204,12 @@ export default function App() {
             ) : null}
             {activeTab === 'history' ? (
               <HistorySummary dbStatus={dbStatus} historyItems={historyItems} />
+            ) : null}
+            {activeTab === 'library' ? (
+              <LibrarySummary
+                dbStatus={dbStatus}
+                exercises={libraryExercises}
+              />
             ) : null}
           </View>
 
@@ -496,6 +510,39 @@ function HistorySummary({
               <Text style={styles.setPrescription}>
                 {item.status} - {item.completedAt ?? item.scheduledDate} -{' '}
                 {item.totalWorkingSets ?? 0} working sets - {item.totalVolume ?? 0} kg reps
+              </Text>
+            </View>
+          ))
+        )}
+      </View>
+    </View>
+  );
+}
+
+function LibrarySummary({
+  dbStatus,
+  exercises,
+}: {
+  dbStatus: string;
+  exercises: ExerciseLibraryItem[];
+}) {
+  return (
+    <View style={styles.summaryBlock}>
+      <Text style={styles.summaryTitle}>Exercise Library</Text>
+      <Text style={styles.summaryText}>
+        {dbStatus} - {exercises.length} exercises loaded.
+      </Text>
+      <View style={styles.setPreview}>
+        {exercises.length === 0 ? (
+          <Text style={styles.summaryText}>No seeded exercises available.</Text>
+        ) : (
+          exercises.map((exercise) => (
+            <View key={exercise.exerciseId} style={styles.setRow}>
+              <Text style={styles.setExercise}>{exercise.name}</Text>
+              <Text style={styles.setPrescription}>
+                {exercise.movementPattern} - {exercise.defaultRole ?? 'general'} -{' '}
+                {exercise.primaryMuscles ?? 'No primary muscle'} -{' '}
+                {exercise.alternativeCount} alternatives
               </Text>
             </View>
           ))
