@@ -19,6 +19,10 @@ import {
   getTodayWorkoutInstance,
   type TodayWorkoutInstance,
 } from './db/todayWorkoutQuery';
+import {
+  getRecentWorkoutHistory,
+  type WorkoutHistoryItem,
+} from './db/historyQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import {
   getConsistencyCalendar,
@@ -102,6 +106,7 @@ export default function App() {
   );
   const [analyticsSets, setAnalyticsSets] = useState<AnalyticsSet[]>([]);
   const [calendarWorkouts, setCalendarWorkouts] = useState<CalendarWorkout[]>([]);
+  const [historyItems, setHistoryItems] = useState<WorkoutHistoryItem[]>([]);
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -125,6 +130,7 @@ export default function App() {
     setTodayInstance(await getTodayWorkoutInstance(database));
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
     setCalendarWorkouts(await getCalendarWorkouts(database));
+    setHistoryItems(await getRecentWorkoutHistory(database));
   };
 
   useEffect(() => {
@@ -187,6 +193,9 @@ export default function App() {
                 completedSets={analyticsSets}
                 dbStatus={dbStatus}
               />
+            ) : null}
+            {activeTab === 'history' ? (
+              <HistorySummary dbStatus={dbStatus} historyItems={historyItems} />
             ) : null}
           </View>
 
@@ -459,6 +468,38 @@ function AnalyticsSummary({
       <View style={styles.analyticsFooter}>
         <Metric label="Completed" value={String(completed)} />
         <Metric label="Missed" value={String(missed)} />
+      </View>
+    </View>
+  );
+}
+
+function HistorySummary({
+  dbStatus,
+  historyItems,
+}: {
+  dbStatus: string;
+  historyItems: WorkoutHistoryItem[];
+}) {
+  return (
+    <View style={styles.summaryBlock}>
+      <Text style={styles.summaryTitle}>Recent Workout Logs</Text>
+      <Text style={styles.summaryText}>
+        {dbStatus} - {historyItems.length} logs available.
+      </Text>
+      <View style={styles.setPreview}>
+        {historyItems.length === 0 ? (
+          <Text style={styles.summaryText}>No saved workout logs yet.</Text>
+        ) : (
+          historyItems.map((item) => (
+            <View key={item.workoutLogId} style={styles.setRow}>
+              <Text style={styles.setExercise}>{item.workoutName}</Text>
+              <Text style={styles.setPrescription}>
+                {item.status} - {item.completedAt ?? item.scheduledDate} -{' '}
+                {item.totalWorkingSets ?? 0} working sets - {item.totalVolume ?? 0} kg reps
+              </Text>
+            </View>
+          ))
+        )}
       </View>
     </View>
   );
