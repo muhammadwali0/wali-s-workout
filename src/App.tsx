@@ -104,6 +104,7 @@ import {
   planNextMissedWorkoutNotification,
   planRestTimerNotification,
   planUnfinishedSessionNotification,
+  planWeekStatusNotification,
   planWorkoutDueNotification,
   type NotificationSettings,
 } from './domain/notifications/notificationPlanner';
@@ -1615,6 +1616,29 @@ function LibrarySummary({
     await onSaved(db);
     setSaveStatus('Workout reminder scheduled');
   };
+  const scheduleWeekStatusReminder = async () => {
+    if (!db) return;
+
+    const notification = planWeekStatusNotification(
+      new Date().toISOString().slice(0, 10),
+      position,
+      notificationSettings,
+    );
+    if (!notification) {
+      setSaveStatus('No deload, taper, or test reminder due');
+      return;
+    }
+
+    const externalNotificationId = await scheduleLocalNotification(notification);
+    if (!externalNotificationId) {
+      setSaveStatus('Notification permission denied or time has passed');
+      return;
+    }
+
+    await savePlannedNotification(db, notification, null, externalNotificationId);
+    await onSaved(db);
+    setSaveStatus('Week status reminder scheduled');
+  };
 
   return (
     <View style={styles.summaryBlock}>
@@ -1743,6 +1767,13 @@ function LibrarySummary({
             style={styles.secondaryButton}
           >
             <Text style={styles.secondaryButtonText}>Schedule Today</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void scheduleWeekStatusReminder()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Schedule Week</Text>
           </Pressable>
         </View>
         {scheduledNotifications.slice(0, 3).map((notification) => (
