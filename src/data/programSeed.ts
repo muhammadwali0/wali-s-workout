@@ -36125,503 +36125,12205 @@ export const programSeed = {
   "exercises": [
     {
       "id": "1_inch_block_pull",
-      "name": "1-Inch Block Pull"
+      "name": "1-Inch Block Pull",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "2_inch_block_pull",
-      "name": "2-Inch Block Pull"
+      "name": "2-Inch Block Pull",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "3_inch_block_pull",
-      "name": "3-Inch Block Pull"
+      "name": "3-Inch Block Pull",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "4_inch_block_pull",
-      "name": "4-Inch Block Pull"
+      "name": "4-Inch Block Pull",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "5_inch_block_pull",
-      "name": "5-Inch Block Pull"
+      "name": "5-Inch Block Pull",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "6_inch_block_pull",
-      "name": "6-Inch Block Pull"
+      "name": "6-Inch Block Pull",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "anderson_squat",
-      "name": "Anderson Squat"
+      "name": "Anderson Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "assisted_chin_up",
-      "name": "Assisted Chin-Up"
+      "name": "Assisted Chin-Up",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "back_squat",
-      "name": "Back Squat"
+      "name": "Back Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "band_pull_apart",
-      "name": "Band Pull-Apart"
+      "name": "Band Pull-Apart",
+      "category": "shoulder_external_rotation",
+      "movementPattern": "shoulder_external_rotation",
+      "equipment": "cable_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "rear_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "banded_lateral_walk_or_hip_abduction",
-      "name": "Banded Lateral Walk or Hip Abduction"
+      "name": "Banded Lateral Walk or Hip Abduction",
+      "category": "hip_abduction",
+      "movementPattern": "hip_abduction",
+      "equipment": "machine_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "abductors",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "barbell_bench_press",
-      "name": "Barbell Bench Press"
+      "name": "Barbell Bench Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "barbell_box_squat",
-      "name": "Barbell Box Squat"
+      "name": "Barbell Box Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "barbell_floor_press",
-      "name": "Barbell Floor Press"
-    },
-    {
-      "id": "barbell_or_dumbbell_isometric_hold_grip_work",
-      "name": "Barbell or Dumbbell Isometric Hold (Grip Work)"
-    },
-    {
-      "id": "barbell_or_ez_bar_curl",
-      "name": "Barbell or EZ-Bar Curl"
-    },
-    {
-      "id": "barbell_or_ez_bar_strict_curl",
-      "name": "Barbell or EZ-Bar Strict Curl"
+      "name": "Barbell Floor Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "barbell_overhead_press",
-      "name": "Barbell Overhead Press"
+      "name": "Barbell Overhead Press",
+      "category": "vertical_push",
+      "movementPattern": "vertical_push",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "front_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "side_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "barbell_pin_bench_press",
-      "name": "Barbell Pin Bench Press"
+      "name": "Barbell Pin Bench Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "barbell_romanian_deadlift",
-      "name": "Barbell Romanian Deadlift"
+      "name": "Barbell Romanian Deadlift",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    },
+    {
+      "id": "barbell_or_dumbbell_isometric_hold_grip_work",
+      "name": "Barbell or Dumbbell Isometric Hold (Grip Work)",
+      "category": "grip",
+      "movementPattern": "grip",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "forearms",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    },
+    {
+      "id": "barbell_or_ez_bar_curl",
+      "name": "Barbell or EZ-Bar Curl",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    },
+    {
+      "id": "barbell_or_ez_bar_strict_curl",
+      "name": "Barbell or EZ-Bar Strict Curl",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "bent_over_reverse_dumbbell_flye",
-      "name": "Bent-Over Reverse Dumbbell Flye"
+      "name": "Bent-Over Reverse Dumbbell Flye",
+      "category": "shoulder_external_rotation",
+      "movementPattern": "shoulder_external_rotation",
+      "equipment": "cable_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "rear_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "bicycle_crunch",
-      "name": "Bicycle Crunch"
+      "name": "Bicycle Crunch",
+      "category": "trunk_flexion",
+      "movementPattern": "trunk_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "abs",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "bulgarian_split_squat",
-      "name": "Bulgarian Split Squat"
+      "name": "Bulgarian Split Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "cable_crunch",
-      "name": "Cable Crunch"
+      "name": "Cable Crunch",
+      "category": "trunk_flexion",
+      "movementPattern": "trunk_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "abs",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
+    },
+    {
+      "id": "cable_curl",
+      "name": "Cable Curl",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "cable_pull_through",
-      "name": "Cable Pull-Through"
+      "name": "Cable Pull-Through",
+      "category": "hip_extension",
+      "movementPattern": "hip_extension",
+      "equipment": "varies",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "cable_pullover",
-      "name": "Cable Pullover"
+      "name": "Cable Pullover",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "cable_reverse_flye",
-      "name": "Cable Reverse Flye"
+      "name": "Cable Reverse Flye",
+      "category": "shoulder_external_rotation",
+      "movementPattern": "shoulder_external_rotation",
+      "equipment": "cable_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "rear_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "cable_shrug_in",
-      "name": "Cable Shrug-In"
+      "name": "Cable Shrug-In",
+      "category": "scapular_elevation",
+      "movementPattern": "scapular_elevation",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "traps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    },
+    {
+      "id": "cable_triceps_kickback",
+      "name": "Cable Triceps Kickback",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "chest_supported_dumbbell_row",
-      "name": "Chest-Supported Dumbbell Row"
+      "name": "Chest-Supported Dumbbell Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "chest_supported_row",
-      "name": "Chest-Supported Row"
+      "name": "Chest-Supported Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "chest_supported_t_bar_row_or_pendlay_row",
-      "name": "Chest-Supported T-Bar Row or Pendlay Row"
+      "name": "Chest-Supported T-Bar Row or Pendlay Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "chin_up",
-      "name": "Chin-Up"
+      "name": "Chin-Up",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "close_grip_bench_press",
-      "name": "Close-Grip Bench Press"
+      "name": "Close-Grip Bench Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "concentration_bicep_curl",
-      "name": "Concentration Bicep Curl"
+      "name": "Concentration Bicep Curl",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "constant_tension_cable_triceps_kickback",
-      "name": "Constant-Tension Cable Triceps Kickback"
+      "name": "Constant-Tension Cable Triceps Kickback",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "deadlift",
-      "name": "Deadlift"
+      "name": "Deadlift",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "deficit_push_up",
-      "name": "Deficit Push-Up"
+      "name": "Deficit Push-Up",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "dip",
-      "name": "Dip"
+      "name": "Dip",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "dumbbell_incline_press",
-      "name": "Dumbbell Incline Press"
+      "name": "Dumbbell Incline Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "dumbbell_lateral_raise",
-      "name": "Dumbbell Lateral Raise"
+      "name": "Dumbbell Lateral Raise",
+      "category": "shoulder_abduction",
+      "movementPattern": "shoulder_abduction",
+      "equipment": "dumbbell_or_cable",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "side_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "dumbbell_lateral_raise_21s",
-      "name": "Dumbbell Lateral Raise 21s"
+      "name": "Dumbbell Lateral Raise 21s",
+      "category": "shoulder_abduction",
+      "movementPattern": "shoulder_abduction",
+      "equipment": "dumbbell_or_cable",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "side_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "dumbbell_lateral_raise_iso_hold",
-      "name": "Dumbbell Lateral Raise Iso-Hold"
+      "name": "Dumbbell Lateral Raise Iso-Hold",
+      "category": "shoulder_abduction",
+      "movementPattern": "shoulder_abduction",
+      "equipment": "dumbbell_or_cable",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "side_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "dumbbell_shrug",
-      "name": "Dumbbell Shrug"
+      "name": "Dumbbell Shrug",
+      "category": "scapular_elevation",
+      "movementPattern": "scapular_elevation",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "traps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "dumbbell_skull_crusher",
-      "name": "Dumbbell Skull Crusher"
+      "name": "Dumbbell Skull Crusher",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "eccentric_accentuated_leg_extension",
-      "name": "Eccentric-Accentuated Leg Extension"
+      "name": "Eccentric-Accentuated Leg Extension",
+      "category": "knee_extension",
+      "movementPattern": "knee_extension",
+      "equipment": "machine_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "eccentric_accentuated_pull_up",
-      "name": "Eccentric-Accentuated Pull-Up"
+      "name": "Eccentric-Accentuated Pull-Up",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "egyptian_lateral_raise",
-      "name": "Egyptian Lateral Raise"
+      "name": "Egyptian Lateral Raise",
+      "category": "shoulder_abduction",
+      "movementPattern": "shoulder_abduction",
+      "equipment": "dumbbell_or_cable",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "side_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    },
+    {
+      "id": "enhanced_eccentric_calf_raise",
+      "name": "Enhanced-Eccentric Calf Raise",
+      "category": "calf_raise",
+      "movementPattern": "calf_raise",
+      "equipment": "machine_or_bodyweight",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "calves",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "face_pull",
-      "name": "Face Pull"
+      "name": "Face Pull",
+      "category": "shoulder_external_rotation",
+      "movementPattern": "shoulder_external_rotation",
+      "equipment": "cable_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "rear_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "flat_back_bench_press",
-      "name": "Flat-Back Bench Press"
+      "name": "Flat-Back Bench Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "floor_skull_crusher",
-      "name": "Floor Skull Crusher"
+      "name": "Floor Skull Crusher",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "front_squat",
-      "name": "Front Squat"
+      "name": "Front Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "front_squat_or_box_squat",
-      "name": "Front Squat or Box Squat"
+      "name": "Front Squat or Box Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "glute_ham_raise",
-      "name": "Glute-Ham Raise"
+      "name": "Glute-Ham Raise",
+      "category": "knee_flexion",
+      "movementPattern": "knee_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "glute_ham_raise_or_nordic_ham_curl",
-      "name": "Glute-Ham Raise or Nordic Ham Curl"
+      "name": "Glute-Ham Raise or Nordic Ham Curl",
+      "category": "knee_flexion",
+      "movementPattern": "knee_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "hack_squat",
-      "name": "Hack Squat"
+      "name": "Hack Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "hammer_cheat_curl",
-      "name": "Hammer Cheat Curl"
+      "name": "Hammer Cheat Curl",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "hammer_curl",
-      "name": "Hammer Curl"
+      "name": "Hammer Curl",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "hanging_leg_raise",
-      "name": "Hanging Leg Raise"
+      "name": "Hanging Leg Raise",
+      "category": "trunk_flexion",
+      "movementPattern": "trunk_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "abs",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "helms_row",
-      "name": "Helms Row"
+      "name": "Helms Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "hip_abduction",
-      "name": "Hip Abduction"
+      "name": "Hip Abduction",
+      "category": "hip_abduction",
+      "movementPattern": "hip_abduction",
+      "equipment": "machine_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "abductors",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "incline_dumbbell_curl",
-      "name": "Incline Dumbbell Curl"
+      "name": "Incline Dumbbell Curl",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    },
+    {
+      "id": "incline_dumbbell_curl_reverse_21s",
+      "name": "Incline Dumbbell Curl Reverse 21s",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "incline_shrug",
-      "name": "Incline Shrug"
+      "name": "Incline Shrug",
+      "category": "scapular_elevation",
+      "movementPattern": "scapular_elevation",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "traps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "inverse_zottman_curl",
-      "name": "Inverse Zottman Curl"
+      "name": "Inverse Zottman Curl",
+      "category": "elbow_flexion",
+      "movementPattern": "elbow_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "l_sit_hold",
-      "name": "L-Sit Hold"
+      "name": "L-Sit Hold",
+      "category": "trunk_stability",
+      "movementPattern": "trunk_stability",
+      "equipment": "bodyweight",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "abs",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "larsen_press",
-      "name": "Larsen Press"
+      "name": "Larsen Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "lat_pullover",
-      "name": "Lat Pullover"
+      "name": "Lat Pullover",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "lateral_raise_choice",
-      "name": "Lateral Raise Choice"
+      "name": "Lateral Raise Choice",
+      "category": "shoulder_abduction",
+      "movementPattern": "shoulder_abduction",
+      "equipment": "dumbbell_or_cable",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "side_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "leg_curl",
-      "name": "Leg Curl"
+      "name": "Leg Curl",
+      "category": "knee_flexion",
+      "movementPattern": "knee_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "leg_curl_choice",
-      "name": "Leg Curl Choice"
+      "name": "Leg Curl Choice",
+      "category": "knee_flexion",
+      "movementPattern": "knee_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "leg_extension",
-      "name": "Leg Extension"
+      "name": "Leg Extension",
+      "category": "knee_extension",
+      "movementPattern": "knee_extension",
+      "equipment": "machine_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "leg_press",
-      "name": "Leg Press"
+      "name": "Leg Press",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "long_lever_plank",
-      "name": "Long-Lever Plank"
+      "name": "Long-Lever Plank",
+      "category": "trunk_stability",
+      "movementPattern": "trunk_stability",
+      "equipment": "bodyweight",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "abs",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "low_bar_back_squat",
-      "name": "Low-Bar Back Squat"
+      "name": "Low-Bar Back Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "machine_chest_supported_row",
-      "name": "Machine Chest-Supported Row"
+      "name": "Machine Chest-Supported Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "machine_incline_press",
-      "name": "Machine Incline Press"
+      "name": "Machine Incline Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "meadows_row",
-      "name": "Meadows Row"
+      "name": "Meadows Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "neck_flexion_extension",
-      "name": "Neck Flexion/Extension"
+      "name": "Neck Flexion/Extension",
+      "category": "neck_flexion_extension",
+      "movementPattern": "neck_flexion_extension",
+      "equipment": "plate_or_harness",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "neck",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "neutral_grip_pull_up",
-      "name": "Neutral-Grip Pull-Up"
+      "name": "Neutral-Grip Pull-Up",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "neutral_grip_pulldown",
-      "name": "Neutral-Grip Pulldown"
+      "name": "Neutral-Grip Pulldown",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "nordic_ham_curl",
-      "name": "Nordic Ham Curl"
+      "name": "Nordic Ham Curl",
+      "category": "knee_flexion",
+      "movementPattern": "knee_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "omni_grip_lat_pulldown",
-      "name": "Omni-Grip Lat Pulldown"
+      "name": "Omni-Grip Lat Pulldown",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "one_arm_row",
-      "name": "One-Arm Row"
+      "name": "One-Arm Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": true,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "opposite_stance_deadlift",
-      "name": "Opposite-Stance Deadlift"
+      "name": "Opposite-Stance Deadlift",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "overhead_press_push_press",
-      "name": "Overhead Press / Push Press"
+      "name": "Overhead Press / Push Press",
+      "category": "vertical_push",
+      "movementPattern": "vertical_push",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "front_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "side_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "pause_barbell_bench_press",
-      "name": "Pause Barbell Bench Press"
+      "name": "Pause Barbell Bench Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "pause_deadlift",
-      "name": "Pause Deadlift"
+      "name": "Pause Deadlift",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "pause_dumbbell_incline_press",
-      "name": "Pause Dumbbell Incline Press"
+      "name": "Pause Dumbbell Incline Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "pec_flye",
-      "name": "Pec Flye"
+      "name": "Pec Flye",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "cable_or_machine",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "pendlay_row",
-      "name": "Pendlay Row"
+      "name": "Pendlay Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "pendlay_row_or_bent_over_row",
-      "name": "Pendlay Row or Bent-Over Row"
+      "name": "Pendlay Row or Bent-Over Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "pin_good_morning_or_45_degree_back_extension",
-      "name": "Pin Good Morning or 45-Degree Back Extension"
+      "name": "Pin Good Morning or 45-Degree Back Extension",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "pin_squat",
-      "name": "Pin Squat"
+      "name": "Pin Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    },
+    {
+      "id": "plate_shrug",
+      "name": "Plate Shrug",
+      "category": "scapular_elevation",
+      "movementPattern": "scapular_elevation",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "traps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "prisoner_back_extension",
-      "name": "Prisoner Back Extension"
+      "name": "Prisoner Back Extension",
+      "category": "hip_extension",
+      "movementPattern": "hip_extension",
+      "equipment": "varies",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "prone_trap_raise",
-      "name": "Prone Trap Raise"
+      "name": "Prone Trap Raise",
+      "category": "shoulder_external_rotation",
+      "movementPattern": "shoulder_external_rotation",
+      "equipment": "cable_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "rear_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "reset_deadlift",
-      "name": "Reset Deadlift"
+      "name": "Reset Deadlift",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "rope_overhead_triceps_extension",
-      "name": "Rope Overhead Triceps Extension"
+      "name": "Rope Overhead Triceps Extension",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "seated_cable_row",
-      "name": "Seated Cable Row"
+      "name": "Seated Cable Row",
+      "category": "horizontal_pull",
+      "movementPattern": "horizontal_pull",
+      "equipment": "barbell_or_dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "rear_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "biceps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "seated_face_pull",
-      "name": "Seated Face Pull"
+      "name": "Seated Face Pull",
+      "category": "shoulder_external_rotation",
+      "movementPattern": "shoulder_external_rotation",
+      "equipment": "cable_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "rear_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "seated_leg_curl",
-      "name": "Seated Leg Curl"
+      "name": "Seated Leg Curl",
+      "category": "knee_flexion",
+      "movementPattern": "knee_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "single_arm_lat_pulldown",
-      "name": "Single-Arm Lat Pulldown"
+      "name": "Single-Arm Lat Pulldown",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": true,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    },
+    {
+      "id": "single_arm_overhead_triceps_extension",
+      "name": "Single-Arm Overhead Triceps Extension",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": true,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "single_arm_pulldown",
-      "name": "Single-Arm Pulldown"
+      "name": "Single-Arm Pulldown",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": true,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "single_leg_hip_thrust",
-      "name": "Single-Leg Hip Thrust"
+      "name": "Single-Leg Hip Thrust",
+      "category": "hip_extension",
+      "movementPattern": "hip_extension",
+      "equipment": "varies",
+      "defaultRole": "secondary",
+      "isUnilateral": true,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "sissy_squat",
-      "name": "Sissy Squat"
+      "name": "Sissy Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "skull_crusher",
-      "name": "Skull Crusher"
+      "name": "Skull Crusher",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "sliding_leg_curl",
-      "name": "Sliding Leg Curl"
+      "name": "Sliding Leg Curl",
+      "category": "knee_flexion",
+      "movementPattern": "knee_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "snatch_grip_romanian_deadlift",
-      "name": "Snatch-Grip Romanian Deadlift"
+      "name": "Snatch-Grip Romanian Deadlift",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "squat_walk_out",
-      "name": "Squat Walk-Out"
+      "name": "Squat Walk-Out",
+      "category": "carry_setup",
+      "movementPattern": "carry_setup",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "traps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "abs",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "standing_calf_raise",
-      "name": "Standing Calf Raise"
+      "name": "Standing Calf Raise",
+      "category": "calf_raise",
+      "movementPattern": "calf_raise",
+      "equipment": "machine_or_bodyweight",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "calves",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "strict_bench_press",
-      "name": "Strict Bench Press"
+      "name": "Strict Bench Press",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "sumo_box_squat_or_pause_high_bar_squat",
-      "name": "Sumo Box Squat or Pause High-Bar Squat"
+      "name": "Sumo Box Squat or Pause High-Bar Squat",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "touch_and_go_deadlift",
-      "name": "Touch-and-Go Deadlift"
+      "name": "Touch-and-Go Deadlift",
+      "category": "hinge",
+      "movementPattern": "hinge",
+      "equipment": "barbell",
+      "defaultRole": "primary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "lower_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "quads",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "triceps_pressdown",
-      "name": "Triceps Pressdown"
+      "name": "Triceps Pressdown",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "triceps_pressdown_21s",
-      "name": "Triceps Pressdown 21s"
+      "name": "Triceps Pressdown 21s",
+      "category": "elbow_extension",
+      "movementPattern": "elbow_extension",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "unilateral_leg_curl_choice",
-      "name": "Unilateral Leg Curl Choice"
+      "name": "Unilateral Leg Curl Choice",
+      "category": "knee_flexion",
+      "movementPattern": "knee_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": true,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "hamstrings",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "unilateral_leg_press",
-      "name": "Unilateral Leg Press"
+      "name": "Unilateral Leg Press",
+      "category": "squat",
+      "movementPattern": "squat",
+      "equipment": "barbell_or_machine",
+      "defaultRole": "secondary",
+      "isUnilateral": true,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "quads",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "glutes",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "adductors",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "hamstrings",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "abs",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "unilateral_standing_calf_raise",
-      "name": "Unilateral Standing Calf Raise"
+      "name": "Unilateral Standing Calf Raise",
+      "category": "calf_raise",
+      "movementPattern": "calf_raise",
+      "equipment": "machine_or_bodyweight",
+      "defaultRole": "tertiary",
+      "isUnilateral": true,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "calves",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "upright_row",
-      "name": "Upright Row"
+      "name": "Upright Row",
+      "category": "shoulder_abduction",
+      "movementPattern": "shoulder_abduction",
+      "equipment": "dumbbell_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "side_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "v_sit_up",
-      "name": "V Sit-Up"
+      "name": "V Sit-Up",
+      "category": "trunk_flexion",
+      "movementPattern": "trunk_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "abs",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "wall_slide",
-      "name": "Wall Slide"
+      "name": "Wall Slide",
+      "category": "shoulder_external_rotation",
+      "movementPattern": "shoulder_external_rotation",
+      "equipment": "cable_or_band",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "rear_delts",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "traps",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "weighted_crunch",
-      "name": "Weighted Crunch"
+      "name": "Weighted Crunch",
+      "category": "trunk_flexion",
+      "movementPattern": "trunk_flexion",
+      "equipment": "varies",
+      "defaultRole": "tertiary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "abs",
+          "role": "primary",
+          "heatmapWeight": 1
+        }
+      ]
     },
     {
       "id": "weighted_dip",
-      "name": "Weighted Dip"
+      "name": "Weighted Dip",
+      "category": "horizontal_push",
+      "movementPattern": "horizontal_push",
+      "equipment": "barbell_or_dumbbell",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "chest",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "triceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "front_delts",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "weighted_eccentric_overload_pull_up",
-      "name": "Weighted Eccentric-Overload Pull-Up"
+      "name": "Weighted Eccentric-Overload Pull-Up",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "weighted_neutral_grip_pull_up",
-      "name": "Weighted Neutral-Grip Pull-Up"
+      "name": "Weighted Neutral-Grip Pull-Up",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "weighted_pull_up",
-      "name": "Weighted Pull-Up"
+      "name": "Weighted Pull-Up",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": true,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
     },
     {
       "id": "wide_grip_lat_pulldown",
-      "name": "Wide-Grip Lat Pulldown"
+      "name": "Wide-Grip Lat Pulldown",
+      "category": "vertical_pull",
+      "movementPattern": "vertical_pull",
+      "equipment": "bodyweight_or_cable",
+      "defaultRole": "secondary",
+      "isUnilateral": false,
+      "isBodyweight": false,
+      "muscles": [
+        {
+          "muscleId": "lats",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "biceps",
+          "role": "primary",
+          "heatmapWeight": 1
+        },
+        {
+          "muscleId": "upper_back",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        },
+        {
+          "muscleId": "forearms",
+          "role": "secondary",
+          "heatmapWeight": 0.5
+        }
+      ]
+    }
+  ],
+  "muscles": [
+    {
+      "id": "chest",
+      "name": "Chest",
+      "region": "upper_body",
+      "heatmapView": "front"
+    },
+    {
+      "id": "front_delts",
+      "name": "Front Delts",
+      "region": "upper_body",
+      "heatmapView": "front"
+    },
+    {
+      "id": "side_delts",
+      "name": "Side Delts",
+      "region": "upper_body",
+      "heatmapView": "front_back"
+    },
+    {
+      "id": "rear_delts",
+      "name": "Rear Delts",
+      "region": "upper_body",
+      "heatmapView": "back"
+    },
+    {
+      "id": "biceps",
+      "name": "Biceps",
+      "region": "upper_body",
+      "heatmapView": "front"
+    },
+    {
+      "id": "triceps",
+      "name": "Triceps",
+      "region": "upper_body",
+      "heatmapView": "back"
+    },
+    {
+      "id": "forearms",
+      "name": "Forearms",
+      "region": "upper_body",
+      "heatmapView": "front_back"
+    },
+    {
+      "id": "upper_back",
+      "name": "Upper Back",
+      "region": "upper_body",
+      "heatmapView": "back"
+    },
+    {
+      "id": "lats",
+      "name": "Lats",
+      "region": "upper_body",
+      "heatmapView": "back"
+    },
+    {
+      "id": "traps",
+      "name": "Traps",
+      "region": "upper_body",
+      "heatmapView": "back"
+    },
+    {
+      "id": "lower_back",
+      "name": "Lower Back",
+      "region": "trunk",
+      "heatmapView": "back"
+    },
+    {
+      "id": "abs",
+      "name": "Abs",
+      "region": "trunk",
+      "heatmapView": "front"
+    },
+    {
+      "id": "glutes",
+      "name": "Glutes",
+      "region": "lower_body",
+      "heatmapView": "back"
+    },
+    {
+      "id": "quads",
+      "name": "Quads",
+      "region": "lower_body",
+      "heatmapView": "front"
+    },
+    {
+      "id": "hamstrings",
+      "name": "Hamstrings",
+      "region": "lower_body",
+      "heatmapView": "back"
+    },
+    {
+      "id": "calves",
+      "name": "Calves",
+      "region": "lower_body",
+      "heatmapView": "back"
+    },
+    {
+      "id": "adductors",
+      "name": "Adductors",
+      "region": "lower_body",
+      "heatmapView": "front"
+    },
+    {
+      "id": "abductors",
+      "name": "Abductors",
+      "region": "lower_body",
+      "heatmapView": "side"
+    },
+    {
+      "id": "neck",
+      "name": "Neck",
+      "region": "upper_body",
+      "heatmapView": "front_back"
+    }
+  ],
+  "movementPatterns": [
+    "squat",
+    "hinge",
+    "horizontal_push",
+    "vertical_push",
+    "horizontal_pull",
+    "vertical_pull",
+    "knee_flexion",
+    "knee_extension",
+    "elbow_flexion",
+    "elbow_extension",
+    "shoulder_abduction",
+    "shoulder_external_rotation",
+    "scapular_elevation",
+    "calf_raise",
+    "trunk_flexion",
+    "trunk_stability",
+    "hip_extension",
+    "hip_abduction",
+    "neck_flexion_extension",
+    "grip",
+    "carry_setup"
+  ],
+  "exerciseAlternatives": [
+    {
+      "sourceExerciseId": "1_inch_block_pull",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "1_inch_block_pull",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "1_inch_block_pull",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "1_inch_block_pull",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "1_inch_block_pull",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "1_inch_block_pull",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "1_inch_block_pull",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "1_inch_block_pull",
+      "alternativeExerciseId": "opposite_stance_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "2_inch_block_pull",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "2_inch_block_pull",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "2_inch_block_pull",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "2_inch_block_pull",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "2_inch_block_pull",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "2_inch_block_pull",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "2_inch_block_pull",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "2_inch_block_pull",
+      "alternativeExerciseId": "opposite_stance_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "3_inch_block_pull",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "3_inch_block_pull",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "3_inch_block_pull",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "3_inch_block_pull",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "3_inch_block_pull",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "3_inch_block_pull",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "3_inch_block_pull",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "3_inch_block_pull",
+      "alternativeExerciseId": "opposite_stance_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "4_inch_block_pull",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "4_inch_block_pull",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "4_inch_block_pull",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "4_inch_block_pull",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "4_inch_block_pull",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "4_inch_block_pull",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "4_inch_block_pull",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "4_inch_block_pull",
+      "alternativeExerciseId": "opposite_stance_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "5_inch_block_pull",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "5_inch_block_pull",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "5_inch_block_pull",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "5_inch_block_pull",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "5_inch_block_pull",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "5_inch_block_pull",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "5_inch_block_pull",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "5_inch_block_pull",
+      "alternativeExerciseId": "opposite_stance_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "6_inch_block_pull",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "6_inch_block_pull",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "6_inch_block_pull",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "6_inch_block_pull",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "6_inch_block_pull",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "6_inch_block_pull",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "6_inch_block_pull",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "6_inch_block_pull",
+      "alternativeExerciseId": "opposite_stance_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "anderson_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "anderson_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "anderson_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "anderson_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "anderson_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "anderson_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "anderson_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "anderson_squat",
+      "alternativeExerciseId": "pin_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "assisted_chin_up",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "assisted_chin_up",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "assisted_chin_up",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "assisted_chin_up",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "assisted_chin_up",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "assisted_chin_up",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "assisted_chin_up",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "assisted_chin_up",
+      "alternativeExerciseId": "single_arm_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "back_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "back_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "back_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "back_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "back_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "back_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "back_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "back_squat",
+      "alternativeExerciseId": "pin_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "band_pull_apart",
+      "alternativeExerciseId": "bent_over_reverse_dumbbell_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "band_pull_apart",
+      "alternativeExerciseId": "cable_reverse_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "band_pull_apart",
+      "alternativeExerciseId": "face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "band_pull_apart",
+      "alternativeExerciseId": "prone_trap_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "band_pull_apart",
+      "alternativeExerciseId": "seated_face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "band_pull_apart",
+      "alternativeExerciseId": "wall_slide",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "banded_lateral_walk_or_hip_abduction",
+      "alternativeExerciseId": "hip_abduction",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abductors",
+        "glutes"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_bench_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_bench_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_bench_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_bench_press",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_bench_press",
+      "alternativeExerciseId": "larsen_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_bench_press",
+      "alternativeExerciseId": "pause_barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_bench_press",
+      "alternativeExerciseId": "strict_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_bench_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_box_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_box_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_box_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_box_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_box_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_box_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_box_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_box_squat",
+      "alternativeExerciseId": "pin_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_floor_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_floor_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_floor_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_floor_press",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_floor_press",
+      "alternativeExerciseId": "larsen_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_floor_press",
+      "alternativeExerciseId": "pause_barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_floor_press",
+      "alternativeExerciseId": "strict_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_floor_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_overhead_press",
+      "alternativeExerciseId": "overhead_press_push_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "front_delts",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_pin_bench_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_pin_bench_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_pin_bench_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_pin_bench_press",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_pin_bench_press",
+      "alternativeExerciseId": "larsen_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_pin_bench_press",
+      "alternativeExerciseId": "pause_barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_pin_bench_press",
+      "alternativeExerciseId": "strict_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_pin_bench_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_romanian_deadlift",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_romanian_deadlift",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_romanian_deadlift",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_romanian_deadlift",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_romanian_deadlift",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_romanian_deadlift",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_romanian_deadlift",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_romanian_deadlift",
+      "alternativeExerciseId": "opposite_stance_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_strict_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_curl",
+      "alternativeExerciseId": "cable_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_curl",
+      "alternativeExerciseId": "concentration_bicep_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_curl",
+      "alternativeExerciseId": "hammer_cheat_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_curl",
+      "alternativeExerciseId": "hammer_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_curl",
+      "alternativeExerciseId": "inverse_zottman_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_strict_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_strict_curl",
+      "alternativeExerciseId": "cable_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_strict_curl",
+      "alternativeExerciseId": "concentration_bicep_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_strict_curl",
+      "alternativeExerciseId": "hammer_cheat_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_strict_curl",
+      "alternativeExerciseId": "hammer_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_strict_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_strict_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "barbell_or_ez_bar_strict_curl",
+      "alternativeExerciseId": "inverse_zottman_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "bent_over_reverse_dumbbell_flye",
+      "alternativeExerciseId": "band_pull_apart",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "bent_over_reverse_dumbbell_flye",
+      "alternativeExerciseId": "cable_reverse_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "bent_over_reverse_dumbbell_flye",
+      "alternativeExerciseId": "face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "bent_over_reverse_dumbbell_flye",
+      "alternativeExerciseId": "prone_trap_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "bent_over_reverse_dumbbell_flye",
+      "alternativeExerciseId": "seated_face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "bent_over_reverse_dumbbell_flye",
+      "alternativeExerciseId": "wall_slide",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "bicycle_crunch",
+      "alternativeExerciseId": "cable_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "bicycle_crunch",
+      "alternativeExerciseId": "hanging_leg_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "bicycle_crunch",
+      "alternativeExerciseId": "v_sit_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "bicycle_crunch",
+      "alternativeExerciseId": "weighted_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "bulgarian_split_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "bulgarian_split_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "bulgarian_split_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "bulgarian_split_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "bulgarian_split_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "bulgarian_split_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "bulgarian_split_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "bulgarian_split_squat",
+      "alternativeExerciseId": "pin_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_crunch",
+      "alternativeExerciseId": "bicycle_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_crunch",
+      "alternativeExerciseId": "hanging_leg_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_crunch",
+      "alternativeExerciseId": "v_sit_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_crunch",
+      "alternativeExerciseId": "weighted_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_strict_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_curl",
+      "alternativeExerciseId": "concentration_bicep_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_curl",
+      "alternativeExerciseId": "hammer_cheat_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_curl",
+      "alternativeExerciseId": "hammer_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_curl",
+      "alternativeExerciseId": "inverse_zottman_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pull_through",
+      "alternativeExerciseId": "prisoner_back_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pull_through",
+      "alternativeExerciseId": "single_leg_hip_thrust",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pullover",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pullover",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pullover",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pullover",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pullover",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pullover",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pullover",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_pullover",
+      "alternativeExerciseId": "single_arm_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_reverse_flye",
+      "alternativeExerciseId": "band_pull_apart",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_reverse_flye",
+      "alternativeExerciseId": "bent_over_reverse_dumbbell_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_reverse_flye",
+      "alternativeExerciseId": "face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_reverse_flye",
+      "alternativeExerciseId": "prone_trap_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_reverse_flye",
+      "alternativeExerciseId": "seated_face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_reverse_flye",
+      "alternativeExerciseId": "wall_slide",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_shrug_in",
+      "alternativeExerciseId": "dumbbell_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_shrug_in",
+      "alternativeExerciseId": "incline_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_shrug_in",
+      "alternativeExerciseId": "plate_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_triceps_kickback",
+      "alternativeExerciseId": "constant_tension_cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_triceps_kickback",
+      "alternativeExerciseId": "dumbbell_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_triceps_kickback",
+      "alternativeExerciseId": "floor_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_triceps_kickback",
+      "alternativeExerciseId": "rope_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_triceps_kickback",
+      "alternativeExerciseId": "single_arm_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_triceps_kickback",
+      "alternativeExerciseId": "skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_triceps_kickback",
+      "alternativeExerciseId": "triceps_pressdown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "cable_triceps_kickback",
+      "alternativeExerciseId": "triceps_pressdown_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_dumbbell_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_dumbbell_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_dumbbell_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_dumbbell_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_dumbbell_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_dumbbell_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_dumbbell_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_dumbbell_row",
+      "alternativeExerciseId": "pendlay_row_or_bent_over_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_row",
+      "alternativeExerciseId": "pendlay_row_or_bent_over_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "alternativeExerciseId": "pendlay_row_or_bent_over_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "chin_up",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "chin_up",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "chin_up",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "chin_up",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "chin_up",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "chin_up",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "chin_up",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "chin_up",
+      "alternativeExerciseId": "single_arm_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "close_grip_bench_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "close_grip_bench_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "close_grip_bench_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "close_grip_bench_press",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "close_grip_bench_press",
+      "alternativeExerciseId": "larsen_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "close_grip_bench_press",
+      "alternativeExerciseId": "pause_barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "close_grip_bench_press",
+      "alternativeExerciseId": "strict_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "close_grip_bench_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "concentration_bicep_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "concentration_bicep_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_strict_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "concentration_bicep_curl",
+      "alternativeExerciseId": "cable_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "concentration_bicep_curl",
+      "alternativeExerciseId": "hammer_cheat_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "concentration_bicep_curl",
+      "alternativeExerciseId": "hammer_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "concentration_bicep_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "concentration_bicep_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "concentration_bicep_curl",
+      "alternativeExerciseId": "inverse_zottman_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "constant_tension_cable_triceps_kickback",
+      "alternativeExerciseId": "cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "constant_tension_cable_triceps_kickback",
+      "alternativeExerciseId": "dumbbell_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "constant_tension_cable_triceps_kickback",
+      "alternativeExerciseId": "floor_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "constant_tension_cable_triceps_kickback",
+      "alternativeExerciseId": "rope_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "constant_tension_cable_triceps_kickback",
+      "alternativeExerciseId": "single_arm_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "constant_tension_cable_triceps_kickback",
+      "alternativeExerciseId": "skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "constant_tension_cable_triceps_kickback",
+      "alternativeExerciseId": "triceps_pressdown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "constant_tension_cable_triceps_kickback",
+      "alternativeExerciseId": "triceps_pressdown_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "deadlift",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "deadlift",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "deadlift",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "deadlift",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "deadlift",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "deadlift",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "deadlift",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "deadlift",
+      "alternativeExerciseId": "opposite_stance_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "deficit_push_up",
+      "alternativeExerciseId": "dumbbell_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "deficit_push_up",
+      "alternativeExerciseId": "machine_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "deficit_push_up",
+      "alternativeExerciseId": "pause_dumbbell_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "deficit_push_up",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "deficit_push_up",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "deficit_push_up",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "deficit_push_up",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "deficit_push_up",
+      "alternativeExerciseId": "dip",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dip",
+      "alternativeExerciseId": "weighted_dip",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dip",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dip",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dip",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dip",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dip",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dip",
+      "alternativeExerciseId": "dumbbell_incline_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dip",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_incline_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_incline_press",
+      "alternativeExerciseId": "machine_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_incline_press",
+      "alternativeExerciseId": "pause_dumbbell_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_incline_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_incline_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_incline_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_incline_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_incline_press",
+      "alternativeExerciseId": "dip",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise",
+      "alternativeExerciseId": "dumbbell_lateral_raise_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise",
+      "alternativeExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise",
+      "alternativeExerciseId": "egyptian_lateral_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise",
+      "alternativeExerciseId": "lateral_raise_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise",
+      "alternativeExerciseId": "upright_row",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_21s",
+      "alternativeExerciseId": "dumbbell_lateral_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_21s",
+      "alternativeExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_21s",
+      "alternativeExerciseId": "egyptian_lateral_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_21s",
+      "alternativeExerciseId": "lateral_raise_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_21s",
+      "alternativeExerciseId": "upright_row",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "alternativeExerciseId": "dumbbell_lateral_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "alternativeExerciseId": "dumbbell_lateral_raise_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "alternativeExerciseId": "egyptian_lateral_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "alternativeExerciseId": "lateral_raise_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "alternativeExerciseId": "upright_row",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_shrug",
+      "alternativeExerciseId": "cable_shrug_in",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_shrug",
+      "alternativeExerciseId": "incline_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_shrug",
+      "alternativeExerciseId": "plate_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_skull_crusher",
+      "alternativeExerciseId": "cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_skull_crusher",
+      "alternativeExerciseId": "constant_tension_cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_skull_crusher",
+      "alternativeExerciseId": "floor_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_skull_crusher",
+      "alternativeExerciseId": "rope_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_skull_crusher",
+      "alternativeExerciseId": "single_arm_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_skull_crusher",
+      "alternativeExerciseId": "skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_skull_crusher",
+      "alternativeExerciseId": "triceps_pressdown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "dumbbell_skull_crusher",
+      "alternativeExerciseId": "triceps_pressdown_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_leg_extension",
+      "alternativeExerciseId": "leg_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_pull_up",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_pull_up",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_pull_up",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_pull_up",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_pull_up",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_pull_up",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_pull_up",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "eccentric_accentuated_pull_up",
+      "alternativeExerciseId": "single_arm_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "egyptian_lateral_raise",
+      "alternativeExerciseId": "dumbbell_lateral_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "egyptian_lateral_raise",
+      "alternativeExerciseId": "dumbbell_lateral_raise_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "egyptian_lateral_raise",
+      "alternativeExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "egyptian_lateral_raise",
+      "alternativeExerciseId": "lateral_raise_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "egyptian_lateral_raise",
+      "alternativeExerciseId": "upright_row",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "enhanced_eccentric_calf_raise",
+      "alternativeExerciseId": "standing_calf_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "calves"
+      ]
+    },
+    {
+      "sourceExerciseId": "enhanced_eccentric_calf_raise",
+      "alternativeExerciseId": "unilateral_standing_calf_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "calves"
+      ]
+    },
+    {
+      "sourceExerciseId": "face_pull",
+      "alternativeExerciseId": "band_pull_apart",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "face_pull",
+      "alternativeExerciseId": "bent_over_reverse_dumbbell_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "face_pull",
+      "alternativeExerciseId": "cable_reverse_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "face_pull",
+      "alternativeExerciseId": "prone_trap_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "face_pull",
+      "alternativeExerciseId": "seated_face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "face_pull",
+      "alternativeExerciseId": "wall_slide",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "flat_back_bench_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "flat_back_bench_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "flat_back_bench_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "flat_back_bench_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "flat_back_bench_press",
+      "alternativeExerciseId": "larsen_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "flat_back_bench_press",
+      "alternativeExerciseId": "pause_barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "flat_back_bench_press",
+      "alternativeExerciseId": "strict_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "flat_back_bench_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "floor_skull_crusher",
+      "alternativeExerciseId": "cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "floor_skull_crusher",
+      "alternativeExerciseId": "constant_tension_cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "floor_skull_crusher",
+      "alternativeExerciseId": "dumbbell_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "floor_skull_crusher",
+      "alternativeExerciseId": "rope_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "floor_skull_crusher",
+      "alternativeExerciseId": "single_arm_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "floor_skull_crusher",
+      "alternativeExerciseId": "skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "floor_skull_crusher",
+      "alternativeExerciseId": "triceps_pressdown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "floor_skull_crusher",
+      "alternativeExerciseId": "triceps_pressdown_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat",
+      "alternativeExerciseId": "pin_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat_or_box_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat_or_box_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat_or_box_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat_or_box_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat_or_box_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat_or_box_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat_or_box_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "front_squat_or_box_squat",
+      "alternativeExerciseId": "pin_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise",
+      "alternativeExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise",
+      "alternativeExerciseId": "leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise",
+      "alternativeExerciseId": "leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise",
+      "alternativeExerciseId": "nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise",
+      "alternativeExerciseId": "seated_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise",
+      "alternativeExerciseId": "sliding_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise",
+      "alternativeExerciseId": "unilateral_leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "alternativeExerciseId": "glute_ham_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "alternativeExerciseId": "leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "alternativeExerciseId": "leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "alternativeExerciseId": "nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "alternativeExerciseId": "seated_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "alternativeExerciseId": "sliding_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "alternativeExerciseId": "unilateral_leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "hack_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "hack_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "hack_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "hack_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "hack_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "hack_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "hack_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "hack_squat",
+      "alternativeExerciseId": "pin_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_cheat_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_cheat_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_strict_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_cheat_curl",
+      "alternativeExerciseId": "cable_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_cheat_curl",
+      "alternativeExerciseId": "concentration_bicep_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_cheat_curl",
+      "alternativeExerciseId": "hammer_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_cheat_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_cheat_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_cheat_curl",
+      "alternativeExerciseId": "inverse_zottman_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_strict_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_curl",
+      "alternativeExerciseId": "cable_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_curl",
+      "alternativeExerciseId": "concentration_bicep_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_curl",
+      "alternativeExerciseId": "hammer_cheat_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hammer_curl",
+      "alternativeExerciseId": "inverse_zottman_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "hanging_leg_raise",
+      "alternativeExerciseId": "bicycle_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "hanging_leg_raise",
+      "alternativeExerciseId": "cable_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "hanging_leg_raise",
+      "alternativeExerciseId": "v_sit_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "hanging_leg_raise",
+      "alternativeExerciseId": "weighted_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "helms_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "helms_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "helms_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "helms_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "helms_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "helms_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "helms_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "helms_row",
+      "alternativeExerciseId": "pendlay_row_or_bent_over_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "hip_abduction",
+      "alternativeExerciseId": "banded_lateral_walk_or_hip_abduction",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abductors",
+        "glutes"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_strict_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl",
+      "alternativeExerciseId": "cable_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl",
+      "alternativeExerciseId": "concentration_bicep_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl",
+      "alternativeExerciseId": "hammer_cheat_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl",
+      "alternativeExerciseId": "hammer_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl",
+      "alternativeExerciseId": "inverse_zottman_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "alternativeExerciseId": "barbell_or_ez_bar_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "alternativeExerciseId": "barbell_or_ez_bar_strict_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "alternativeExerciseId": "cable_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "alternativeExerciseId": "concentration_bicep_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "alternativeExerciseId": "hammer_cheat_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "alternativeExerciseId": "hammer_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "alternativeExerciseId": "incline_dumbbell_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "alternativeExerciseId": "inverse_zottman_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_shrug",
+      "alternativeExerciseId": "cable_shrug_in",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_shrug",
+      "alternativeExerciseId": "dumbbell_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "incline_shrug",
+      "alternativeExerciseId": "plate_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "inverse_zottman_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "inverse_zottman_curl",
+      "alternativeExerciseId": "barbell_or_ez_bar_strict_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "inverse_zottman_curl",
+      "alternativeExerciseId": "cable_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "inverse_zottman_curl",
+      "alternativeExerciseId": "concentration_bicep_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "inverse_zottman_curl",
+      "alternativeExerciseId": "hammer_cheat_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "inverse_zottman_curl",
+      "alternativeExerciseId": "hammer_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "inverse_zottman_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "inverse_zottman_curl",
+      "alternativeExerciseId": "incline_dumbbell_curl_reverse_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "l_sit_hold",
+      "alternativeExerciseId": "long_lever_plank",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "larsen_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "larsen_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "larsen_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "larsen_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "larsen_press",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "larsen_press",
+      "alternativeExerciseId": "pause_barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "larsen_press",
+      "alternativeExerciseId": "strict_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "larsen_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "lat_pullover",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "lat_pullover",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "lat_pullover",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "lat_pullover",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "lat_pullover",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "lat_pullover",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "lat_pullover",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "lat_pullover",
+      "alternativeExerciseId": "single_arm_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "lateral_raise_choice",
+      "alternativeExerciseId": "dumbbell_lateral_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "lateral_raise_choice",
+      "alternativeExerciseId": "dumbbell_lateral_raise_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "lateral_raise_choice",
+      "alternativeExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "lateral_raise_choice",
+      "alternativeExerciseId": "egyptian_lateral_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "lateral_raise_choice",
+      "alternativeExerciseId": "upright_row",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl",
+      "alternativeExerciseId": "glute_ham_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl",
+      "alternativeExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl",
+      "alternativeExerciseId": "leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl",
+      "alternativeExerciseId": "nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl",
+      "alternativeExerciseId": "seated_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl",
+      "alternativeExerciseId": "sliding_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl",
+      "alternativeExerciseId": "unilateral_leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl_choice",
+      "alternativeExerciseId": "glute_ham_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl_choice",
+      "alternativeExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl_choice",
+      "alternativeExerciseId": "leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl_choice",
+      "alternativeExerciseId": "nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl_choice",
+      "alternativeExerciseId": "seated_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl_choice",
+      "alternativeExerciseId": "sliding_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_curl_choice",
+      "alternativeExerciseId": "unilateral_leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_extension",
+      "alternativeExerciseId": "eccentric_accentuated_leg_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_press",
+      "alternativeExerciseId": "unilateral_leg_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_press",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_press",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_press",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_press",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_press",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_press",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "leg_press",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "long_lever_plank",
+      "alternativeExerciseId": "l_sit_hold",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "low_bar_back_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "low_bar_back_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "low_bar_back_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "low_bar_back_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "low_bar_back_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "low_bar_back_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "low_bar_back_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "low_bar_back_squat",
+      "alternativeExerciseId": "pin_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_chest_supported_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_chest_supported_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_chest_supported_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_chest_supported_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_chest_supported_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_chest_supported_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_chest_supported_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_chest_supported_row",
+      "alternativeExerciseId": "pendlay_row_or_bent_over_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_incline_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_incline_press",
+      "alternativeExerciseId": "dumbbell_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_incline_press",
+      "alternativeExerciseId": "pause_dumbbell_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_incline_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_incline_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_incline_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_incline_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "machine_incline_press",
+      "alternativeExerciseId": "dip",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "meadows_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "meadows_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "meadows_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "meadows_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "meadows_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "meadows_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "meadows_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "meadows_row",
+      "alternativeExerciseId": "pendlay_row_or_bent_over_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pull_up",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pull_up",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pull_up",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pull_up",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pull_up",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pull_up",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pull_up",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pull_up",
+      "alternativeExerciseId": "single_arm_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pulldown",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pulldown",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pulldown",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pulldown",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pulldown",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pulldown",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pulldown",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "neutral_grip_pulldown",
+      "alternativeExerciseId": "single_arm_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "nordic_ham_curl",
+      "alternativeExerciseId": "glute_ham_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "nordic_ham_curl",
+      "alternativeExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "nordic_ham_curl",
+      "alternativeExerciseId": "leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "nordic_ham_curl",
+      "alternativeExerciseId": "leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "nordic_ham_curl",
+      "alternativeExerciseId": "seated_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "nordic_ham_curl",
+      "alternativeExerciseId": "sliding_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "nordic_ham_curl",
+      "alternativeExerciseId": "unilateral_leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "omni_grip_lat_pulldown",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "omni_grip_lat_pulldown",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "omni_grip_lat_pulldown",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "omni_grip_lat_pulldown",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "omni_grip_lat_pulldown",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "omni_grip_lat_pulldown",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "omni_grip_lat_pulldown",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "omni_grip_lat_pulldown",
+      "alternativeExerciseId": "single_arm_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "one_arm_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "one_arm_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "one_arm_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "one_arm_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "one_arm_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "one_arm_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "one_arm_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "one_arm_row",
+      "alternativeExerciseId": "pendlay_row_or_bent_over_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "opposite_stance_deadlift",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "opposite_stance_deadlift",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "opposite_stance_deadlift",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "opposite_stance_deadlift",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "opposite_stance_deadlift",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "opposite_stance_deadlift",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "opposite_stance_deadlift",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "opposite_stance_deadlift",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "overhead_press_push_press",
+      "alternativeExerciseId": "barbell_overhead_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "front_delts",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_barbell_bench_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_barbell_bench_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_barbell_bench_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_barbell_bench_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_barbell_bench_press",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_barbell_bench_press",
+      "alternativeExerciseId": "larsen_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_barbell_bench_press",
+      "alternativeExerciseId": "strict_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_barbell_bench_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_deadlift",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_deadlift",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_deadlift",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_deadlift",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_deadlift",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_deadlift",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_deadlift",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_deadlift",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_dumbbell_incline_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_dumbbell_incline_press",
+      "alternativeExerciseId": "dumbbell_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_dumbbell_incline_press",
+      "alternativeExerciseId": "machine_incline_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_dumbbell_incline_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_dumbbell_incline_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_dumbbell_incline_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_dumbbell_incline_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pause_dumbbell_incline_press",
+      "alternativeExerciseId": "dip",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row",
+      "alternativeExerciseId": "pendlay_row_or_bent_over_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row_or_bent_over_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row_or_bent_over_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row_or_bent_over_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row_or_bent_over_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row_or_bent_over_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row_or_bent_over_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row_or_bent_over_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pendlay_row_or_bent_over_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_good_morning_or_45_degree_back_extension",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_good_morning_or_45_degree_back_extension",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_good_morning_or_45_degree_back_extension",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_good_morning_or_45_degree_back_extension",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_good_morning_or_45_degree_back_extension",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_good_morning_or_45_degree_back_extension",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_good_morning_or_45_degree_back_extension",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_good_morning_or_45_degree_back_extension",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "pin_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "plate_shrug",
+      "alternativeExerciseId": "cable_shrug_in",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "plate_shrug",
+      "alternativeExerciseId": "dumbbell_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "plate_shrug",
+      "alternativeExerciseId": "incline_shrug",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "traps"
+      ]
+    },
+    {
+      "sourceExerciseId": "prisoner_back_extension",
+      "alternativeExerciseId": "cable_pull_through",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes"
+      ]
+    },
+    {
+      "sourceExerciseId": "prisoner_back_extension",
+      "alternativeExerciseId": "single_leg_hip_thrust",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes"
+      ]
+    },
+    {
+      "sourceExerciseId": "prone_trap_raise",
+      "alternativeExerciseId": "band_pull_apart",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "prone_trap_raise",
+      "alternativeExerciseId": "bent_over_reverse_dumbbell_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "prone_trap_raise",
+      "alternativeExerciseId": "cable_reverse_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "prone_trap_raise",
+      "alternativeExerciseId": "face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "prone_trap_raise",
+      "alternativeExerciseId": "seated_face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "prone_trap_raise",
+      "alternativeExerciseId": "wall_slide",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "reset_deadlift",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "reset_deadlift",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "reset_deadlift",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "reset_deadlift",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "reset_deadlift",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "reset_deadlift",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "reset_deadlift",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "reset_deadlift",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "rope_overhead_triceps_extension",
+      "alternativeExerciseId": "cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "rope_overhead_triceps_extension",
+      "alternativeExerciseId": "constant_tension_cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "rope_overhead_triceps_extension",
+      "alternativeExerciseId": "dumbbell_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "rope_overhead_triceps_extension",
+      "alternativeExerciseId": "floor_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "rope_overhead_triceps_extension",
+      "alternativeExerciseId": "single_arm_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "rope_overhead_triceps_extension",
+      "alternativeExerciseId": "skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "rope_overhead_triceps_extension",
+      "alternativeExerciseId": "triceps_pressdown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "rope_overhead_triceps_extension",
+      "alternativeExerciseId": "triceps_pressdown_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_cable_row",
+      "alternativeExerciseId": "chest_supported_dumbbell_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_cable_row",
+      "alternativeExerciseId": "chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_cable_row",
+      "alternativeExerciseId": "chest_supported_t_bar_row_or_pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_cable_row",
+      "alternativeExerciseId": "helms_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_cable_row",
+      "alternativeExerciseId": "machine_chest_supported_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_cable_row",
+      "alternativeExerciseId": "meadows_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_cable_row",
+      "alternativeExerciseId": "one_arm_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_cable_row",
+      "alternativeExerciseId": "pendlay_row",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "lats",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_face_pull",
+      "alternativeExerciseId": "band_pull_apart",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_face_pull",
+      "alternativeExerciseId": "bent_over_reverse_dumbbell_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_face_pull",
+      "alternativeExerciseId": "cable_reverse_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_face_pull",
+      "alternativeExerciseId": "face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_face_pull",
+      "alternativeExerciseId": "prone_trap_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_face_pull",
+      "alternativeExerciseId": "wall_slide",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_leg_curl",
+      "alternativeExerciseId": "glute_ham_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_leg_curl",
+      "alternativeExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_leg_curl",
+      "alternativeExerciseId": "leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_leg_curl",
+      "alternativeExerciseId": "leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_leg_curl",
+      "alternativeExerciseId": "nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_leg_curl",
+      "alternativeExerciseId": "sliding_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "seated_leg_curl",
+      "alternativeExerciseId": "unilateral_leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_lat_pulldown",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_lat_pulldown",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_lat_pulldown",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_lat_pulldown",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_lat_pulldown",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_lat_pulldown",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_lat_pulldown",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_lat_pulldown",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_overhead_triceps_extension",
+      "alternativeExerciseId": "cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_overhead_triceps_extension",
+      "alternativeExerciseId": "constant_tension_cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_overhead_triceps_extension",
+      "alternativeExerciseId": "dumbbell_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_overhead_triceps_extension",
+      "alternativeExerciseId": "floor_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_overhead_triceps_extension",
+      "alternativeExerciseId": "rope_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_overhead_triceps_extension",
+      "alternativeExerciseId": "skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_overhead_triceps_extension",
+      "alternativeExerciseId": "triceps_pressdown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_overhead_triceps_extension",
+      "alternativeExerciseId": "triceps_pressdown_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_pulldown",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_pulldown",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_pulldown",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_pulldown",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_pulldown",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_pulldown",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_pulldown",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_arm_pulldown",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_leg_hip_thrust",
+      "alternativeExerciseId": "cable_pull_through",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes"
+      ]
+    },
+    {
+      "sourceExerciseId": "single_leg_hip_thrust",
+      "alternativeExerciseId": "prisoner_back_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes"
+      ]
+    },
+    {
+      "sourceExerciseId": "sissy_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sissy_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sissy_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sissy_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sissy_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sissy_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sissy_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sissy_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "skull_crusher",
+      "alternativeExerciseId": "cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "skull_crusher",
+      "alternativeExerciseId": "constant_tension_cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "skull_crusher",
+      "alternativeExerciseId": "dumbbell_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "skull_crusher",
+      "alternativeExerciseId": "floor_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "skull_crusher",
+      "alternativeExerciseId": "rope_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "skull_crusher",
+      "alternativeExerciseId": "single_arm_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "skull_crusher",
+      "alternativeExerciseId": "triceps_pressdown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "skull_crusher",
+      "alternativeExerciseId": "triceps_pressdown_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "sliding_leg_curl",
+      "alternativeExerciseId": "glute_ham_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "sliding_leg_curl",
+      "alternativeExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "sliding_leg_curl",
+      "alternativeExerciseId": "leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "sliding_leg_curl",
+      "alternativeExerciseId": "leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "sliding_leg_curl",
+      "alternativeExerciseId": "nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "sliding_leg_curl",
+      "alternativeExerciseId": "seated_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "sliding_leg_curl",
+      "alternativeExerciseId": "unilateral_leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "snatch_grip_romanian_deadlift",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "snatch_grip_romanian_deadlift",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "snatch_grip_romanian_deadlift",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "snatch_grip_romanian_deadlift",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "snatch_grip_romanian_deadlift",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "snatch_grip_romanian_deadlift",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "snatch_grip_romanian_deadlift",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "snatch_grip_romanian_deadlift",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "standing_calf_raise",
+      "alternativeExerciseId": "enhanced_eccentric_calf_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "calves"
+      ]
+    },
+    {
+      "sourceExerciseId": "standing_calf_raise",
+      "alternativeExerciseId": "unilateral_standing_calf_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "calves"
+      ]
+    },
+    {
+      "sourceExerciseId": "strict_bench_press",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "strict_bench_press",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "strict_bench_press",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "strict_bench_press",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "strict_bench_press",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "strict_bench_press",
+      "alternativeExerciseId": "larsen_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "strict_bench_press",
+      "alternativeExerciseId": "pause_barbell_bench_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "strict_bench_press",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "sumo_box_squat_or_pause_high_bar_squat",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sumo_box_squat_or_pause_high_bar_squat",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sumo_box_squat_or_pause_high_bar_squat",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sumo_box_squat_or_pause_high_bar_squat",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sumo_box_squat_or_pause_high_bar_squat",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sumo_box_squat_or_pause_high_bar_squat",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sumo_box_squat_or_pause_high_bar_squat",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "sumo_box_squat_or_pause_high_bar_squat",
+      "alternativeExerciseId": "low_bar_back_squat",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "touch_and_go_deadlift",
+      "alternativeExerciseId": "1_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "touch_and_go_deadlift",
+      "alternativeExerciseId": "2_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "touch_and_go_deadlift",
+      "alternativeExerciseId": "3_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "touch_and_go_deadlift",
+      "alternativeExerciseId": "4_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "touch_and_go_deadlift",
+      "alternativeExerciseId": "5_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "touch_and_go_deadlift",
+      "alternativeExerciseId": "6_inch_block_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "touch_and_go_deadlift",
+      "alternativeExerciseId": "barbell_romanian_deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "touch_and_go_deadlift",
+      "alternativeExerciseId": "deadlift",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "hamstrings",
+        "lower_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown",
+      "alternativeExerciseId": "cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown",
+      "alternativeExerciseId": "constant_tension_cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown",
+      "alternativeExerciseId": "dumbbell_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown",
+      "alternativeExerciseId": "floor_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown",
+      "alternativeExerciseId": "rope_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown",
+      "alternativeExerciseId": "single_arm_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown",
+      "alternativeExerciseId": "skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown",
+      "alternativeExerciseId": "triceps_pressdown_21s",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown_21s",
+      "alternativeExerciseId": "cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown_21s",
+      "alternativeExerciseId": "constant_tension_cable_triceps_kickback",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown_21s",
+      "alternativeExerciseId": "dumbbell_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown_21s",
+      "alternativeExerciseId": "floor_skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown_21s",
+      "alternativeExerciseId": "rope_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown_21s",
+      "alternativeExerciseId": "single_arm_overhead_triceps_extension",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown_21s",
+      "alternativeExerciseId": "skull_crusher",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "triceps_pressdown_21s",
+      "alternativeExerciseId": "triceps_pressdown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_curl_choice",
+      "alternativeExerciseId": "glute_ham_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_curl_choice",
+      "alternativeExerciseId": "glute_ham_raise_or_nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_curl_choice",
+      "alternativeExerciseId": "leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_curl_choice",
+      "alternativeExerciseId": "leg_curl_choice",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_curl_choice",
+      "alternativeExerciseId": "nordic_ham_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_curl_choice",
+      "alternativeExerciseId": "seated_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_curl_choice",
+      "alternativeExerciseId": "sliding_leg_curl",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "hamstrings"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_press",
+      "alternativeExerciseId": "leg_press",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_press",
+      "alternativeExerciseId": "anderson_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_press",
+      "alternativeExerciseId": "back_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_press",
+      "alternativeExerciseId": "barbell_box_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_press",
+      "alternativeExerciseId": "bulgarian_split_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_press",
+      "alternativeExerciseId": "front_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_press",
+      "alternativeExerciseId": "front_squat_or_box_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_leg_press",
+      "alternativeExerciseId": "hack_squat",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "glutes",
+        "quads"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_standing_calf_raise",
+      "alternativeExerciseId": "enhanced_eccentric_calf_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "calves"
+      ]
+    },
+    {
+      "sourceExerciseId": "unilateral_standing_calf_raise",
+      "alternativeExerciseId": "standing_calf_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "calves"
+      ]
+    },
+    {
+      "sourceExerciseId": "upright_row",
+      "alternativeExerciseId": "dumbbell_lateral_raise",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "upright_row",
+      "alternativeExerciseId": "dumbbell_lateral_raise_21s",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "upright_row",
+      "alternativeExerciseId": "dumbbell_lateral_raise_iso_hold",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "upright_row",
+      "alternativeExerciseId": "egyptian_lateral_raise",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "upright_row",
+      "alternativeExerciseId": "lateral_raise_choice",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "side_delts"
+      ]
+    },
+    {
+      "sourceExerciseId": "v_sit_up",
+      "alternativeExerciseId": "bicycle_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "v_sit_up",
+      "alternativeExerciseId": "cable_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "v_sit_up",
+      "alternativeExerciseId": "hanging_leg_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "v_sit_up",
+      "alternativeExerciseId": "weighted_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "wall_slide",
+      "alternativeExerciseId": "band_pull_apart",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "wall_slide",
+      "alternativeExerciseId": "bent_over_reverse_dumbbell_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "wall_slide",
+      "alternativeExerciseId": "cable_reverse_flye",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "wall_slide",
+      "alternativeExerciseId": "face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "wall_slide",
+      "alternativeExerciseId": "prone_trap_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "wall_slide",
+      "alternativeExerciseId": "seated_face_pull",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "rear_delts",
+        "upper_back"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_crunch",
+      "alternativeExerciseId": "bicycle_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_crunch",
+      "alternativeExerciseId": "cable_crunch",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_crunch",
+      "alternativeExerciseId": "hanging_leg_raise",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_crunch",
+      "alternativeExerciseId": "v_sit_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "abs"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_dip",
+      "alternativeExerciseId": "dip",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_dip",
+      "alternativeExerciseId": "barbell_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_dip",
+      "alternativeExerciseId": "barbell_floor_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_dip",
+      "alternativeExerciseId": "barbell_pin_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_dip",
+      "alternativeExerciseId": "close_grip_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_dip",
+      "alternativeExerciseId": "deficit_push_up",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_dip",
+      "alternativeExerciseId": "dumbbell_incline_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_dip",
+      "alternativeExerciseId": "flat_back_bench_press",
+      "compatibilityScore": 90,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "chest",
+        "triceps"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_eccentric_overload_pull_up",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_eccentric_overload_pull_up",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_eccentric_overload_pull_up",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_eccentric_overload_pull_up",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_eccentric_overload_pull_up",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_eccentric_overload_pull_up",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_eccentric_overload_pull_up",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_eccentric_overload_pull_up",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_neutral_grip_pull_up",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_neutral_grip_pull_up",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_neutral_grip_pull_up",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_neutral_grip_pull_up",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_neutral_grip_pull_up",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_neutral_grip_pull_up",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_neutral_grip_pull_up",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_neutral_grip_pull_up",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_pull_up",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_pull_up",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_pull_up",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_pull_up",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_pull_up",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_pull_up",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_pull_up",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "weighted_pull_up",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "wide_grip_lat_pulldown",
+      "alternativeExerciseId": "assisted_chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "wide_grip_lat_pulldown",
+      "alternativeExerciseId": "cable_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "wide_grip_lat_pulldown",
+      "alternativeExerciseId": "chin_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "wide_grip_lat_pulldown",
+      "alternativeExerciseId": "eccentric_accentuated_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "wide_grip_lat_pulldown",
+      "alternativeExerciseId": "lat_pullover",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "wide_grip_lat_pulldown",
+      "alternativeExerciseId": "neutral_grip_pull_up",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "wide_grip_lat_pulldown",
+      "alternativeExerciseId": "neutral_grip_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
+    },
+    {
+      "sourceExerciseId": "wide_grip_lat_pulldown",
+      "alternativeExerciseId": "omni_grip_lat_pulldown",
+      "compatibilityScore": 100,
+      "sameMovementPattern": true,
+      "sharedPrimaryMuscles": [
+        "biceps",
+        "lats"
+      ]
     }
   ]
 } as const;

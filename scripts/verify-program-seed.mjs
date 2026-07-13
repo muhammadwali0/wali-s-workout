@@ -7,7 +7,11 @@ assert.equal(seed.blocks.length, 4);
 assert.equal(seed.phaseWeeks.phase1.length, 11);
 assert.equal(seed.phaseWeeks.phase2.length, 12);
 assert.equal(seed.phaseWeeks.phase3.length, 10);
-assert.equal(seed.exercises.length, 125);
+assert.equal(seed.exercises.length, 131);
+assert.equal(seed.muscles.length, 19);
+assert.equal(seed.movementPatterns.length, 21);
+assert.equal(seed.exerciseAlternatives.length, 844);
+assert.equal(seed.exercises[0].muscles.length > 0, true);
 
 const workoutCount =
   countWorkouts(seed.phaseWeeks.phase1) +

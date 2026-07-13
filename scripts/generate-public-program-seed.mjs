@@ -53,7 +53,35 @@ const phaseWeeks = Object.fromEntries(
   ]),
 );
 
-const exercises = collectExercises(phaseWeeks);
+const exercises = annualPlan.exercise_library.map((exercise) => ({
+  id: exercise.id,
+  name: exercise.name,
+  category: exercise.category,
+  movementPattern: exercise.movement_pattern,
+  equipment: exercise.equipment,
+  defaultRole: exercise.default_role,
+  isUnilateral: exercise.is_unilateral,
+  isBodyweight: exercise.is_bodyweight,
+  muscles: exercise.muscles.map((muscle) => ({
+    muscleId: muscle.muscle_id,
+    role: muscle.role,
+    heatmapWeight: muscle.heatmap_weight,
+  })),
+}));
+const muscles = annualPlan.muscles.map((muscle) => ({
+  id: muscle.id,
+  name: muscle.name,
+  region: muscle.region,
+  heatmapView: muscle.heatmap_view,
+}));
+const movementPatterns = annualPlan.movement_patterns;
+const exerciseAlternatives = annualPlan.exercise_alternatives.map((alternative) => ({
+  sourceExerciseId: alternative.source_exercise_id,
+  alternativeExerciseId: alternative.alternative_exercise_id,
+  compatibilityScore: alternative.compatibility_score,
+  sameMovementPattern: alternative.same_movement_pattern,
+  sharedPrimaryMuscles: alternative.shared_primary_muscles,
+}));
 
 const seed = {
   schemaVersion: 1,
@@ -63,6 +91,9 @@ const seed = {
   annualWeeks,
   phaseWeeks,
   exercises,
+  muscles,
+  movementPatterns,
+  exerciseAlternatives,
 };
 
 const text = `export const programSeed = ${JSON.stringify(seed, null, 2)} as const;\n`;
@@ -127,25 +158,6 @@ function sanitizeExercise(workoutId, exercise) {
       tempo: prescription.tempo,
     })),
   };
-}
-
-function collectExercises(phaseWeeks) {
-  const byId = new Map();
-
-  for (const weeks of Object.values(phaseWeeks)) {
-    for (const week of weeks) {
-      for (const workout of week.workouts) {
-        for (const exercise of workout.exercises) {
-          byId.set(exercise.exerciseId, {
-            id: exercise.exerciseId,
-            name: exercise.name,
-          });
-        }
-      }
-    }
-  }
-
-  return [...byId.values()].sort((a, b) => a.id.localeCompare(b.id));
 }
 
 function genericGoal(code) {
