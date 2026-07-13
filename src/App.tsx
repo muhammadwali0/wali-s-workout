@@ -75,7 +75,10 @@ import {
 } from './domain/analytics/consistencyCalendar';
 import { compareBlocks, comparePhases } from './domain/analytics/blockComparison';
 import { calculateMuscleExposure } from './domain/analytics/muscleExposure';
-import { calculateMuscleHeatmap } from './domain/analytics/muscleHeatmap';
+import {
+  calculateMuscleHeatmap,
+  type MuscleHeatmapRegion,
+} from './domain/analytics/muscleHeatmap';
 import { getTrainingFrequency } from './domain/analytics/trainingFrequency';
 import { getWeeklyAverageRpe } from './domain/analytics/weeklyRpe';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
@@ -962,14 +965,10 @@ function AnalyticsSummary({
         {muscleHeatmap.length === 0 ? (
           <Text style={styles.summaryText}>No heatmap data from completed sets yet.</Text>
         ) : (
-          muscleHeatmap.map((region) => (
-              <BarRow
-                key={`${region.view}_${region.muscleId}`}
-                label={`${region.view === 'front' ? 'Front' : 'Back'}: ${region.name}`}
-                value={`${region.hardSets.toFixed(1)} hard sets`}
-                percent={region.intensity * 100}
-              />
-          ))
+          <View style={styles.heatmapFigures}>
+            <MuscleHeatmapFigure regions={muscleHeatmap} view="front" />
+            <MuscleHeatmapFigure regions={muscleHeatmap} view="back" />
+          </View>
         )}
       </View>
 
@@ -1612,6 +1611,53 @@ function BarRow({
   );
 }
 
+function MuscleHeatmapFigure({
+  regions,
+  view,
+}: {
+  regions: MuscleHeatmapRegion[];
+  view: MuscleHeatmapRegion['view'];
+}) {
+  const visibleRegions = regions
+    .filter((region) => region.view === view)
+    .sort((a, b) => b.intensity - a.intensity)
+    .slice(0, 5);
+
+  return (
+    <View
+      accessibilityLabel={`${view} muscle heatmap`}
+      style={styles.heatmapFigure}
+    >
+      <Text style={styles.heatmapTitle}>{view === 'front' ? 'Front' : 'Back'}</Text>
+      <View style={styles.bodyMap}>
+        {visibleRegions.length === 0 ? (
+          <Text style={styles.heatmapEmpty}>No exposure</Text>
+        ) : (
+          visibleRegions.map((region) => (
+            <View
+              key={`${view}_${region.muscleId}`}
+              style={[
+                styles.bodyRegion,
+                {
+                  backgroundColor: `rgba(30, 58, 95, ${Math.min(
+                    0.9,
+                    0.18 + region.intensity * 0.72,
+                  )})`,
+                },
+              ]}
+            >
+              <Text style={styles.bodyRegionText}>{region.name}</Text>
+              <Text style={styles.bodyRegionMeta}>
+                {region.hardSets.toFixed(1)} sets
+              </Text>
+            </View>
+          ))
+        )}
+      </View>
+    </View>
+  );
+}
+
 function getTodayTitle(dueWorkout: ReturnType<typeof getDueWorkout>) {
   if (dueWorkout.status === 'workout_due') return 'Workout Due';
   if (dueWorkout.status === 'rest_day') return 'Rest Day';
@@ -1979,6 +2025,55 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: '#1E3A5F',
+  },
+  heatmapFigures: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  heatmapFigure: {
+    flex: 1,
+    minHeight: 220,
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    borderRadius: 8,
+    padding: 10,
+    backgroundColor: '#FFFFFF',
+  },
+  heatmapTitle: {
+    color: '#111827',
+    fontSize: 13,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  bodyMap: {
+    flex: 1,
+    justifyContent: 'center',
+    gap: 8,
+    marginTop: 10,
+  },
+  bodyRegion: {
+    minHeight: 34,
+    justifyContent: 'center',
+    borderRadius: 6,
+    paddingHorizontal: 8,
+  },
+  bodyRegionText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  bodyRegionMeta: {
+    color: '#F8FAFC',
+    fontSize: 11,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  heatmapEmpty: {
+    color: '#64748B',
+    fontSize: 12,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   analyticsFooter: {
     flexDirection: 'row',
