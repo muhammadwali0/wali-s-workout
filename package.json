@@ -11,6 +11,7 @@
     "web": "expo start --web",
     "verify:adherence": "node --experimental-strip-types scripts/verify-adherence.mjs",
     "verify:alternatives": "node --experimental-strip-types scripts/verify-alternatives.mjs",
+    "verify:consistency": "node --experimental-strip-types scripts/verify-consistency-calendar.mjs",
     "verify:load": "node --experimental-strip-types scripts/verify-load-calculator.mjs",
     "verify:missed-workout": "node --experimental-strip-types scripts/verify-missed-workout.mjs",
     "verify:muscle-exposure": "node --experimental-strip-types scripts/verify-muscle-exposure.mjs",
