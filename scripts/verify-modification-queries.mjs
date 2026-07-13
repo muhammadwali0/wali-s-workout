@@ -42,6 +42,15 @@ assert.deepEqual(calls[1].params.slice(0, 6), [
   }),
 ]);
 
+const blockId = await saveExerciseReplacement(db, {
+  originalExerciseId: 'back_squat',
+  replacementExerciseId: 'front_squat',
+  scope: 'block',
+  recordedAt: '2026-01-01T00:00:00Z',
+});
+assert.equal(blockId, 'replace_back_squat_front_squat_block');
+assert.equal(calls[3].params[2], 'block');
+
 const badDb = {
   async getFirstAsync() {
     return null;

@@ -61,6 +61,7 @@ import {
   restoreExerciseReplacement,
   saveExerciseReplacement,
   type ActiveExerciseReplacement,
+  type ExerciseReplacementInput,
 } from './db/modificationQueries';
 import { getAppSettings, saveAppSettings } from './db/settingsQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
@@ -156,6 +157,13 @@ const tabs: Tab[] = [
 const muscleNameById: Map<string, string> = new Map(
   programSeed.muscles.map((muscle) => [muscle.id, muscle.name]),
 );
+const replacementScopes: ExerciseReplacementInput['scope'][] = [
+  'today_only',
+  'week',
+  'future_matching_in_block',
+  'block',
+  'year',
+];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabKey>('today');
@@ -941,6 +949,8 @@ function LibrarySummary({
   const [draftValues, setDraftValues] = useState<Record<string, string>>({});
   const [draftPlateIncrement, setDraftPlateIncrement] = useState('');
   const [saveStatus, setSaveStatus] = useState('Baselines not changed');
+  const [replacementScope, setReplacementScope] =
+    useState<ExerciseReplacementInput['scope']>('today_only');
   const recordByExercise = new Map(
     oneRmRecords.map((record) => [record.exerciseId, record]),
   );
@@ -996,10 +1006,10 @@ function LibrarySummary({
     await saveExerciseReplacement(db, {
       originalExerciseId: alternative.sourceExerciseId,
       replacementExerciseId: alternative.alternativeExerciseId,
-      scope: 'today_only',
+      scope: replacementScope,
     });
     await onSaved(db);
-    setSaveStatus('Substitution saved for today');
+    setSaveStatus(`Substitution saved: ${formatReplacementScope(replacementScope)}`);
   };
   const restoreReplacement = async (replacement: ActiveExerciseReplacement) => {
     if (!db) return;
@@ -1117,6 +1127,29 @@ function LibrarySummary({
             {notification.title} - {notification.scheduledFor}
           </Text>
         ))}
+      </View>
+      <View style={styles.baselinePanel}>
+        <Text style={styles.sessionTitle}>Substitution Scope</Text>
+        <Text style={styles.summaryText}>
+          New substitutions apply to {formatReplacementScope(replacementScope)}.
+        </Text>
+        <View style={styles.actionRow}>
+          {replacementScopes.map((scope) => (
+            <Pressable
+              accessibilityRole="button"
+              key={scope}
+              onPress={() => setReplacementScope(scope)}
+              style={[
+                styles.secondaryButton,
+                replacementScope === scope ? styles.selectedButton : null,
+              ]}
+            >
+              <Text style={styles.secondaryButtonText}>
+                {formatReplacementScope(scope)}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
       </View>
       <View style={styles.setPreview}>
         {exercises.length === 0 ? (
@@ -1271,6 +1304,14 @@ function formatPersonalRecord(record: PersonalRecordItem) {
     }`.trim();
   }
   return `Volume ${record.volume ?? 0} ${record.unit ?? ''} reps`.trim();
+}
+
+function formatReplacementScope(scope: ExerciseReplacementInput['scope']) {
+  if (scope === 'today_only') return 'Today';
+  if (scope === 'week') return 'Week';
+  if (scope === 'future_matching_in_block') return 'Future Block Matches';
+  if (scope === 'block') return 'Block';
+  return 'Year';
 }
 
 function getDefaultReps(targetReps: string | null) {
@@ -1442,6 +1483,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingHorizontal: 14,
     backgroundColor: '#FFFFFF',
+  },
+  selectedButton: {
+    backgroundColor: '#DBEAFE',
   },
   secondaryButtonText: {
     color: '#1E3A5F',
