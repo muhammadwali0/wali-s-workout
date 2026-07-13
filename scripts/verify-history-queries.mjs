@@ -9,6 +9,7 @@ const rows = [
     status: 'completed',
     scheduledDate: '2026-01-01',
     completedAt: '2026-01-01T10:30:00Z',
+    durationSeconds: 1800,
     totalVolume: 500,
     totalWorkingSets: 3,
     averageRpe: 7,
@@ -27,6 +28,7 @@ assert.equal(calls[0].limit, 5);
 assert.match(calls[0].sql, /FROM workout_logs/);
 assert.match(calls[0].sql, /JOIN workout_instances/);
 assert.match(calls[0].sql, /JOIN program_workouts/);
+assert.match(calls[0].sql, /wl\.duration_seconds AS durationSeconds/);
 assert.match(calls[0].sql, /LIMIT \?/);
 
 console.log('history queries verified');

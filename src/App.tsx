@@ -864,6 +864,9 @@ function HistorySummary({
               <Text style={styles.setPrescription}>
                 {item.status} - {item.completedAt ?? item.scheduledDate} -{' '}
                 {item.totalWorkingSets ?? 0} working sets - {item.totalVolume ?? 0} kg reps
+                {item.durationSeconds !== null
+                  ? ` - ${formatDuration(item.durationSeconds)}`
+                  : ''}
               </Text>
             </View>
           ))

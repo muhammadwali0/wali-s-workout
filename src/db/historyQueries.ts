@@ -6,6 +6,7 @@ export type WorkoutHistoryItem = {
   status: 'draft' | 'completed' | 'discarded';
   scheduledDate: string;
   completedAt: string | null;
+  durationSeconds: number | null;
   totalVolume: number | null;
   totalWorkingSets: number | null;
   averageRpe: number | null;
@@ -22,6 +23,7 @@ export async function getRecentWorkoutHistory(
        wl.status,
        wi.scheduled_date AS scheduledDate,
        wl.completed_at AS completedAt,
+       wl.duration_seconds AS durationSeconds,
        wl.total_volume AS totalVolume,
        wl.total_working_sets AS totalWorkingSets,
        wl.average_rpe AS averageRpe
