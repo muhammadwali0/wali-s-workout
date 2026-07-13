@@ -2,12 +2,14 @@
   "name": "wali-s-workout",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "verify:load": "node --experimental-strip-types scripts/verify-load-calculator.mjs",
     "verify:schema": "node scripts/verify-schema.mjs",
     "verify:year": "node --experimental-strip-types scripts/verify-year-engine.mjs",
     "typecheck": "tsc --noEmit"
