@@ -119,6 +119,7 @@ import {
   completeSet,
   completeWorkout,
   createWorkoutDraft,
+  discardWorkout,
   removeExercise,
   removeSet,
   skipSet,
@@ -541,7 +542,7 @@ function TodayWorkoutSummary({
     const saveDraft = async (nextDraft: WorkoutDraft) => {
       const nextSummary = summarizeWorkoutDraft(nextDraft);
       const currentCompletedSets = draft ? summarizeWorkoutDraft(draft).completedSets : 0;
-      setDraft(nextDraft);
+      setDraft(nextDraft.status === 'discarded' ? null : nextDraft);
       if (!db || !todayInstance) return;
 
       await saveWorkoutDraft(db, nextDraft, {
@@ -551,7 +552,7 @@ function TodayWorkoutSummary({
         unit: appSettings.preferredUnit,
       });
       if (
-        nextDraft.status !== 'completed' &&
+        nextDraft.status === 'draft' &&
         currentCompletedSets === 0 &&
         nextSummary.completedSets > 0
       ) {
@@ -746,6 +747,15 @@ function TodayWorkoutSummary({
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Remove Exercise</Text>
+              </Pressable>
+            ) : null}
+            {draft ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => void saveDraft(discardWorkout(draft))}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Discard</Text>
               </Pressable>
             ) : null}
             {draft && summary?.isComplete && draft.status !== 'completed' ? (

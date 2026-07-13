@@ -13,7 +13,7 @@ export type ActualSet = {
 export type WorkoutDraft = {
   workoutId: string;
   startedAt: string;
-  status: 'draft' | 'completed';
+  status: 'draft' | 'completed' | 'discarded';
   plannedSets: readonly PlannedSet[];
   actualSets: readonly ActualSet[];
 };
@@ -228,6 +228,10 @@ export function completeWorkout(draft: WorkoutDraft): WorkoutDraft {
   }
 
   return { ...draft, status: 'completed' };
+}
+
+export function discardWorkout(draft: WorkoutDraft): WorkoutDraft {
+  return { ...draft, status: 'discarded' };
 }
 
 function assertNonNegative(value: number, name: string) {

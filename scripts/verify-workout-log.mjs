@@ -12,6 +12,7 @@ const {
   completeSet,
   completeWorkout,
   createWorkoutDraft,
+  discardWorkout,
   removeExercise,
   removeSet,
   skipSet,
@@ -32,6 +33,7 @@ assert.equal(draft.startedAt, '2026-01-01T10:00:00Z');
 assert.equal(draft.actualSets.length, plannedSets.length);
 assert.equal(summarizeWorkoutDraft(draft).completedSets, 0);
 assert.equal(draft.actualSets[0].skipped, false);
+assert.equal(discardWorkout(draft).status, 'discarded');
 
 const logged = completeSet(draft, plannedSets[0].id, {
   weight: 20,

@@ -10,9 +10,13 @@ const { createPlannedSets } = await import(
 const { applyExerciseReplacements } = await import(
   '../src/domain/workout/sessionPlanner.ts'
 );
-const { completeSet, completeWorkout, createWorkoutDraft, skipSet } = await import(
-  '../src/domain/workout/workoutLog.ts'
-);
+const {
+  completeSet,
+  completeWorkout,
+  createWorkoutDraft,
+  discardWorkout,
+  skipSet,
+} = await import('../src/domain/workout/workoutLog.ts');
 const { buildWorkoutLogRows, saveWorkoutDraft } = await import(
   '../src/db/workoutLogPersistence.ts'
 );
@@ -193,6 +197,31 @@ assert.deepEqual(completeUpdate?.params, [
   '2026-01-02',
   '2026-01-02T10:00:00Z',
   'instance_2',
+]);
+
+calls.length = 0;
+const discardedDraft = discardWorkout(draft);
+const discardedRows = buildWorkoutLogRows(discardedDraft, {
+  workoutLogId: 'log_discarded_rows',
+  workoutInstanceId: 'instance_discarded_rows',
+  recordedAt: '2026-01-03T10:00:00Z',
+  unit: 'kg',
+});
+assert.equal(discardedRows.workoutLog.status, 'discarded');
+await saveWorkoutDraft(db, discardedDraft, {
+  workoutLogId: 'log_discarded',
+  workoutInstanceId: 'instance_discarded',
+  recordedAt: '2026-01-03T10:00:00Z',
+  unit: 'kg',
+});
+const discardedUpdate = calls.find((call) =>
+  call.sql?.startsWith('UPDATE workout_instances'),
+);
+assert.deepEqual(discardedUpdate?.params, [
+  'scheduled',
+  null,
+  '2026-01-03T10:00:00Z',
+  'instance_discarded',
 ]);
 
 console.log('workout log persistence verified');

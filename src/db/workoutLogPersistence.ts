@@ -155,7 +155,7 @@ export async function saveWorkoutDraft(
       `UPDATE workout_instances
        SET status = ?, actual_date = ?, updated_at = ?
        WHERE id = ?`,
-      draft.status === 'completed' ? 'completed' : 'in_progress',
+      getWorkoutInstanceStatus(draft.status),
       draft.status === 'completed' ? input.recordedAt.slice(0, 10) : null,
       input.recordedAt,
       input.workoutInstanceId,
@@ -166,6 +166,12 @@ export async function saveWorkoutDraft(
     await db.execAsync('ROLLBACK');
     throw error;
   }
+}
+
+function getWorkoutInstanceStatus(status: WorkoutDraft['status']) {
+  if (status === 'completed') return 'completed';
+  if (status === 'discarded') return 'scheduled';
+  return 'in_progress';
 }
 
 function getDurationSeconds(startedAt: string, completedAt: string) {
