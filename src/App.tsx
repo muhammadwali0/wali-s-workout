@@ -898,6 +898,9 @@ function HistorySummary({
                   ? ` - ${formatDuration(item.durationSeconds)}`
                   : ''}
               </Text>
+              {item.lastSetNote ? (
+                <Text style={styles.setPrescription}>Note: {item.lastSetNote}</Text>
+              ) : null}
             </View>
           ))
         )}

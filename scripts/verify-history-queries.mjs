@@ -13,6 +13,7 @@ const rows = [
     totalVolume: 500,
     totalWorkingSets: 3,
     averageRpe: 7,
+    lastSetNote: 'Felt stable',
   },
 ];
 const calls = [];
@@ -29,6 +30,8 @@ assert.match(calls[0].sql, /FROM workout_logs/);
 assert.match(calls[0].sql, /JOIN workout_instances/);
 assert.match(calls[0].sql, /JOIN program_workouts/);
 assert.match(calls[0].sql, /wl\.duration_seconds AS durationSeconds/);
+assert.match(calls[0].sql, /sl\.user_notes AS lastSetNote|AS lastSetNote/);
+assert.match(calls[0].sql, /FROM set_logs sl/);
 assert.match(calls[0].sql, /LIMIT \?/);
 
 console.log('history queries verified');

@@ -10,6 +10,7 @@ export type WorkoutHistoryItem = {
   totalVolume: number | null;
   totalWorkingSets: number | null;
   averageRpe: number | null;
+  lastSetNote: string | null;
 };
 
 export async function getRecentWorkoutHistory(
@@ -26,7 +27,17 @@ export async function getRecentWorkoutHistory(
        wl.duration_seconds AS durationSeconds,
        wl.total_volume AS totalVolume,
        wl.total_working_sets AS totalWorkingSets,
-       wl.average_rpe AS averageRpe
+       wl.average_rpe AS averageRpe,
+       (
+         SELECT sl.user_notes
+         FROM set_logs sl
+         JOIN exercise_logs el ON el.id = sl.exercise_log_id
+         WHERE el.workout_log_id = wl.id
+           AND sl.user_notes IS NOT NULL
+           AND sl.user_notes <> ''
+         ORDER BY sl.set_order DESC
+         LIMIT 1
+       ) AS lastSetNote
      FROM workout_logs wl
      JOIN workout_instances wi ON wi.id = wl.workout_instance_id
      JOIN program_workouts pw ON pw.id = wi.program_workout_id
