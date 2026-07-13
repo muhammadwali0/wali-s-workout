@@ -824,6 +824,10 @@ function TodayWorkoutSummary({
           {previewSets.map((set) => (
             <View key={set.id} style={styles.setRow}>
               <Text style={styles.setExercise}>{set.exerciseName}</Text>
+              <Text style={styles.setPrescription}>
+                Role: {set.exerciseRole}
+                {set.supersetGroup ? ` - Superset ${set.supersetGroup}` : ''}
+              </Text>
               {set.substitutionScope ? (
                 <Text style={styles.setPrescription}>
                   Original: {set.originalExerciseName} - {set.substitutionScope}
@@ -838,7 +842,12 @@ function TodayWorkoutSummary({
                   appSettings.preferredUnit,
                 )}
                 {formatRpeRange(set.targetRpeLow, set.targetRpeHigh)}
+                {formatRestRange(set.restSecondsMin, set.restSecondsMax)}
+                {set.tempo ? ` - Tempo ${set.tempo}` : ''}
               </Text>
+              {set.notes ? (
+                <Text style={styles.setPrescription}>Note: {set.notes}</Text>
+              ) : null}
               {latestPerformanceByExercise.has(set.exerciseId) ? (
                 <Text style={styles.setPrescription}>
                   Previous:{' '}
@@ -2073,6 +2082,12 @@ function formatRpeRange(low: number | null, high: number | null) {
   if (low === null && high === null) return '';
   if (low === high) return ` - RPE ${low}`;
   return ` - RPE ${low ?? high}-${high ?? low}`;
+}
+
+function formatRestRange(low: number | null, high: number | null) {
+  if (low === null && high === null) return '';
+  if (low === high) return ` - Rest ${formatDuration(low ?? 0)}`;
+  return ` - Rest ${formatDuration(low ?? high ?? 0)}-${formatDuration(high ?? low ?? 0)}`;
 }
 
 function formatSuggestedLoad(

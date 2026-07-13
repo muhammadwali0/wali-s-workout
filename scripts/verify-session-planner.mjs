@@ -18,10 +18,12 @@ assert.deepEqual(sets[0], {
   id: 'phase1_w01_d1_e01_s01_1',
   exerciseId: 'back_squat',
   exerciseName: 'Back Squat',
+  exerciseRole: 'primary',
   originalExerciseId: 'back_squat',
   originalExerciseName: 'Back Squat',
   substitutionScope: null,
   exerciseOrder: 1,
+  supersetGroup: null,
   setNumber: 1,
   setType: 'warmup',
   targetReps: null,
@@ -31,9 +33,18 @@ assert.deepEqual(sets[0], {
   targetRpeHigh: null,
   restSecondsMin: null,
   restSecondsMax: null,
+  tempo: null,
+  notes: null,
 });
 assert.equal(sets.filter((set) => set.exerciseId === 'back_squat').length, 7);
 assert.equal(sets.find((set) => set.setType === 'working').targetReps, '5');
+
+const supersetDue = getDueWorkout(getProgramPosition('2026-01-09', year));
+assert.equal(supersetDue.status, 'workout_due');
+assert.equal(
+  createPlannedSets(supersetDue.workout).some((set) => set.supersetGroup !== null),
+  true,
+);
 
 const personalized = applyExerciseReplacements(sets, [
   {

@@ -4,10 +4,12 @@ export type PlannedSet = {
   id: string;
   exerciseId: string;
   exerciseName: string;
+  exerciseRole: string;
   originalExerciseId: string;
   originalExerciseName: string;
   substitutionScope: string | null;
   exerciseOrder: number;
+  supersetGroup: string | null;
   setNumber: number;
   setType: string;
   targetReps: string | null;
@@ -17,6 +19,8 @@ export type PlannedSet = {
   targetRpeHigh: number | null;
   restSecondsMin: number | null;
   restSecondsMax: number | null;
+  tempo: string | null;
+  notes: string | null;
 };
 
 export type PlannedExerciseReplacement = {
@@ -38,10 +42,12 @@ export function createPlannedSets(workout: SeedWorkout): PlannedSet[] {
           id: `${prescription.id}_${index + 1}`,
           exerciseId: exercise.exerciseId,
           exerciseName: exercise.name,
+          exerciseRole: exercise.role,
           originalExerciseId: exercise.exerciseId,
           originalExerciseName: exercise.name,
           substitutionScope: null,
           exerciseOrder: exercise.sortOrder,
+          supersetGroup: exercise.supersetGroup,
           setNumber,
           setType: prescription.setType,
           targetReps: formatTargetReps(
@@ -55,6 +61,8 @@ export function createPlannedSets(workout: SeedWorkout): PlannedSet[] {
           targetRpeHigh: prescription.targetRpeHigh,
           restSecondsMin: prescription.restSecondsMin,
           restSecondsMax: prescription.restSecondsMax,
+          tempo: prescription.tempo,
+          notes: prescription.notes ?? exercise.notes ?? null,
         };
       }),
     );

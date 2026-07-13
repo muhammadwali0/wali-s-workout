@@ -17,6 +17,8 @@ export type SeedWorkout = {
     name: string;
     sortOrder: number;
     role: string;
+    supersetGroup: string | null;
+    notes?: string | null;
     prescriptions: readonly {
       id: string;
       setOrder: number;
@@ -32,6 +34,7 @@ export type SeedWorkout = {
       restSecondsMin: number | null;
       restSecondsMax: number | null;
       tempo: string | null;
+      notes?: string | null;
     }[];
   }[];
 };
