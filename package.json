@@ -15,6 +15,7 @@
     "verify:program-seed": "node --experimental-strip-types scripts/verify-program-seed.mjs",
     "verify:schema": "node scripts/verify-schema.mjs",
     "verify:seed-resolver": "node --experimental-strip-types scripts/verify-seed-resolver.mjs",
+    "verify:session-planner": "node --experimental-strip-types scripts/verify-session-planner.mjs",
     "verify:year": "node --experimental-strip-types scripts/verify-year-engine.mjs",
     "typecheck": "tsc --noEmit"
   },

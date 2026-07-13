@@ -17,6 +17,22 @@ export type SeedWorkout = {
     name: string;
     sortOrder: number;
     role: string;
+    prescriptions: readonly {
+      id: string;
+      setOrder: number;
+      setType: string;
+      targetSets: number;
+      targetRepsMin: number | null;
+      targetRepsMax: number | null;
+      targetRepsText: string | null;
+      percent1RmLow: number | null;
+      percent1RmHigh: number | null;
+      targetRpeLow: number | null;
+      targetRpeHigh: number | null;
+      restSecondsMin: number | null;
+      restSecondsMax: number | null;
+      tempo: string | null;
+    }[];
   }[];
 };
 
