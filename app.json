@@ -8,6 +8,9 @@
     "android": {
       "package": "com.wali.workout",
       "predictiveBackGestureEnabled": false
-    }
+    },
+    "plugins": [
+      "expo-sqlite"
+    ]
   }
 }
