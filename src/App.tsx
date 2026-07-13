@@ -33,6 +33,7 @@ import {
   saveOneRmRecord,
   type CurrentOneRmRecord,
 } from './db/oneRmQueries';
+import { getAppSettings, saveAppSettings } from './db/settingsQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import {
   getConsistencyCalendar,
@@ -46,6 +47,7 @@ import {
   formatProgramPosition,
   getProgramPosition,
 } from './domain/program/yearEngine';
+import { defaultSettings, type AppSettings } from './domain/settings/appSettings';
 import { getSuggestedLoad } from './domain/load/suggestedLoad';
 import { getDueWorkout } from './domain/program/seedResolver';
 import { createPlannedSets } from './domain/workout/sessionPlanner';
@@ -127,6 +129,7 @@ export default function App() {
     [],
   );
   const [oneRmRecords, setOneRmRecords] = useState<CurrentOneRmRecord[]>([]);
+  const [appSettings, setAppSettings] = useState<AppSettings>(defaultSettings);
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -153,6 +156,7 @@ export default function App() {
     setHistoryItems(await getRecentWorkoutHistory(database));
     setLibraryExercises(await getExerciseLibrary(database));
     setOneRmRecords(await getCurrentOneRmRecords(database));
+    setAppSettings(await getAppSettings(database));
   };
 
   useEffect(() => {
@@ -204,6 +208,7 @@ export default function App() {
                 db={db}
                 dbReady={db !== null}
                 dbStatus={dbStatus}
+                appSettings={appSettings}
                 dueWorkout={dueWorkout}
                 onSaved={refreshLocalData}
                 oneRmRecords={oneRmRecords}
@@ -223,6 +228,7 @@ export default function App() {
             {activeTab === 'library' ? (
               <LibrarySummary
                 db={db}
+                appSettings={appSettings}
                 dbStatus={dbStatus}
                 exercises={libraryExercises}
                 onSaved={refreshLocalData}
@@ -274,6 +280,7 @@ function TodayWorkoutSummary({
   db,
   dbReady,
   dbStatus,
+  appSettings,
   dueWorkout,
   onSaved,
   oneRmRecords,
@@ -282,6 +289,7 @@ function TodayWorkoutSummary({
   db: TrainingDatabase | null;
   dbReady: boolean;
   dbStatus: string;
+  appSettings: AppSettings;
   dueWorkout: ReturnType<typeof getDueWorkout>;
   onSaved: (database: TrainingDatabase) => Promise<void>;
   oneRmRecords: CurrentOneRmRecord[];
@@ -374,7 +382,11 @@ function TodayWorkoutSummary({
                     (set) => set.id === nextSet.plannedSetId,
                   );
                   const suggestion = plannedSet
-                    ? getSuggestedLoad(plannedSet, oneRmRecords, 2.5)
+                    ? getSuggestedLoad(
+                        plannedSet,
+                        oneRmRecords,
+                        appSettings.plateIncrement,
+                      )
                     : null;
 
                   if (plannedSet) {
@@ -431,7 +443,10 @@ function TodayWorkoutSummary({
                 Set {set.setNumber} - {set.setType}
                 {set.targetReps ? ` - ${set.targetReps} reps` : ''}
                 {formatPercentRange(set.percent1RmLow, set.percent1RmHigh)}
-                {formatSuggestedLoad(getSuggestedLoad(set, oneRmRecords, 2.5))}
+                {formatSuggestedLoad(
+                  getSuggestedLoad(set, oneRmRecords, appSettings.plateIncrement),
+                  appSettings.preferredUnit,
+                )}
                 {formatRpeRange(set.targetRpeLow, set.targetRpeHigh)}
               </Text>
             </View>
@@ -566,12 +581,14 @@ function HistorySummary({
 }
 
 function LibrarySummary({
+  appSettings,
   db,
   dbStatus,
   exercises,
   onSaved,
   oneRmRecords,
 }: {
+  appSettings: AppSettings;
   db: TrainingDatabase | null;
   dbStatus: string;
   exercises: ExerciseLibraryItem[];
@@ -579,6 +596,7 @@ function LibrarySummary({
   oneRmRecords: CurrentOneRmRecord[];
 }) {
   const [draftValues, setDraftValues] = useState<Record<string, string>>({});
+  const [draftPlateIncrement, setDraftPlateIncrement] = useState('');
   const [saveStatus, setSaveStatus] = useState('Baselines not changed');
   const recordByExercise = new Map(
     oneRmRecords.map((record) => [record.exerciseId, record]),
@@ -596,10 +614,25 @@ function LibrarySummary({
     await saveOneRmRecord(db, {
       exerciseId,
       value,
-      unit: 'kg',
+      unit: appSettings.preferredUnit,
     });
     await onSaved(db);
     setSaveStatus('Baseline saved locally');
+  };
+  const saveSettings = async (settings: Partial<AppSettings>) => {
+    if (!db) return;
+
+    if (
+      settings.plateIncrement !== undefined &&
+      (!Number.isFinite(settings.plateIncrement) || settings.plateIncrement <= 0)
+    ) {
+      setSaveStatus('Enter a positive increment');
+      return;
+    }
+
+    await saveAppSettings(db, { ...appSettings, ...settings });
+    await onSaved(db);
+    setSaveStatus('Settings saved locally');
   };
 
   return (
@@ -608,6 +641,47 @@ function LibrarySummary({
       <Text style={styles.summaryText}>
         {dbStatus} - {exercises.length} exercises loaded.
       </Text>
+      <View style={styles.baselinePanel}>
+        <Text style={styles.sessionTitle}>Training Settings</Text>
+        <Text style={styles.summaryText}>
+          Unit: {appSettings.preferredUnit} - Plate increment:{' '}
+          {appSettings.plateIncrement}
+        </Text>
+        <View style={styles.actionRow}>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() =>
+              void saveSettings({
+                preferredUnit: appSettings.preferredUnit === 'kg' ? 'lb' : 'kg',
+              })
+            }
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Unit</Text>
+          </Pressable>
+          <TextInput
+            accessibilityLabel="Plate increment"
+            inputMode="decimal"
+            onChangeText={setDraftPlateIncrement}
+            placeholder={String(appSettings.plateIncrement)}
+            style={styles.baselineInput}
+            value={draftPlateIncrement}
+          />
+          <Pressable
+            accessibilityRole="button"
+            onPress={() =>
+              void saveSettings({
+                plateIncrement: Number(
+                  draftPlateIncrement || appSettings.plateIncrement,
+                ),
+              })
+            }
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Save Increment</Text>
+          </Pressable>
+        </View>
+      </View>
       <View style={styles.setPreview}>
         {exercises.length === 0 ? (
           <Text style={styles.summaryText}>No seeded exercises available.</Text>
@@ -647,7 +721,7 @@ function LibrarySummary({
                     [exercise.exerciseId]: value,
                   }))
                 }
-                placeholder="kg"
+                placeholder={appSettings.preferredUnit}
                 style={styles.baselineInput}
                 value={draftValues[exercise.exerciseId] ?? ''}
               />
@@ -707,10 +781,13 @@ function formatRpeRange(low: number | null, high: number | null) {
   return ` - RPE ${low ?? high}-${high ?? low}`;
 }
 
-function formatSuggestedLoad(load: ReturnType<typeof getSuggestedLoad>) {
+function formatSuggestedLoad(
+  load: ReturnType<typeof getSuggestedLoad>,
+  unit: AppSettings['preferredUnit'],
+) {
   if (!load) return '';
-  if (load.roundedLow === load.roundedHigh) return ` - ${load.roundedLow} kg`;
-  return ` - ${load.roundedLow}-${load.roundedHigh} kg`;
+  if (load.roundedLow === load.roundedHigh) return ` - ${load.roundedLow} ${unit}`;
+  return ` - ${load.roundedLow}-${load.roundedHigh} ${unit}`;
 }
 
 function getDefaultReps(targetReps: string | null) {
