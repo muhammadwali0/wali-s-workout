@@ -449,7 +449,7 @@ function TodayWorkoutSummary({
         workoutLogId: `${todayInstance.instanceId}_log`,
         workoutInstanceId: todayInstance.instanceId,
         recordedAt: new Date().toISOString(),
-        unit: 'kg',
+        unit: appSettings.preferredUnit,
       });
       await onSaved(db);
       setSaveStatus('Saved locally');
