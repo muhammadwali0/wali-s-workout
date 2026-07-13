@@ -5,6 +5,14 @@ import type { TrainingDatabase } from './database.ts';
 
 export type AnalyticsSet = VolumeSet & MuscleExposureSet;
 
+export type StrengthTrendPoint = {
+  exerciseId: string;
+  exerciseName: string;
+  estimatedOneRm: number;
+  unit: 'kg' | 'lb' | null;
+  achievedAt: string;
+};
+
 export async function getCompletedAnalyticsSets(
   db: Pick<TrainingDatabase, 'getAllAsync'>,
 ): Promise<AnalyticsSet[]> {
@@ -35,5 +43,26 @@ export async function getCalendarWorkouts(
        status
      FROM workout_instances
      ORDER BY scheduled_date, sequence_index`,
+  );
+}
+
+export async function getEstimatedOneRmTrend(
+  db: Pick<TrainingDatabase, 'getAllAsync'>,
+  limit = 10,
+): Promise<StrengthTrendPoint[]> {
+  return db.getAllAsync<StrengthTrendPoint>(
+    `SELECT
+       pr.exercise_id AS exerciseId,
+       e.name AS exerciseName,
+       pr.estimated_1rm AS estimatedOneRm,
+       pr.unit,
+       pr.achieved_at AS achievedAt
+     FROM personal_records pr
+     JOIN exercises e ON e.id = pr.exercise_id
+     WHERE pr.pr_type = 'estimated_1rm'
+       AND pr.estimated_1rm IS NOT NULL
+     ORDER BY pr.achieved_at DESC
+     LIMIT ?`,
+    limit,
   );
 }

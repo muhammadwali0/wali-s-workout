@@ -13,7 +13,9 @@ import {
 import {
   getCalendarWorkouts,
   getCompletedAnalyticsSets,
+  getEstimatedOneRmTrend,
   type AnalyticsSet,
+  type StrengthTrendPoint,
 } from './db/analyticsQueries';
 import {
   getExerciseAlternatives,
@@ -146,6 +148,7 @@ export default function App() {
     null,
   );
   const [analyticsSets, setAnalyticsSets] = useState<AnalyticsSet[]>([]);
+  const [strengthTrend, setStrengthTrend] = useState<StrengthTrendPoint[]>([]);
   const [calendarWorkouts, setCalendarWorkouts] = useState<CalendarWorkout[]>([]);
   const [historyItems, setHistoryItems] = useState<WorkoutHistoryItem[]>([]);
   const [libraryExercises, setLibraryExercises] = useState<ExerciseLibraryItem[]>(
@@ -186,6 +189,7 @@ export default function App() {
     await markOverdueWorkoutsMissed(database);
     setTodayInstance(await getTodayWorkoutInstance(database));
     setAnalyticsSets(await getCompletedAnalyticsSets(database));
+    setStrengthTrend(await getEstimatedOneRmTrend(database));
     setCalendarWorkouts(await getCalendarWorkouts(database));
     setHistoryItems(await getRecentWorkoutHistory(database));
     setLibraryExercises(await getExerciseLibrary(database));
@@ -259,6 +263,7 @@ export default function App() {
                 calendarWorkouts={calendarWorkouts}
                 completedSets={analyticsSets}
                 dbStatus={dbStatus}
+                strengthTrend={strengthTrend}
               />
             ) : null}
             {activeTab === 'history' ? (
@@ -547,10 +552,12 @@ function AnalyticsSummary({
   calendarWorkouts,
   completedSets,
   dbStatus,
+  strengthTrend,
 }: {
   calendarWorkouts: CalendarWorkout[];
   completedSets: AnalyticsSet[];
   dbStatus: string;
+  strengthTrend: StrengthTrendPoint[];
 }) {
   const weeklyVolume = getWeeklyVolume(completedSets);
   const consistency = getConsistencyCalendar(calendarWorkouts);
@@ -600,6 +607,23 @@ function AnalyticsSummary({
               value={`${exposure.hardSets.toFixed(1)} hard sets`}
               percent={(exposure.volumeLoad / maxExposure) * 100}
             />
+          ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Estimated 1RM Trend</Text>
+        {strengthTrend.length === 0 ? (
+          <Text style={styles.summaryText}>No estimated 1RM records yet.</Text>
+        ) : (
+          strengthTrend.slice(0, 5).map((point) => (
+            <View key={`${point.exerciseId}_${point.achievedAt}`} style={styles.setRow}>
+              <Text style={styles.setExercise}>{point.exerciseName}</Text>
+              <Text style={styles.setPrescription}>
+                {Math.round(point.estimatedOneRm * 10) / 10} {point.unit ?? ''} -{' '}
+                {point.achievedAt}
+              </Text>
+            </View>
           ))
         )}
       </View>

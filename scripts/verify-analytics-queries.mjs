@@ -4,9 +4,11 @@ const { calculateAdherence } = await import('../src/domain/analytics/adherence.t
 const { getConsistencyCalendar } = await import(
   '../src/domain/analytics/consistencyCalendar.ts'
 );
-const { getCalendarWorkouts, getCompletedAnalyticsSets } = await import(
-  '../src/db/analyticsQueries.ts'
-);
+const {
+  getCalendarWorkouts,
+  getCompletedAnalyticsSets,
+  getEstimatedOneRmTrend,
+} = await import('../src/db/analyticsQueries.ts');
 
 const rows = [
   {
@@ -53,5 +55,27 @@ assert.deepEqual(getConsistencyCalendar(workouts), [
   { date: '2026-01-03', completed: 0, missed: 1, skipped: 0, rescheduled: 0 },
 ]);
 assert.equal(calculateAdherence(workouts).completionRate, 0.5);
+
+const strengthRows = [
+  {
+    exerciseId: 'back_squat',
+    exerciseName: 'Back Squat',
+    estimatedOneRm: 150,
+    unit: 'kg',
+    achievedAt: '2026-01-01T10:00:00Z',
+  },
+];
+const strengthCalls = [];
+const strengthDb = {
+  async getAllAsync(sql, limit) {
+    strengthCalls.push({ sql, limit });
+    return strengthRows;
+  },
+};
+assert.deepEqual(await getEstimatedOneRmTrend(strengthDb, 3), strengthRows);
+assert.equal(strengthCalls[0].limit, 3);
+assert.match(strengthCalls[0].sql, /FROM personal_records/);
+assert.match(strengthCalls[0].sql, /pr_type = 'estimated_1rm'/);
+assert.match(strengthCalls[0].sql, /ORDER BY pr\.achieved_at DESC/);
 
 console.log('analytics queries verified');
