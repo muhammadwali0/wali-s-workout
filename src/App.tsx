@@ -95,6 +95,7 @@ import {
 } from './domain/program/yearEngine';
 import {
   isValidNotificationTime,
+  planNextMissedWorkoutNotification,
   planRestTimerNotification,
   planUnfinishedSessionNotification,
   planWorkoutDueNotification,
@@ -353,6 +354,7 @@ export default function App() {
                 db={db}
                 dbStatus={dbStatus}
                 missedWorkouts={missedWorkouts}
+                notificationSettings={notificationSettings}
                 onSaved={refreshLocalData}
               />
             ) : null}
@@ -1165,12 +1167,14 @@ function YearSummary({
   db,
   dbStatus,
   missedWorkouts,
+  notificationSettings,
   onSaved,
 }: {
   calendarWorkouts: CalendarWorkout[];
   db: TrainingDatabase | null;
   dbStatus: string;
   missedWorkouts: MissedWorkoutItem[];
+  notificationSettings: NotificationSettings;
   onSaved: (database: TrainingDatabase) => Promise<void>;
 }) {
   const [status, setStatus] = useState('No schedule change selected');
@@ -1218,6 +1222,36 @@ function YearSummary({
           : 'Workout moved to today',
     );
   };
+  const scheduleMissedReminders = async () => {
+    if (!db || missedWorkouts.length === 0) return;
+
+    let scheduled = 0;
+    for (const workout of missedWorkouts) {
+      const notification = planNextMissedWorkoutNotification(
+        new Date(),
+        workout.workoutName,
+        notificationSettings,
+      );
+      if (!notification) continue;
+
+      const externalNotificationId = await scheduleLocalNotification(notification);
+      if (!externalNotificationId) continue;
+
+      await savePlannedNotification(
+        db,
+        notification,
+        workout.instanceId,
+        externalNotificationId,
+      );
+      scheduled += 1;
+    }
+    await onSaved(db);
+    setStatus(
+      scheduled === 0
+        ? 'No missed reminders scheduled'
+        : `${scheduled} missed reminder${scheduled === 1 ? '' : 's'} scheduled`,
+    );
+  };
 
   return (
     <View style={styles.summaryBlock}>
@@ -1231,6 +1265,13 @@ function YearSummary({
         <Metric label="Skipped" value={String(skipped)} />
         <Metric label="Moved" value={String(rescheduled)} />
       </View>
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => void scheduleMissedReminders()}
+        style={styles.primaryButton}
+      >
+        <Text style={styles.primaryButtonText}>Schedule Missed Reminders</Text>
+      </Pressable>
       <View style={styles.setPreview}>
         {missedWorkouts.length === 0 ? (
           <Text style={styles.summaryText}>No missed sessions need a decision.</Text>

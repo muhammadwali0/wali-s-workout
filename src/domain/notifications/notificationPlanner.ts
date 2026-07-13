@@ -111,6 +111,26 @@ export function planMissedWorkoutNotification(
   };
 }
 
+export function planNextMissedWorkoutNotification(
+  referenceDate: Date | string,
+  workoutName: string,
+  settings: NotificationSettings,
+): PlannedNotification | null {
+  if (!settings.missedWorkoutTime || !isValidNotificationTime(settings.missedWorkoutTime)) {
+    return null;
+  }
+
+  const reference =
+    typeof referenceDate === 'string' ? new Date(referenceDate) : referenceDate;
+  if (!Number.isFinite(reference.getTime())) return null;
+
+  return planMissedWorkoutNotification(
+    getNextLocalDateForTime(reference, settings.missedWorkoutTime),
+    workoutName,
+    settings,
+  );
+}
+
 export function planUnfinishedSessionNotification(
   scheduledFor: string,
   workoutName: string,
@@ -136,4 +156,18 @@ export function planRestTimerNotification(
     title: 'Rest complete',
     body: `${exerciseName}: begin the next set when ready.`,
   };
+}
+
+function getNextLocalDateForTime(reference: Date, time: string) {
+  const [hours, minutes] = time.split(':').map(Number);
+  const scheduled = new Date(reference);
+  scheduled.setHours(hours, minutes, 0, 0);
+  if (scheduled.getTime() <= reference.getTime()) {
+    scheduled.setDate(scheduled.getDate() + 1);
+  }
+  return [
+    scheduled.getFullYear(),
+    String(scheduled.getMonth() + 1).padStart(2, '0'),
+    String(scheduled.getDate()).padStart(2, '0'),
+  ].join('-');
 }

@@ -6,6 +6,7 @@ const { createTrainingYear, getProgramPosition } = await import(
 const { getDueWorkout } = await import('../src/domain/program/seedResolver.ts');
 const {
   planMissedWorkoutNotification,
+  planNextMissedWorkoutNotification,
   planRestTimerNotification,
   planUnfinishedSessionNotification,
   planWeekStatusNotification,
@@ -78,6 +79,16 @@ assert.equal(
     missedWorkoutTime: '9pm',
   }),
   null,
+);
+assert.equal(
+  planNextMissedWorkoutNotification(new Date(2026, 0, 1, 20, 0), 'Upper 1', settings)
+    ?.scheduledFor,
+  '2026-01-01T21:00:00',
+);
+assert.equal(
+  planNextMissedWorkoutNotification(new Date(2026, 0, 1, 22, 0), 'Upper 1', settings)
+    ?.scheduledFor,
+  '2026-01-02T21:00:00',
 );
 assert.deepEqual(
   planUnfinishedSessionNotification('2026-01-01T12:00:00', 'Full Body 1', settings),
