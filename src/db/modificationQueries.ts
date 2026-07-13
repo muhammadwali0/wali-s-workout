@@ -8,6 +8,65 @@ export type ExerciseReplacementInput = {
   recordedAt?: string;
 };
 
+export type ActiveExerciseReplacement = {
+  id: string;
+  originalExerciseId: string;
+  originalName: string;
+  replacementExerciseId: string;
+  replacementName: string;
+  scope: ExerciseReplacementInput['scope'];
+  reason: string | null;
+};
+
+type ReplacementRow = {
+  id: string;
+  scope: ExerciseReplacementInput['scope'];
+  targetEntityId: string;
+  payloadJson: string;
+  reason: string | null;
+  originalName: string;
+  replacementName: string | null;
+};
+
+export async function getActiveExerciseReplacements(
+  db: Pick<TrainingDatabase, 'getAllAsync'>,
+): Promise<ActiveExerciseReplacement[]> {
+  const rows = await db.getAllAsync<ReplacementRow>(
+    `SELECT
+       pm.id,
+       pm.scope,
+       pm.target_entity_id AS targetEntityId,
+       pm.payload_json AS payloadJson,
+       pm.reason,
+       original.name AS originalName,
+       replacement.name AS replacementName
+     FROM program_modifications pm
+     JOIN exercises original ON original.id = pm.target_entity_id
+     LEFT JOIN exercises replacement
+       ON replacement.id = json_extract(pm.payload_json, '$.replacementExerciseId')
+     WHERE pm.modification_type = 'replace_exercise'
+       AND pm.is_active = 1
+     ORDER BY pm.updated_at DESC`,
+  );
+
+  return rows.flatMap((row) => {
+    const payload = JSON.parse(row.payloadJson) as {
+      replacementExerciseId?: string;
+    };
+    if (!payload.replacementExerciseId || !row.replacementName) return [];
+
+    return {
+      id: row.id,
+      originalExerciseId: row.targetEntityId,
+      originalName: row.originalName,
+      replacementExerciseId: payload.replacementExerciseId,
+      replacementName: row.replacementName,
+      scope: row.scope,
+      reason: row.reason,
+    };
+  });
+}
+
 export async function saveExerciseReplacement(
   db: Pick<TrainingDatabase, 'getFirstAsync' | 'runAsync'>,
   input: ExerciseReplacementInput,

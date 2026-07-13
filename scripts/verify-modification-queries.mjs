@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 
-const { saveExerciseReplacement } = await import(
+const { getActiveExerciseReplacements, saveExerciseReplacement } = await import(
   '../src/db/modificationQueries.ts'
 );
 
@@ -59,3 +59,33 @@ await assert.rejects(
 );
 
 console.log('modification queries verified');
+
+const replacements = await getActiveExerciseReplacements({
+  async getAllAsync(sql) {
+    assert.match(sql, /FROM program_modifications/);
+    assert.match(sql, /json_extract/);
+    return [
+      {
+        id: 'replace_back_squat_front_squat_today_only',
+        scope: 'today_only',
+        targetEntityId: 'back_squat',
+        payloadJson: JSON.stringify({ replacementExerciseId: 'front_squat' }),
+        reason: null,
+        originalName: 'Back Squat',
+        replacementName: 'Front Squat',
+      },
+    ];
+  },
+});
+
+assert.deepEqual(replacements, [
+  {
+    id: 'replace_back_squat_front_squat_today_only',
+    originalExerciseId: 'back_squat',
+    originalName: 'Back Squat',
+    replacementExerciseId: 'front_squat',
+    replacementName: 'Front Squat',
+    scope: 'today_only',
+    reason: null,
+  },
+]);

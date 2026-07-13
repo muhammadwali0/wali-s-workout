@@ -37,7 +37,11 @@ import {
   saveOneRmRecord,
   type CurrentOneRmRecord,
 } from './db/oneRmQueries';
-import { saveExerciseReplacement } from './db/modificationQueries';
+import {
+  getActiveExerciseReplacements,
+  saveExerciseReplacement,
+  type ActiveExerciseReplacement,
+} from './db/modificationQueries';
 import { getAppSettings, saveAppSettings } from './db/settingsQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import {
@@ -138,6 +142,9 @@ export default function App() {
   const [exerciseAlternatives, setExerciseAlternatives] = useState<
     ExerciseAlternativeItem[]
   >([]);
+  const [activeReplacements, setActiveReplacements] = useState<
+    ActiveExerciseReplacement[]
+  >([]);
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const trainingYear = useMemo(() => {
     const now = new Date();
@@ -166,6 +173,7 @@ export default function App() {
     setOneRmRecords(await getCurrentOneRmRecords(database));
     setAppSettings(await getAppSettings(database));
     setExerciseAlternatives(await getExerciseAlternatives(database));
+    setActiveReplacements(await getActiveExerciseReplacements(database));
   };
 
   useEffect(() => {
@@ -241,6 +249,7 @@ export default function App() {
                 dbStatus={dbStatus}
                 exerciseAlternatives={exerciseAlternatives}
                 exercises={libraryExercises}
+                activeReplacements={activeReplacements}
                 onSaved={refreshLocalData}
                 oneRmRecords={oneRmRecords}
               />
@@ -596,6 +605,7 @@ function LibrarySummary({
   dbStatus,
   exerciseAlternatives,
   exercises,
+  activeReplacements,
   onSaved,
   oneRmRecords,
 }: {
@@ -604,6 +614,7 @@ function LibrarySummary({
   dbStatus: string;
   exerciseAlternatives: ExerciseAlternativeItem[];
   exercises: ExerciseLibraryItem[];
+  activeReplacements: ActiveExerciseReplacement[];
   onSaved: (database: TrainingDatabase) => Promise<void>;
   oneRmRecords: CurrentOneRmRecord[];
 }) {
@@ -620,6 +631,12 @@ function LibrarySummary({
       alternative,
     ]);
   }
+  const replacementByExercise = new Map(
+    activeReplacements.map((replacement) => [
+      replacement.originalExerciseId,
+      replacement,
+    ]),
+  );
   const baselineExercises = exercises.slice(0, 5);
   const saveBaseline = async (exerciseId: string) => {
     if (!db) return;
@@ -661,6 +678,7 @@ function LibrarySummary({
       replacementExerciseId: alternative.alternativeExerciseId,
       scope: 'today_only',
     });
+    await onSaved(db);
     setSaveStatus('Substitution saved for today');
   };
 
@@ -723,6 +741,14 @@ function LibrarySummary({
                 {exercise.primaryMuscles ?? 'No primary muscle'} -{' '}
                 {exercise.alternativeCount} alternatives
               </Text>
+              {replacementByExercise.has(exercise.exerciseId) ? (
+                <Text style={styles.setPrescription}>
+                  Current: {
+                    replacementByExercise.get(exercise.exerciseId)?.replacementName
+                  } -{' '}
+                  {replacementByExercise.get(exercise.exerciseId)?.scope}
+                </Text>
+              ) : null}
               {(alternativesByExercise.get(exercise.exerciseId) ?? [])
                 .slice(0, 2)
                 .map((alternative) => (
