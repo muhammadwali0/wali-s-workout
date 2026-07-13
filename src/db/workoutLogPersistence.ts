@@ -104,6 +104,21 @@ export async function saveWorkoutDraft(
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       ...Object.values(rows.workoutLog),
     );
+    await db.runAsync(
+      `DELETE FROM set_logs
+       WHERE exercise_log_id IN (
+         SELECT id FROM exercise_logs WHERE workout_log_id = ?
+       )`,
+      input.workoutLogId,
+    );
+    await db.runAsync(
+      `DELETE FROM exercise_logs WHERE workout_log_id = ?`,
+      input.workoutLogId,
+    );
+    await db.runAsync(
+      `DELETE FROM personal_records WHERE workout_log_id = ?`,
+      input.workoutLogId,
+    );
 
     for (const row of rows.exerciseLogs) {
       await db.runAsync(

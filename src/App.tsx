@@ -98,9 +98,11 @@ import {
   createPlannedSets,
 } from './domain/workout/sessionPlanner';
 import {
+  addSetAfter,
   completeSet,
   completeWorkout,
   createWorkoutDraft,
+  removeSet,
   skipSet,
   summarizeWorkoutDraft,
   type WorkoutDraft,
@@ -463,9 +465,10 @@ function TodayWorkoutSummary({
       createPlannedSets(dueWorkout.workout),
       activeReplacements,
     );
-    const previewSets = plannedSets.slice(0, 5);
     const summary = draft ? summarizeWorkoutDraft(draft) : null;
     const nextSet = draft?.actualSets.find((set) => !set.completed && !set.skipped);
+    const activePlannedSets = draft?.plannedSets ?? plannedSets;
+    const previewSets = activePlannedSets.slice(0, 5);
     const timerState = restTimer
       ? getRestTimerState(restTimer, timerNowMs)
       : null;
@@ -527,7 +530,7 @@ function TodayWorkoutSummary({
               <Pressable
                 accessibilityRole="button"
                 onPress={() => {
-                  const plannedSet = plannedSets.find(
+                  const plannedSet = activePlannedSets.find(
                     (set) => set.id === nextSet.plannedSetId,
                   );
                   const suggestion = plannedSet
@@ -610,6 +613,32 @@ function TodayWorkoutSummary({
                 <Text style={styles.secondaryButtonText}>Skip Next Set</Text>
               </Pressable>
             ) : null}
+            {draft && nextSet ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => void saveDraft(addSetAfter(draft, nextSet.plannedSetId))}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Add Set</Text>
+              </Pressable>
+            ) : null}
+            {draft && nextSet ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => {
+                  try {
+                    void saveDraft(removeSet(draft, nextSet.plannedSetId));
+                  } catch (error) {
+                    setSaveStatus(
+                      error instanceof Error ? error.message : 'Cannot remove set',
+                    );
+                  }
+                }}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Remove Set</Text>
+              </Pressable>
+            ) : null}
             {draft && summary?.isComplete && draft.status !== 'completed' ? (
               <Pressable
                 accessibilityRole="button"
@@ -624,7 +653,7 @@ function TodayWorkoutSummary({
             <Text style={styles.currentSetText}>
               {nextSet
                 ? `Next: ${
-                    plannedSets.find((set) => set.id === nextSet.plannedSetId)
+                    activePlannedSets.find((set) => set.id === nextSet.plannedSetId)
                       ?.exerciseName ?? 'Set'
                   }`
                 : draft.status === 'completed'

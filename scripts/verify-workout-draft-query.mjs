@@ -56,6 +56,7 @@ const db = {
       {
         exerciseOrder: 1,
         setOrder: 1,
+        setType: 'working',
         completed: 1,
         weight: 100,
         reps: 5,
@@ -65,11 +66,22 @@ const db = {
       {
         exerciseOrder: 1,
         setOrder: 2,
+        setType: 'working',
         completed: 0,
         weight: null,
         reps: null,
         rpe: null,
         notes: 'Skipped set',
+      },
+      {
+        exerciseOrder: 1,
+        setOrder: 3,
+        setType: 'added',
+        completed: 1,
+        weight: 90,
+        reps: 8,
+        rpe: 8,
+        notes: 'Back-off',
       },
     ];
   },
@@ -78,12 +90,17 @@ const db = {
 const draft = await getSavedWorkoutDraft(db, 'instance_1', 'workout_1', plannedSets);
 assert.equal(draft.status, 'draft');
 assert.equal(draft.startedAt, '2026-01-01T09:55:00Z');
+assert.equal(draft.plannedSets.length, 3);
 assert.equal(draft.actualSets[0].completed, true);
 assert.equal(draft.actualSets[0].skipped, false);
 assert.equal(draft.actualSets[0].weight, 100);
 assert.equal(draft.actualSets[1].completed, false);
 assert.equal(draft.actualSets[1].skipped, true);
+assert.equal(draft.plannedSets[2].setType, 'added');
+assert.equal(draft.actualSets[2].completed, true);
+assert.equal(draft.actualSets[2].notes, 'Back-off');
 assert.match(calls[0].sql, /FROM workout_logs/);
 assert.match(calls[1].sql, /FROM set_logs/);
+assert.match(calls[1].sql, /sl\.set_type AS setType/);
 
 console.log('workout draft query verified');

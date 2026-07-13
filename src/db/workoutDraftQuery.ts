@@ -11,6 +11,7 @@ type SavedWorkoutRow = {
 type SavedSetRow = {
   exerciseOrder: number;
   setOrder: number;
+  setType: string;
   completed: number;
   weight: number | null;
   reps: number | null;
@@ -39,6 +40,7 @@ export async function getSavedWorkoutDraft(
     `SELECT
        el.sort_order AS exerciseOrder,
        sl.set_order AS setOrder,
+       sl.set_type AS setType,
        sl.is_completed AS completed,
        sl.weight,
        sl.reps,
@@ -53,13 +55,35 @@ export async function getSavedWorkoutDraft(
   const savedByKey = new Map(
     rows.map((row) => [`${row.exerciseOrder}:${row.setOrder}`, row]),
   );
+  const recoveredPlannedSets = [
+    ...plannedSets,
+    ...rows.flatMap((row) => {
+      if (plannedSets.some((set) => set.exerciseOrder === row.exerciseOrder && set.setNumber === row.setOrder)) {
+        return [];
+      }
+
+      const source = plannedSets
+        .filter((set) => set.exerciseOrder === row.exerciseOrder)
+        .at(-1);
+      if (!source) return [];
+
+      return [
+        {
+          ...source,
+          id: `${source.id}_recovered_${row.setOrder}`,
+          setNumber: row.setOrder,
+          setType: row.setType,
+        },
+      ];
+    }),
+  ].sort((a, b) => a.exerciseOrder - b.exerciseOrder || a.setNumber - b.setNumber);
 
   return {
     workoutId,
     startedAt: log.startedAt ?? new Date().toISOString(),
     status: log.status === 'completed' ? 'completed' : 'draft',
-    plannedSets,
-    actualSets: plannedSets.map((set) => {
+    plannedSets: recoveredPlannedSets,
+    actualSets: recoveredPlannedSets.map((set) => {
       const saved = savedByKey.get(`${set.exerciseOrder}:${set.setNumber}`);
 
       return {

@@ -8,9 +8,11 @@ const { createPlannedSets } = await import(
   '../src/domain/workout/sessionPlanner.ts'
 );
 const {
+  addSetAfter,
   completeSet,
   completeWorkout,
   createWorkoutDraft,
+  removeSet,
   skipSet,
   summarizeWorkoutDraft,
 } = await import('../src/domain/workout/workoutLog.ts');
@@ -57,6 +59,14 @@ assert.equal(skipped.actualSets[1].completed, false);
 assert.equal(skipped.actualSets[1].skipped, true);
 assert.equal(summarizeWorkoutDraft(skipped).completedSets, 1);
 assert.throws(() => skipSet(skipped, 'missing'), /Unknown/);
+
+const withAddedSet = addSetAfter(draft, plannedSets[0].id);
+assert.equal(withAddedSet.plannedSets.length, plannedSets.length + 1);
+assert.equal(withAddedSet.actualSets[1].plannedSetId, withAddedSet.plannedSets[1].id);
+assert.equal(withAddedSet.plannedSets[1].setType, 'added');
+assert.equal(removeSet(withAddedSet, withAddedSet.plannedSets[1].id).plannedSets.length, plannedSets.length);
+assert.throws(() => addSetAfter(draft, 'missing'), /Unknown/);
+assert.throws(() => removeSet(logged, plannedSets[0].id), /completed or skipped/);
 
 const completeDraft = plannedSets.reduce(
   (current, set) => completeSet(current, set.id, { weight: 10, reps: 1 }),

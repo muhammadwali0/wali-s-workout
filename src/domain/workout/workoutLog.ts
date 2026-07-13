@@ -105,6 +105,65 @@ export function skipSet(
   return { ...draft, status: 'draft', actualSets };
 }
 
+export function addSetAfter(draft: WorkoutDraft, plannedSetId: string): WorkoutDraft {
+  const index = draft.plannedSets.findIndex((set) => set.id === plannedSetId);
+  if (index === -1) {
+    throw new Error(`Unknown planned set: ${plannedSetId}`);
+  }
+
+  const source = draft.plannedSets[index];
+  const exerciseSets = draft.plannedSets.filter(
+    (set) => set.exerciseOrder === source.exerciseOrder,
+  );
+  const addedSet = {
+    ...source,
+    id: `${source.id}_added_${exerciseSets.length + 1}`,
+    setNumber: Math.max(...exerciseSets.map((set) => set.setNumber)) + 1,
+    setType: 'added',
+  };
+  const addedActualSet = {
+    plannedSetId: addedSet.id,
+    completed: false,
+    skipped: false,
+    weight: null,
+    reps: null,
+    rpe: null,
+    notes: null,
+  };
+
+  return {
+    ...draft,
+    status: 'draft',
+    plannedSets: [
+      ...draft.plannedSets.slice(0, index + 1),
+      addedSet,
+      ...draft.plannedSets.slice(index + 1),
+    ],
+    actualSets: [
+      ...draft.actualSets.slice(0, index + 1),
+      addedActualSet,
+      ...draft.actualSets.slice(index + 1),
+    ],
+  };
+}
+
+export function removeSet(draft: WorkoutDraft, plannedSetId: string): WorkoutDraft {
+  const actual = draft.actualSets.find((set) => set.plannedSetId === plannedSetId);
+  if (!actual) {
+    throw new Error(`Unknown planned set: ${plannedSetId}`);
+  }
+  if (actual.completed || actual.skipped) {
+    throw new Error('Cannot remove a completed or skipped set');
+  }
+
+  return {
+    ...draft,
+    status: 'draft',
+    plannedSets: draft.plannedSets.filter((set) => set.id !== plannedSetId),
+    actualSets: draft.actualSets.filter((set) => set.plannedSetId !== plannedSetId),
+  };
+}
+
 export function summarizeWorkoutDraft(draft: WorkoutDraft) {
   const completedSets = draft.actualSets.filter((set) => set.completed);
   const totalVolume = completedSets.reduce(

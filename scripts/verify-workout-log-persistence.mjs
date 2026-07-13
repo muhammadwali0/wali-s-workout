@@ -148,6 +148,14 @@ const prInsert = calls.find((call) =>
 );
 assert.equal(Boolean(prInsert), true);
 assert.equal(
+  calls.some((call) => call.sql?.includes('DELETE FROM set_logs')),
+  true,
+);
+assert.equal(
+  calls.some((call) => call.sql?.includes('DELETE FROM exercise_logs')),
+  true,
+);
+assert.equal(
   calls.find((call) => call.sql?.includes('INSERT OR REPLACE INTO set_logs'))?.params[12],
   1,
 );
