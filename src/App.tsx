@@ -70,6 +70,7 @@ import {
   type CalendarWorkout,
 } from './domain/analytics/consistencyCalendar';
 import { calculateMuscleExposure } from './domain/analytics/muscleExposure';
+import { calculateMuscleHeatmap } from './domain/analytics/muscleHeatmap';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
 import { programSeed } from './data/programSeed';
 import {
@@ -621,6 +622,11 @@ function AnalyticsSummary({
   const muscleExposure = calculateMuscleExposure(completedSets)
     .sort((a, b) => b.volumeLoad - a.volumeLoad)
     .slice(0, 5);
+  const muscleHeatmap = calculateMuscleHeatmap(
+    calculateMuscleExposure(completedSets),
+  )
+    .sort((a, b) => b.intensity - a.intensity)
+    .slice(0, 8);
   const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
   const maxExposure = Math.max(
     ...muscleExposure.map((exposure) => exposure.volumeLoad),
@@ -664,6 +670,22 @@ function AnalyticsSummary({
               value={`${exposure.hardSets.toFixed(1)} hard sets`}
               percent={(exposure.volumeLoad / maxExposure) * 100}
             />
+          ))
+        )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Muscle Heatmap</Text>
+        {muscleHeatmap.length === 0 ? (
+          <Text style={styles.summaryText}>No heatmap data from completed sets yet.</Text>
+        ) : (
+          muscleHeatmap.map((region) => (
+              <BarRow
+                key={`${region.view}_${region.muscleId}`}
+                label={`${region.view === 'front' ? 'Front' : 'Back'}: ${region.name}`}
+                value={`${region.hardSets.toFixed(1)} hard sets`}
+                percent={region.intensity * 100}
+              />
           ))
         )}
       </View>
