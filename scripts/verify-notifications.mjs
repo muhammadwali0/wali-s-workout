@@ -66,6 +66,15 @@ assert.equal(
   planWeekStatusNotification('2026-03-05', getProgramPosition('2026-03-05', year), settings)?.type,
   'test_week',
 );
+assert.deepEqual(
+  planWeekStatusNotification('2026-03-19', getProgramPosition('2026-03-19', year), settings),
+  {
+    type: 'phase_transition',
+    scheduledFor: '2026-03-19T08:00:00',
+    title: 'Phase transition ready',
+    body: 'Block 1 buffer week. Review and confirm 1RM baselines before the next block.',
+  },
+);
 
 assert.deepEqual(planMissedWorkoutNotification('2026-01-01', 'Upper 1', settings), {
   type: 'missed_workout',

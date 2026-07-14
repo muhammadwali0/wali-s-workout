@@ -19,6 +19,7 @@ export type PlannedNotification = {
     | 'deload_week'
     | 'taper_week'
     | 'test_week'
+    | 'phase_transition'
     | 'rest_timer';
   scheduledFor: string;
   title: string;
@@ -84,6 +85,15 @@ export function planWeekStatusNotification(
       scheduledFor: `${date}T08:00:00`,
       title: 'Testing week begins',
       body: `Block ${position.week.blockNumber} - Week ${position.week.yearWeekNumber}. Review current baselines before testing.`,
+    };
+  }
+
+  if (position.week.isBuffer && settings.testWeekRemindersEnabled) {
+    return {
+      type: 'phase_transition',
+      scheduledFor: `${date}T08:00:00`,
+      title: 'Phase transition ready',
+      body: `Block ${position.week.blockNumber} buffer week. Review and confirm 1RM baselines before the next block.`,
     };
   }
 
