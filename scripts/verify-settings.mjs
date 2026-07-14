@@ -12,6 +12,9 @@ assert.deepEqual(defaultSettings, {
   machineIncrement: 5,
   theme: 'scholar_light',
   setupCompleted: false,
+  calendarMode: 'program_week',
+  restAlertSound: true,
+  restAlertVibration: true,
 });
 assert.deepEqual(normalizeSettings({ preferredUnit: 'lb', barbellWeight: 45 }), {
   ...defaultSettings,
@@ -19,6 +22,11 @@ assert.deepEqual(normalizeSettings({ preferredUnit: 'lb', barbellWeight: 45 }), 
   barbellWeight: 45,
 });
 assert.equal(normalizeSettings({ setupCompleted: true }).setupCompleted, true);
+assert.equal(
+  normalizeSettings({ calendarMode: 'calendar_month' }).calendarMode,
+  'calendar_month',
+);
+assert.equal(normalizeSettings({ restAlertSound: false }).restAlertSound, false);
 assert.throws(() => normalizeSettings({ plateIncrement: 0 }), /plateIncrement/);
 
 console.log('settings verified');

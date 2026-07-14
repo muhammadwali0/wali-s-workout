@@ -19,6 +19,9 @@ const db = {
         machineIncrement: 5,
         theme: 'scholar_light',
         setupCompleted: 1,
+        calendarMode: 'calendar_month',
+        restAlertSound: 0,
+        restAlertVibration: 1,
       },
     ];
   },
@@ -26,6 +29,8 @@ const db = {
 
 assert.equal((await getAppSettings(db)).plateIncrement, 1.25);
 assert.equal((await getAppSettings(db)).setupCompleted, true);
+assert.equal((await getAppSettings(db)).calendarMode, 'calendar_month');
+assert.equal((await getAppSettings(db)).restAlertSound, false);
 assert.match(runCalls[0].sql, /INSERT OR IGNORE INTO app_settings/);
 
 const saved = await saveAppSettings(db, {
@@ -36,16 +41,22 @@ const saved = await saveAppSettings(db, {
   machineIncrement: 10,
   theme: 'scholar_light',
   setupCompleted: true,
+  calendarMode: 'calendar_month',
+  restAlertSound: false,
+  restAlertVibration: true,
 });
 assert.equal(saved.preferredUnit, 'lb');
-assert.match(runCalls[2].sql, /INSERT OR REPLACE INTO app_settings/);
-assert.deepEqual(runCalls[2].params.slice(1, 8), [
+assert.match(runCalls[4].sql, /INSERT OR REPLACE INTO app_settings/);
+assert.deepEqual(runCalls[4].params.slice(1, 11), [
   'lb',
   45,
   5,
   5,
   10,
   'scholar_light',
+  1,
+  'calendar_month',
+  0,
   1,
 ]);
 

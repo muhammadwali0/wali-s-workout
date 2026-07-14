@@ -24,6 +24,15 @@ export async function migrateDatabase(db: TrainingDatabase) {
     'ALTER TABLE app_settings ADD COLUMN setup_completed INTEGER NOT NULL DEFAULT 0',
   ).catch(() => undefined);
   await db.runAsync(
+    "ALTER TABLE app_settings ADD COLUMN calendar_mode TEXT NOT NULL DEFAULT 'program_week'",
+  ).catch(() => undefined);
+  await db.runAsync(
+    'ALTER TABLE app_settings ADD COLUMN rest_alert_sound INTEGER NOT NULL DEFAULT 1',
+  ).catch(() => undefined);
+  await db.runAsync(
+    'ALTER TABLE app_settings ADD COLUMN rest_alert_vibration INTEGER NOT NULL DEFAULT 1',
+  ).catch(() => undefined);
+  await db.runAsync(
     'INSERT OR IGNORE INTO schema_migrations (version, applied_at) VALUES (?, ?)',
     schemaVersion,
     new Date().toISOString(),

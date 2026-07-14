@@ -4,6 +4,7 @@ const {
   buildExportFiles,
   getTrainingDataExport,
   previewTrainingDataExport,
+  resetNotificationData,
   resetUserTrainingData,
   restoreTrainingDataExport,
   toCsv,
@@ -77,6 +78,13 @@ assert.deepEqual(
     .slice(0, 3)
     .map((call) => call.sql),
   ['DELETE FROM personal_records', 'DELETE FROM set_logs', 'DELETE FROM exercise_logs'],
+);
+
+calls.length = 0;
+await resetNotificationData(db);
+assert.deepEqual(
+  calls.map((call) => call.sql),
+  ['DELETE FROM scheduled_notifications', 'DELETE FROM notification_settings'],
 );
 
 calls.length = 0;

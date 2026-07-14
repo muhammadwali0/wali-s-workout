@@ -135,6 +135,13 @@ export async function resetUserTrainingData(
   }
 }
 
+export async function resetNotificationData(
+  db: Pick<TrainingDatabase, 'runAsync'>,
+) {
+  await db.runAsync('DELETE FROM scheduled_notifications');
+  await db.runAsync('DELETE FROM notification_settings');
+}
+
 export function toCsv(rows: readonly ExportRow[]) {
   const columns = [...new Set(rows.flatMap((row) => Object.keys(row)))];
   if (columns.length === 0) return '\n';

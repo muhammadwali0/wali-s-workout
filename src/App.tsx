@@ -86,6 +86,7 @@ import {
   buildExportFiles,
   getTrainingDataExport,
   previewTrainingDataExport,
+  resetNotificationData,
   resetUserTrainingData,
   restoreTrainingDataExport,
   type TrainingDataExportPreview,
@@ -803,7 +804,12 @@ function TodayWorkoutSummary({
         const nextTimer = createRestTimer(plannedSet, nowMs);
         setRestTimer(nextTimer);
         setTimerNowMs(Date.now());
-        if (db && todayInstance && nextTimer) {
+        if (
+          db &&
+          todayInstance &&
+          nextTimer &&
+          (appSettings.restAlertSound || appSettings.restAlertVibration)
+        ) {
           const notification = planRestTimerNotification(
             new Date(nowMs + nextTimer.durationSeconds * 1000).toISOString(),
             plannedSet.exerciseName,
@@ -2601,6 +2607,13 @@ function LibrarySummary({
     await onSaved(db);
     setSaveStatus('Local training data reset');
   };
+  const resetNotifications = async () => {
+    if (!db) return;
+
+    await resetNotificationData(db);
+    await onSaved(db);
+    setSaveStatus('Notification schedules and settings reset');
+  };
 
   return (
     <View style={styles.summaryBlock}>
@@ -2633,6 +2646,11 @@ function LibrarySummary({
           {appSettings.plateIncrement} - Dumbbell: {appSettings.dumbbellIncrement} - Machine:{' '}
           {appSettings.machineIncrement}
         </Text>
+        <Text style={styles.setPrescription}>
+          Calendar: {formatCalendarMode(appSettings.calendarMode)} - rest sound:{' '}
+          {appSettings.restAlertSound ? 'on' : 'off'} - rest vibration:{' '}
+          {appSettings.restAlertVibration ? 'on' : 'off'}
+        </Text>
         <View style={styles.actionRow}>
           <Pressable
             accessibilityRole="button"
@@ -2644,6 +2662,40 @@ function LibrarySummary({
             style={styles.secondaryButton}
           >
             <Text style={styles.secondaryButtonText}>Toggle Unit</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() =>
+              void saveSettings({
+                calendarMode:
+                  appSettings.calendarMode === 'program_week'
+                    ? 'calendar_month'
+                    : 'program_week',
+              })
+            }
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Calendar</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() =>
+              void saveSettings({ restAlertSound: !appSettings.restAlertSound })
+            }
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Rest Sound</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() =>
+              void saveSettings({
+                restAlertVibration: !appSettings.restAlertVibration,
+              })
+            }
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Rest Vibration</Text>
           </Pressable>
           <TextInput
             accessibilityLabel="Barbell weight"
@@ -2871,6 +2923,13 @@ function LibrarySummary({
             style={styles.secondaryButton}
           >
             <Text style={styles.secondaryButtonText}>Reset Logs</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void resetNotifications()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Reset Notifications</Text>
           </Pressable>
         </View>
       </View>
@@ -3619,6 +3678,10 @@ function formatReplacementScope(scope: ExerciseReplacementInput['scope']) {
   if (scope === 'future_matching_in_block') return 'Future Block Matches';
   if (scope === 'block') return 'Block';
   return 'Year';
+}
+
+function formatCalendarMode(mode: AppSettings['calendarMode']) {
+  return mode === 'program_week' ? 'Program Week' : 'Calendar Month';
 }
 
 function getDefaultReps(targetReps: string | null) {

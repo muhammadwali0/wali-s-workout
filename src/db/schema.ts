@@ -429,6 +429,9 @@ CREATE TABLE IF NOT EXISTS app_settings (
   machine_increment REAL NOT NULL,
   theme TEXT NOT NULL DEFAULT 'scholar_light',
   setup_completed INTEGER NOT NULL DEFAULT 0,
+  calendar_mode TEXT NOT NULL DEFAULT 'program_week' CHECK (calendar_mode IN ('program_week', 'calendar_month')),
+  rest_alert_sound INTEGER NOT NULL DEFAULT 1,
+  rest_alert_vibration INTEGER NOT NULL DEFAULT 1,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
 );
