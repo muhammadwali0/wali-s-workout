@@ -1301,6 +1301,7 @@ function HistorySummary({
                   ? ` - ${formatDuration(item.durationSeconds)}`
                   : ''}
                 {item.personalRecordCount > 0 ? ` - ${item.personalRecordCount} PRs` : ''}
+                {item.failedSetCount > 0 ? ` - ${item.failedSetCount} failed sets` : ''}
               </Text>
               {item.lastSetNote ? (
                 <Text style={styles.setPrescription}>Note: {item.lastSetNote}</Text>

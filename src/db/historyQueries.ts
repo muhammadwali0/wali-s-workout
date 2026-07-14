@@ -11,6 +11,7 @@ export type WorkoutHistoryItem = {
   totalWorkingSets: number | null;
   averageRpe: number | null;
   personalRecordCount: number;
+  failedSetCount: number;
   lastSetNote: string | null;
 };
 
@@ -34,6 +35,13 @@ export async function getRecentWorkoutHistory(
          FROM personal_records pr
          WHERE pr.workout_log_id = wl.id
        ) AS personalRecordCount,
+       (
+         SELECT COUNT(*)
+         FROM set_logs sl
+         JOIN exercise_logs el ON el.id = sl.exercise_log_id
+         WHERE el.workout_log_id = wl.id
+           AND sl.is_failed = 1
+       ) AS failedSetCount,
        (
          SELECT sl.user_notes
          FROM set_logs sl

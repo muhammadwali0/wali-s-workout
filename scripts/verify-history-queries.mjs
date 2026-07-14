@@ -14,6 +14,7 @@ const rows = [
     totalWorkingSets: 3,
     averageRpe: 7,
     personalRecordCount: 2,
+    failedSetCount: 1,
     lastSetNote: 'Felt stable',
   },
 ];
@@ -33,6 +34,8 @@ assert.match(calls[0].sql, /JOIN program_workouts/);
 assert.match(calls[0].sql, /wl\.duration_seconds AS durationSeconds/);
 assert.match(calls[0].sql, /FROM personal_records pr/);
 assert.match(calls[0].sql, /AS personalRecordCount/);
+assert.match(calls[0].sql, /sl\.is_failed = 1/);
+assert.match(calls[0].sql, /AS failedSetCount/);
 assert.match(calls[0].sql, /sl\.user_notes AS lastSetNote|AS lastSetNote/);
 assert.match(calls[0].sql, /FROM set_logs sl/);
 assert.match(calls[0].sql, /LIMIT \?/);
