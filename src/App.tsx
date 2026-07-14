@@ -133,6 +133,7 @@ import {
   removeSet,
   skipSet,
   summarizeWorkoutDraft,
+  updatePlannedSet,
   type WorkoutDraft,
 } from './domain/workout/workoutLog';
 import {
@@ -202,6 +203,7 @@ const replacementScopes: ExerciseReplacementInput['scope'][] = [
   'year',
 ];
 const emptySetEntry = { weight: '', reps: '', rpe: '', rir: '' };
+const emptyPrescriptionEntry = { reps: '', percent: '', rpe: '', rest: '' };
 const compositionColors = ['#1E3A5F', '#2563EB', '#0F766E', '#7C2D12', '#6D28D9'];
 
 export default function App() {
@@ -477,6 +479,7 @@ function TodayWorkoutSummary({
   const [restTimer, setRestTimer] = useState<RestTimer | null>(null);
   const [timerNowMs, setTimerNowMs] = useState(Date.now());
   const [nextSetEntry, setNextSetEntry] = useState(emptySetEntry);
+  const [prescriptionEntry, setPrescriptionEntry] = useState(emptyPrescriptionEntry);
   const [nextSetNote, setNextSetNote] = useState('');
   const [latestPerformances, setLatestPerformances] = useState<
     LatestExercisePerformance[]
@@ -487,6 +490,7 @@ function TodayWorkoutSummary({
     setDraft(null);
     setRestTimer(null);
     setNextSetEntry(emptySetEntry);
+    setPrescriptionEntry(emptyPrescriptionEntry);
     setNextSetNote('');
   }, [dueWorkout.status === 'workout_due' ? dueWorkout.workout.id : dueWorkout.status]);
 
@@ -688,7 +692,41 @@ function TodayWorkoutSummary({
       }
       void saveDraft(nextDraft);
       setNextSetEntry(emptySetEntry);
+      setPrescriptionEntry(emptyPrescriptionEntry);
       setNextSetNote('');
+    };
+    const updateNextSetPrescription = () => {
+      if (!draft || !nextSet) return;
+
+      const changes: {
+        targetReps?: string | null;
+        percent1Rm?: number | null;
+        targetRpe?: number | null;
+        restSeconds?: number | null;
+      } = {};
+      if (prescriptionEntry.reps.trim() !== '') {
+        changes.targetReps = prescriptionEntry.reps.trim();
+      }
+      if (prescriptionEntry.percent.trim() !== '') {
+        changes.percent1Rm = Number(prescriptionEntry.percent);
+      }
+      if (prescriptionEntry.rpe.trim() !== '') {
+        changes.targetRpe = Number(prescriptionEntry.rpe);
+      }
+      if (prescriptionEntry.rest.trim() !== '') {
+        changes.restSeconds = Number(prescriptionEntry.rest);
+      }
+      if (Object.keys(changes).length === 0) {
+        setSaveStatus('Enter at least one target change');
+        return;
+      }
+
+      try {
+        void saveDraft(updatePlannedSet(draft, nextSet.plannedSetId, changes));
+        setPrescriptionEntry(emptyPrescriptionEntry);
+      } catch (error) {
+        setSaveStatus(error instanceof Error ? error.message : 'Invalid target');
+      }
     };
 
     return (
@@ -778,6 +816,7 @@ function TodayWorkoutSummary({
                 accessibilityRole="button"
                 onPress={() => {
                   setNextSetEntry(emptySetEntry);
+                  setPrescriptionEntry(emptyPrescriptionEntry);
                   setNextSetNote('');
                   void saveDraft(skipSet(draft, nextSet.plannedSetId));
                 }}
@@ -924,6 +963,55 @@ function TodayWorkoutSummary({
                 style={styles.noteInput}
                 value={nextSetNote}
               />
+              <View style={styles.setEntryRow}>
+                <TextInput
+                  accessibilityLabel="Personalized target reps"
+                  keyboardType="number-pad"
+                  onChangeText={(reps) =>
+                    setPrescriptionEntry((entry) => ({ ...entry, reps }))
+                  }
+                  placeholder="Target reps"
+                  style={[styles.noteInput, styles.setEntryInput]}
+                  value={prescriptionEntry.reps}
+                />
+                <TextInput
+                  accessibilityLabel="Personalized target percent 1RM"
+                  keyboardType="decimal-pad"
+                  onChangeText={(percent) =>
+                    setPrescriptionEntry((entry) => ({ ...entry, percent }))
+                  }
+                  placeholder="%1RM"
+                  style={[styles.noteInput, styles.setEntryInput]}
+                  value={prescriptionEntry.percent}
+                />
+                <TextInput
+                  accessibilityLabel="Personalized target RPE"
+                  keyboardType="decimal-pad"
+                  onChangeText={(rpe) =>
+                    setPrescriptionEntry((entry) => ({ ...entry, rpe }))
+                  }
+                  placeholder="Target RPE"
+                  style={[styles.noteInput, styles.setEntryInput]}
+                  value={prescriptionEntry.rpe}
+                />
+                <TextInput
+                  accessibilityLabel="Personalized rest seconds"
+                  keyboardType="number-pad"
+                  onChangeText={(rest) =>
+                    setPrescriptionEntry((entry) => ({ ...entry, rest }))
+                  }
+                  placeholder="Rest sec"
+                  style={[styles.noteInput, styles.setEntryInput]}
+                  value={prescriptionEntry.rest}
+                />
+              </View>
+              <Pressable
+                accessibilityRole="button"
+                onPress={updateNextSetPrescription}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Update Target</Text>
+              </Pressable>
             </>
           ) : null}
           {timerState && restTimer ? (

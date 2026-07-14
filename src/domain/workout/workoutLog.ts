@@ -222,6 +222,61 @@ export function addExercise(
   };
 }
 
+export function updatePlannedSet(
+  draft: WorkoutDraft,
+  plannedSetId: string,
+  changes: {
+    targetReps?: string | null;
+    percent1Rm?: number | null;
+    targetRpe?: number | null;
+    restSeconds?: number | null;
+  },
+): WorkoutDraft {
+  const actual = draft.actualSets.find((set) => set.plannedSetId === plannedSetId);
+  if (!actual) {
+    throw new Error(`Unknown planned set: ${plannedSetId}`);
+  }
+  if (actual.completed || actual.skipped) {
+    throw new Error('Cannot edit a completed or skipped set');
+  }
+  if (changes.percent1Rm !== undefined && changes.percent1Rm !== null) {
+    assertPercent(changes.percent1Rm);
+  }
+  if (changes.targetRpe !== undefined && changes.targetRpe !== null) {
+    assertRpe(changes.targetRpe);
+  }
+  if (changes.restSeconds !== undefined && changes.restSeconds !== null) {
+    assertPositiveInteger(changes.restSeconds, 'rest seconds');
+  }
+
+  return {
+    ...draft,
+    status: 'draft',
+    plannedSets: draft.plannedSets.map((set) => {
+      if (set.id !== plannedSetId) return set;
+
+      return {
+        ...set,
+        targetReps:
+          changes.targetReps === undefined ? set.targetReps : changes.targetReps,
+        percent1RmLow:
+          changes.percent1Rm === undefined ? set.percent1RmLow : changes.percent1Rm,
+        percent1RmHigh:
+          changes.percent1Rm === undefined ? set.percent1RmHigh : changes.percent1Rm,
+        targetRpeLow:
+          changes.targetRpe === undefined ? set.targetRpeLow : changes.targetRpe,
+        targetRpeHigh:
+          changes.targetRpe === undefined ? set.targetRpeHigh : changes.targetRpe,
+        restSecondsMin:
+          changes.restSeconds === undefined ? set.restSecondsMin : changes.restSeconds,
+        restSecondsMax:
+          changes.restSeconds === undefined ? set.restSecondsMax : changes.restSeconds,
+        notes: appendModificationNote(set.notes),
+      };
+    }),
+  };
+}
+
 export function removeSet(draft: WorkoutDraft, plannedSetId: string): WorkoutDraft {
   const actual = draft.actualSets.find((set) => set.plannedSetId === plannedSetId);
   if (!actual) {
@@ -325,4 +380,15 @@ function assertRpe(value: number) {
   if (!Number.isFinite(value) || value < 0 || value > 10) {
     throw new Error('rpe must be between 0 and 10');
   }
+}
+
+function assertPercent(value: number) {
+  if (!Number.isFinite(value) || value < 0 || value > 100) {
+    throw new Error('percent 1RM must be between 0 and 100');
+  }
+}
+
+function appendModificationNote(notes: string | null) {
+  if (notes?.includes('Personalized today')) return notes;
+  return notes ? `${notes} Personalized today.` : 'Personalized today.';
 }

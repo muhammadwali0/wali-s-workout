@@ -18,6 +18,7 @@ const {
   removeSet,
   skipSet,
   summarizeWorkoutDraft,
+  updatePlannedSet,
 } = await import('../src/domain/workout/workoutLog.ts');
 
 const year = createTrainingYear('2026-01-01');
@@ -95,6 +96,27 @@ assert.equal(addedExerciseSet.exerciseRole, 'secondary');
 assert.equal(addedExerciseSet.setType, 'added');
 assert.equal(addedExerciseSet.targetReps, null);
 assert.equal(withAddedExercise.actualSets.at(-1).plannedSetId, addedExerciseSet.id);
+
+const editedSet = updatePlannedSet(draft, plannedSets[0].id, {
+  targetReps: '8',
+  percent1Rm: 72.5,
+  targetRpe: 7,
+  restSeconds: 120,
+});
+assert.equal(draft.plannedSets[0].targetReps, plannedSets[0].targetReps);
+assert.equal(editedSet.plannedSets[0].targetReps, '8');
+assert.equal(editedSet.plannedSets[0].percent1RmLow, 72.5);
+assert.equal(editedSet.plannedSets[0].percent1RmHigh, 72.5);
+assert.equal(editedSet.plannedSets[0].targetRpeLow, 7);
+assert.equal(editedSet.plannedSets[0].targetRpeHigh, 7);
+assert.equal(editedSet.plannedSets[0].restSecondsMin, 120);
+assert.equal(editedSet.plannedSets[0].restSecondsMax, 120);
+assert.match(editedSet.plannedSets[0].notes, /Personalized today/);
+assert.throws(() => updatePlannedSet(draft, 'missing', { targetReps: '8' }), /Unknown/);
+assert.throws(() => updatePlannedSet(logged, plannedSets[0].id, { targetReps: '8' }), /completed or skipped/);
+assert.throws(() => updatePlannedSet(draft, plannedSets[0].id, { percent1Rm: 101 }), /percent/);
+assert.throws(() => updatePlannedSet(draft, plannedSets[0].id, { targetRpe: 11 }), /rpe/);
+assert.throws(() => updatePlannedSet(draft, plannedSets[0].id, { restSeconds: 0 }), /rest/);
 
 const firstExerciseSetCount = plannedSets.filter(
   (set) => set.exerciseOrder === plannedSets[0].exerciseOrder,
