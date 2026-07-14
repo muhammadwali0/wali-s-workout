@@ -9,6 +9,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import type { LayoutChangeEvent } from 'react-native';
 
 import {
   getCalendarWorkouts,
@@ -90,6 +91,7 @@ import {
   type MuscleHeatmapRegion,
 } from './domain/analytics/muscleHeatmap';
 import { getTrainingFrequency } from './domain/analytics/trainingFrequency';
+import { getLineChartPlot } from './domain/analytics/lineChart';
 import { getWeeklyAverageRpe } from './domain/analytics/weeklyRpe';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
 import {
@@ -1247,15 +1249,18 @@ function AnalyticsSummary({
         {strengthTrend.length === 0 ? (
           <Text style={styles.summaryText}>No estimated 1RM records yet.</Text>
         ) : (
-          strengthTrend.slice(0, 5).map((point) => (
-            <View key={`${point.exerciseId}_${point.achievedAt}`} style={styles.setRow}>
-              <Text style={styles.setExercise}>{point.exerciseName}</Text>
-              <Text style={styles.setPrescription}>
-                {Math.round(point.estimatedOneRm * 10) / 10} {point.unit ?? ''} -{' '}
-                {point.achievedAt}
-              </Text>
-            </View>
-          ))
+          <>
+            <StrengthTrendChart points={strengthTrend.slice(0, 8)} />
+            {strengthTrend.slice(0, 5).map((point) => (
+              <View key={`${point.exerciseId}_${point.achievedAt}`} style={styles.setRow}>
+                <Text style={styles.setExercise}>{point.exerciseName}</Text>
+                <Text style={styles.setPrescription}>
+                  {Math.round(point.estimatedOneRm * 10) / 10} {point.unit ?? ''} -{' '}
+                  {point.achievedAt}
+                </Text>
+              </View>
+            ))}
+          </>
         )}
       </View>
 
@@ -1984,6 +1989,60 @@ function CalendarHeatmap({ days }: { days: CalendarDay[] }) {
   );
 }
 
+function StrengthTrendChart({ points }: { points: StrengthTrendPoint[] }) {
+  const [width, setWidth] = useState(0);
+  const height = 96;
+  const ordered = [...points].reverse();
+  const plot = getLineChartPlot(
+    ordered.map((point) => ({
+      label: point.exerciseName,
+      value: point.estimatedOneRm,
+    })),
+    width,
+    height,
+  );
+
+  return (
+    <View
+      accessibilityLabel={`Estimated 1RM line chart with ${points.length} records`}
+      onLayout={(event: LayoutChangeEvent) => setWidth(event.nativeEvent.layout.width)}
+      style={[styles.lineChart, { height }]}
+    >
+      <View style={styles.lineChartAxis} />
+      {plot.slice(0, -1).map((point, index) => {
+        const next = plot[index + 1];
+        const dx = next.x - point.x;
+        const dy = next.y - point.y;
+        const length = Math.sqrt(dx * dx + dy * dy);
+        const angle = `${Math.atan2(dy, dx)}rad`;
+
+        return (
+          <View
+            key={`${point.label}_${index}_line`}
+            style={[
+              styles.lineChartSegment,
+              {
+                left: (point.x + next.x) / 2 - length / 2,
+                top: (point.y + next.y) / 2,
+                width: length,
+                transform: [{ rotate: angle }],
+              },
+            ]}
+          />
+        );
+      })}
+      {plot.map((point, index) => (
+        <View
+          key={`${point.label}_${index}_point`}
+          accessible
+          accessibilityLabel={`${point.label}: ${Math.round(point.value * 10) / 10}`}
+          style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
+        />
+      ))}
+    </View>
+  );
+}
+
 function MuscleHeatmapFigure({
   regions,
   view,
@@ -2551,6 +2610,36 @@ const styles = StyleSheet.create({
   },
   barFill: {
     height: 8,
+    borderRadius: 4,
+    backgroundColor: '#1E3A5F',
+  },
+  lineChart: {
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    borderRadius: 8,
+    backgroundColor: '#F8FAFC',
+  },
+  lineChartAxis: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+    left: 10,
+    height: 1,
+    backgroundColor: '#CBD5E1',
+  },
+  lineChartSegment: {
+    position: 'absolute',
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: '#0F766E',
+  },
+  lineChartPoint: {
+    position: 'absolute',
+    width: 8,
+    height: 8,
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
     borderRadius: 4,
     backgroundColor: '#1E3A5F',
   },
