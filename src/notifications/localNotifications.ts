@@ -41,7 +41,7 @@ export async function scheduleLocalNotification(
     content: {
       title: notification.title,
       body: notification.body,
-      data: { type: notification.type },
+      data: { route: notification.route, type: notification.type },
     },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DATE,

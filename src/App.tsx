@@ -126,9 +126,9 @@ import { getPhaseTransitionSummary } from './domain/program/phaseTransition';
 import {
   isValidNotificationTime,
   planNextMissedWorkoutNotification,
+  planNextWeekStatusNotification,
   planRestTimerNotification,
   planUnfinishedSessionNotification,
-  planWeekStatusNotification,
   planWorkoutDueNotification,
   type NotificationSettings,
 } from './domain/notifications/notificationPlanner';
@@ -2552,8 +2552,8 @@ function LibrarySummary({
   const scheduleWeekStatusReminder = async () => {
     if (!db) return;
 
-    const notification = planWeekStatusNotification(
-      new Date().toISOString().slice(0, 10),
+    const notification = planNextWeekStatusNotification(
+      new Date(),
       position,
       notificationSettings,
     );
@@ -2886,7 +2886,8 @@ function LibrarySummary({
         </View>
         {scheduledNotifications.slice(0, 3).map((notification) => (
           <Text key={notification.id} style={styles.setPrescription}>
-            {notification.title} - {notification.scheduledFor}
+            {notification.title} - {notification.scheduledFor} - opens{' '}
+            {formatNotificationRoute(notification.route)}
           </Text>
         ))}
       </View>
@@ -3748,6 +3749,12 @@ function formatReplacementScope(scope: ExerciseReplacementInput['scope']) {
 
 function formatCalendarMode(mode: AppSettings['calendarMode']) {
   return mode === 'program_week' ? 'Program Week' : 'Calendar Month';
+}
+
+function formatNotificationRoute(route: ScheduledNotificationItem['route']) {
+  if (route === 'year') return 'Year';
+  if (route === 'library') return 'Library';
+  return 'Today';
 }
 
 function getDefaultReps(targetReps: string | null) {

@@ -24,6 +24,7 @@ export type PlannedNotification = {
   scheduledFor: string;
   title: string;
   body: string;
+  route: 'today' | 'year' | 'library';
 };
 
 export function isValidNotificationTime(time: string) {
@@ -51,6 +52,7 @@ export function planWorkoutDueNotification(
     scheduledFor: `${date}T${settings.workoutReminderTime}:00`,
     title: 'Training session due',
     body: `Block ${position.week.blockNumber} - Week ${position.week.yearWeekNumber} - ${dueWorkout.workout.name}`,
+    route: 'today',
   };
 }
 
@@ -67,6 +69,7 @@ export function planWeekStatusNotification(
       scheduledFor: `${date}T08:00:00`,
       title: 'Deload week begins',
       body: `Block ${position.week.blockNumber} - Week ${position.week.yearWeekNumber}. Follow the prescribed lower work closely.`,
+      route: 'today',
     };
   }
 
@@ -76,6 +79,7 @@ export function planWeekStatusNotification(
       scheduledFor: `${date}T08:00:00`,
       title: 'Taper week begins',
       body: `Block ${position.week.blockNumber} - Week ${position.week.yearWeekNumber}. Prioritize accurate execution.`,
+      route: 'today',
     };
   }
 
@@ -85,6 +89,7 @@ export function planWeekStatusNotification(
       scheduledFor: `${date}T08:00:00`,
       title: 'Testing week begins',
       body: `Block ${position.week.blockNumber} - Week ${position.week.yearWeekNumber}. Review current baselines before testing.`,
+      route: 'library',
     };
   }
 
@@ -94,10 +99,27 @@ export function planWeekStatusNotification(
       scheduledFor: `${date}T08:00:00`,
       title: 'Phase transition ready',
       body: `Block ${position.week.blockNumber} buffer week. Review and confirm 1RM baselines before the next block.`,
+      route: 'library',
     };
   }
 
   return null;
+}
+
+export function planNextWeekStatusNotification(
+  referenceDate: Date | string,
+  position: ProgramPosition,
+  settings: NotificationSettings,
+): PlannedNotification | null {
+  const reference =
+    typeof referenceDate === 'string' ? new Date(referenceDate) : referenceDate;
+  if (!Number.isFinite(reference.getTime())) return null;
+
+  return planWeekStatusNotification(
+    getNextLocalDateForTime(reference, '08:00'),
+    position,
+    settings,
+  );
 }
 
 export function planMissedWorkoutNotification(
@@ -118,6 +140,7 @@ export function planMissedWorkoutNotification(
     scheduledFor: `${date}T${settings.missedWorkoutTime}:00`,
     title: 'Scheduled workout unresolved',
     body: `${workoutName} remains pending. Choose whether to shift, move, or skip it.`,
+    route: 'year',
   };
 }
 
@@ -153,6 +176,7 @@ export function planUnfinishedSessionNotification(
     scheduledFor,
     title: 'Workout session unfinished',
     body: `${workoutName} has saved set data and is still in progress.`,
+    route: 'today',
   };
 }
 
@@ -165,6 +189,7 @@ export function planRestTimerNotification(
     scheduledFor,
     title: 'Rest complete',
     body: `${exerciseName}: begin the next set when ready.`,
+    route: 'today',
   };
 }
 

@@ -142,7 +142,12 @@ export async function getScheduledNotifications(
        title,
        body,
        status,
-       external_notification_id AS externalNotificationId
+       external_notification_id AS externalNotificationId,
+       CASE
+         WHEN notification_type = 'missed_workout' THEN 'year'
+         WHEN notification_type IN ('test_week', 'phase_transition') THEN 'library'
+         ELSE 'today'
+       END AS route
      FROM scheduled_notifications
      WHERE status = 'scheduled'
      ORDER BY scheduled_for
