@@ -1729,7 +1729,10 @@ function LibrarySummary({
   scheduledNotifications: ScheduledNotificationItem[];
 }) {
   const [draftValues, setDraftValues] = useState<Record<string, string>>({});
+  const [draftBarbellWeight, setDraftBarbellWeight] = useState('');
   const [draftPlateIncrement, setDraftPlateIncrement] = useState('');
+  const [draftDumbbellIncrement, setDraftDumbbellIncrement] = useState('');
+  const [draftMachineIncrement, setDraftMachineIncrement] = useState('');
   const [draftWorkoutReminderTime, setDraftWorkoutReminderTime] = useState('');
   const [draftMissedReminderTime, setDraftMissedReminderTime] = useState('');
   const [saveStatus, setSaveStatus] = useState('Baselines not changed');
@@ -1811,17 +1814,17 @@ function LibrarySummary({
   const saveSettings = async (settings: Partial<AppSettings>) => {
     if (!db) return;
 
-    if (
-      settings.plateIncrement !== undefined &&
-      (!Number.isFinite(settings.plateIncrement) || settings.plateIncrement <= 0)
-    ) {
-      setSaveStatus('Enter a positive increment');
-      return;
+    try {
+      await saveAppSettings(db, { ...appSettings, ...settings });
+      await onSaved(db);
+      setDraftBarbellWeight('');
+      setDraftPlateIncrement('');
+      setDraftDumbbellIncrement('');
+      setDraftMachineIncrement('');
+      setSaveStatus('Settings saved locally');
+    } catch (error) {
+      setSaveStatus(error instanceof Error ? error.message : 'Invalid settings');
     }
-
-    await saveAppSettings(db, { ...appSettings, ...settings });
-    await onSaved(db);
-    setSaveStatus('Settings saved locally');
   };
   const saveReplacement = async (alternative: ExerciseAlternativeItem) => {
     if (!db) return;
@@ -1960,8 +1963,9 @@ function LibrarySummary({
       <View style={styles.baselinePanel}>
         <Text style={styles.sessionTitle}>Training Settings</Text>
         <Text style={styles.summaryText}>
-          Unit: {appSettings.preferredUnit} - Plate increment:{' '}
-          {appSettings.plateIncrement}
+          Unit: {appSettings.preferredUnit} - Barbell: {appSettings.barbellWeight} - Plate:{' '}
+          {appSettings.plateIncrement} - Dumbbell: {appSettings.dumbbellIncrement} - Machine:{' '}
+          {appSettings.machineIncrement}
         </Text>
         <View style={styles.actionRow}>
           <Pressable
@@ -1976,6 +1980,14 @@ function LibrarySummary({
             <Text style={styles.secondaryButtonText}>Toggle Unit</Text>
           </Pressable>
           <TextInput
+            accessibilityLabel="Barbell weight"
+            inputMode="decimal"
+            onChangeText={setDraftBarbellWeight}
+            placeholder={String(appSettings.barbellWeight)}
+            style={styles.baselineInput}
+            value={draftBarbellWeight}
+          />
+          <TextInput
             accessibilityLabel="Plate increment"
             inputMode="decimal"
             onChangeText={setDraftPlateIncrement}
@@ -1983,18 +1995,43 @@ function LibrarySummary({
             style={styles.baselineInput}
             value={draftPlateIncrement}
           />
+          <TextInput
+            accessibilityLabel="Dumbbell increment"
+            inputMode="decimal"
+            onChangeText={setDraftDumbbellIncrement}
+            placeholder={String(appSettings.dumbbellIncrement)}
+            style={styles.baselineInput}
+            value={draftDumbbellIncrement}
+          />
+          <TextInput
+            accessibilityLabel="Machine increment"
+            inputMode="decimal"
+            onChangeText={setDraftMachineIncrement}
+            placeholder={String(appSettings.machineIncrement)}
+            style={styles.baselineInput}
+            value={draftMachineIncrement}
+          />
           <Pressable
             accessibilityRole="button"
             onPress={() =>
               void saveSettings({
+                barbellWeight: Number(
+                  draftBarbellWeight || appSettings.barbellWeight,
+                ),
                 plateIncrement: Number(
                   draftPlateIncrement || appSettings.plateIncrement,
+                ),
+                dumbbellIncrement: Number(
+                  draftDumbbellIncrement || appSettings.dumbbellIncrement,
+                ),
+                machineIncrement: Number(
+                  draftMachineIncrement || appSettings.machineIncrement,
                 ),
               })
             }
             style={styles.secondaryButton}
           >
-            <Text style={styles.secondaryButtonText}>Save Increment</Text>
+            <Text style={styles.secondaryButtonText}>Save Equipment</Text>
           </Pressable>
         </View>
       </View>
