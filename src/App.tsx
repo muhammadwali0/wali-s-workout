@@ -1407,14 +1407,17 @@ function HistorySummary({
         {personalRecords.length === 0 ? (
           <Text style={styles.summaryText}>No personal records saved yet.</Text>
         ) : (
-          personalRecords.map((record) => (
-            <View key={record.recordId} style={styles.setRow}>
-              <Text style={styles.setExercise}>{record.exerciseName}</Text>
-              <Text style={styles.setPrescription}>
-                {formatPersonalRecord(record)} - {record.achievedAt}
-              </Text>
-            </View>
-          ))
+          <>
+            <PrHistoryChart records={personalRecords.slice(0, 8)} />
+            {personalRecords.map((record) => (
+              <View key={record.recordId} style={styles.setRow}>
+                <Text style={styles.setExercise}>{record.exerciseName}</Text>
+                <Text style={styles.setPrescription}>
+                  {formatPersonalRecord(record)} - {record.achievedAt}
+                </Text>
+              </View>
+            ))}
+          </>
         )}
       </View>
     </View>
@@ -2199,6 +2202,60 @@ function VolumeTrendChart({
   );
 }
 
+function PrHistoryChart({ records }: { records: PersonalRecordItem[] }) {
+  const [width, setWidth] = useState(0);
+  const height = 96;
+  const ordered = [...records].reverse();
+  const plot = getLineChartPlot(
+    ordered.map((record) => ({
+      label: record.exerciseName,
+      value: getPersonalRecordChartValue(record),
+    })),
+    width,
+    height,
+  );
+
+  return (
+    <View
+      accessibilityLabel={`Personal record history line chart with ${records.length} records`}
+      onLayout={(event: LayoutChangeEvent) => setWidth(event.nativeEvent.layout.width)}
+      style={[styles.lineChart, { height }]}
+    >
+      <View style={styles.lineChartAxis} />
+      {plot.slice(0, -1).map((point, index) => {
+        const next = plot[index + 1];
+        const dx = next.x - point.x;
+        const dy = next.y - point.y;
+        const length = Math.sqrt(dx * dx + dy * dy);
+        const angle = `${Math.atan2(dy, dx)}rad`;
+
+        return (
+          <View
+            key={`${point.label}_${index}_pr_line`}
+            style={[
+              styles.lineChartSegment,
+              {
+                left: (point.x + next.x) / 2 - length / 2,
+                top: (point.y + next.y) / 2,
+                width: length,
+                transform: [{ rotate: angle }],
+              },
+            ]}
+          />
+        );
+      })}
+      {plot.map((point, index) => (
+        <View
+          key={`${point.label}_${index}_pr_point`}
+          accessible
+          accessibilityLabel={`${point.label}: ${Math.round(point.value * 10) / 10}`}
+          style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
+        />
+      ))}
+    </View>
+  );
+}
+
 function StrengthTrendChart({ points }: { points: StrengthTrendPoint[] }) {
   const [width, setWidth] = useState(0);
   const height = 96;
@@ -2496,6 +2553,16 @@ function formatOneRmRecordType(type: 'current_working' | 'tested' | 'phase_end')
   if (type === 'current_working') return 'Current working 1RM';
   if (type === 'tested') return 'Tested 1RM';
   return 'Phase-end 1RM';
+}
+
+function getPersonalRecordChartValue(record: PersonalRecordItem) {
+  return (
+    record.estimatedOneRm ??
+    record.volume ??
+    record.weight ??
+    record.reps ??
+    0
+  );
 }
 
 function formatPersonalRecord(record: PersonalRecordItem) {
