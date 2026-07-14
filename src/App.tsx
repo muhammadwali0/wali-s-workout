@@ -407,6 +407,7 @@ export default function App() {
               <View style={styles.actionRow}>
                 <Pressable
                   accessibilityRole="button"
+                  accessibilityState={{ disabled: !db }}
                   disabled={!db}
                   onPress={() => void completeInitialSetup()}
                   style={styles.primaryButton}
@@ -415,6 +416,7 @@ export default function App() {
                 </Pressable>
                 <Pressable
                   accessibilityRole="button"
+                  accessibilityState={{ disabled: !db || setupRestoreJson.trim() === '' }}
                   disabled={!db || setupRestoreJson.trim() === ''}
                   onPress={() => void restoreInitialBackup()}
                   style={styles.secondaryButton}
@@ -1447,6 +1449,7 @@ function AnalyticsSummary({
         {(['year', 'week', 'block', 'phase', 'custom'] as const).map((range) => (
           <Pressable
             accessibilityRole="button"
+            accessibilityState={{ selected: heatmapRange === range }}
             key={range}
             onPress={() => setHeatmapRange(range)}
             style={[
@@ -2821,6 +2824,7 @@ function LibrarySummary({
           </Pressable>
           <Pressable
             accessibilityRole="button"
+            accessibilityState={{ disabled: restoreJson.trim() === '' }}
             disabled={restoreJson.trim() === ''}
             onPress={previewRestoreBackup}
             style={styles.secondaryButton}
@@ -2829,6 +2833,7 @@ function LibrarySummary({
           </Pressable>
           <Pressable
             accessibilityRole="button"
+            accessibilityState={{ disabled: !restorePreview }}
             disabled={!restorePreview}
             onPress={() => void restoreTrainingData()}
             style={styles.secondaryButton}
@@ -3094,6 +3099,7 @@ function VolumeTrendChart({
           <Pressable
             accessibilityLabel={`${point.label}: ${Math.round(point.value)} kg reps`}
             accessibilityRole="button"
+            hitSlop={12}
             key={`${point.label}_volume_point`}
             onPress={() => onSelect?.(source)}
             style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
@@ -3213,6 +3219,7 @@ function StrengthTrendChart({
           <Pressable
             accessibilityLabel={`${point.label}: ${Math.round(point.value * 10) / 10}`}
             accessibilityRole="button"
+            hitSlop={12}
             key={`${point.label}_${index}_point`}
             onPress={() => onSelect?.(source)}
             style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
@@ -3249,7 +3256,9 @@ function MuscleHeatmapFigure({
         ) : (
           visibleRegions.map((region) => (
             <Pressable
+              accessibilityLabel={`${region.name}: ${region.hardSets.toFixed(1)} hard sets`}
               accessibilityRole="button"
+              hitSlop={8}
               key={`${view}_${region.muscleId}`}
               onPress={() => onSelect?.(region)}
               style={[
@@ -3741,7 +3750,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   primaryButton: {
-    minHeight: 42,
+    minHeight: 44,
     justifyContent: 'center',
     borderRadius: 6,
     paddingHorizontal: 14,
@@ -3753,7 +3762,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   secondaryButton: {
-    minHeight: 42,
+    minHeight: 44,
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: '#1E3A5F',
@@ -3917,8 +3926,8 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   calendarCell: {
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     borderRadius: 3,
   },
   compositionTrack: {
@@ -3984,7 +3993,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bodyRegion: {
-    minHeight: 34,
+    minHeight: 44,
     justifyContent: 'center',
     borderRadius: 6,
     paddingHorizontal: 8,
