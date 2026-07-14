@@ -1115,14 +1115,17 @@ function AnalyticsSummary({
         {weeklyVolume.length === 0 ? (
           <Text style={styles.summaryText}>No completed working sets yet.</Text>
         ) : (
-          weeklyVolume.map((point) => (
-            <BarRow
-              key={point.weekKey}
-              label={point.weekKey}
-              value={`${point.totalVolume} kg reps`}
-              percent={(point.totalVolume / maxVolume) * 100}
-            />
-          ))
+          <>
+            <VolumeTrendChart points={weeklyVolume} />
+            {weeklyVolume.map((point) => (
+              <BarRow
+                key={point.weekKey}
+                label={point.weekKey}
+                value={`${point.totalVolume} kg reps`}
+                percent={(point.totalVolume / maxVolume) * 100}
+              />
+            ))}
+          </>
         )}
       </View>
 
@@ -2135,6 +2138,63 @@ function CalendarHeatmap({ days }: { days: CalendarDay[] }) {
         Dark: completed - amber: missed - gray: skipped or moved. Latest {days.length}{' '}
         scheduled days shown.
       </Text>
+    </View>
+  );
+}
+
+function VolumeTrendChart({
+  points,
+}: {
+  points: ReturnType<typeof getWeeklyVolume>;
+}) {
+  const [width, setWidth] = useState(0);
+  const height = 96;
+  const plot = getLineChartPlot(
+    points.map((point) => ({
+      label: point.weekKey,
+      value: point.totalVolume,
+    })),
+    width,
+    height,
+  );
+
+  return (
+    <View
+      accessibilityLabel={`Weekly volume line chart with ${points.length} weeks`}
+      onLayout={(event: LayoutChangeEvent) => setWidth(event.nativeEvent.layout.width)}
+      style={[styles.lineChart, { height }]}
+    >
+      <View style={styles.lineChartAxis} />
+      {plot.slice(0, -1).map((point, index) => {
+        const next = plot[index + 1];
+        const dx = next.x - point.x;
+        const dy = next.y - point.y;
+        const length = Math.sqrt(dx * dx + dy * dy);
+        const angle = `${Math.atan2(dy, dx)}rad`;
+
+        return (
+          <View
+            key={`${point.label}_${index}_volume_line`}
+            style={[
+              styles.lineChartSegment,
+              {
+                left: (point.x + next.x) / 2 - length / 2,
+                top: (point.y + next.y) / 2,
+                width: length,
+                transform: [{ rotate: angle }],
+              },
+            ]}
+          />
+        );
+      })}
+      {plot.map((point) => (
+        <View
+          key={`${point.label}_volume_point`}
+          accessible
+          accessibilityLabel={`${point.label}: ${Math.round(point.value)} kg reps`}
+          style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
+        />
+      ))}
     </View>
   );
 }
