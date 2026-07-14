@@ -546,6 +546,21 @@ function TodayWorkoutSummary({
     const nextSet = draft?.actualSets.find((set) => !set.completed && !set.skipped);
     const activePlannedSets = draft?.plannedSets ?? plannedSets;
     const previewSets = activePlannedSets.slice(0, 5);
+    const todayMuscleExposure = calculateMuscleExposure(
+      activePlannedSets.map((set) => ({
+        exerciseId: set.exerciseId,
+        setType: set.setType,
+        completed: true,
+        weight: null,
+        reps: null,
+      })),
+    )
+      .sort((a, b) => b.hardSets - a.hardSets)
+      .slice(0, 4);
+    const maxTodayHardSets = Math.max(
+      ...todayMuscleExposure.map((exposure) => exposure.hardSets),
+      1,
+    );
     const latestPerformanceByExercise = new Map(
       latestPerformances.map((performance) => [performance.exerciseId, performance]),
     );
@@ -672,6 +687,19 @@ function TodayWorkoutSummary({
         <Text style={styles.summaryText}>
           Main lifts: {dueWorkout.mainLifts.join(', ')}
         </Text>
+        {todayMuscleExposure.length > 0 ? (
+          <View style={styles.sessionPanel}>
+            <Text style={styles.sessionTitle}>Current Workout Muscle Exposure</Text>
+            {todayMuscleExposure.map((exposure) => (
+              <BarRow
+                key={exposure.muscleId}
+                label={muscleNameById.get(exposure.muscleId) ?? exposure.muscleId}
+                value={`${exposure.hardSets.toFixed(1)} planned hard sets`}
+                percent={(exposure.hardSets / maxTodayHardSets) * 100}
+              />
+            ))}
+          </View>
+        ) : null}
         {lastCompletedWorkout ? (
           <Text style={styles.summaryText}>
             Last completed: {lastCompletedWorkout.workoutName} -{' '}
