@@ -140,8 +140,11 @@ import {
   type WorkoutDraft,
 } from './domain/workout/workoutLog';
 import {
+  addRestTime,
   createRestTimer,
   getRestTimerState,
+  pauseRestTimer,
+  resumeRestTimer,
   type RestTimer,
 } from './domain/workout/restTimer';
 import { scheduleLocalNotification } from './notifications/localNotifications';
@@ -1041,10 +1044,45 @@ function TodayWorkoutSummary({
             </>
           ) : null}
           {timerState && restTimer ? (
-            <Text style={styles.currentSetText}>
-              Rest: {formatDuration(timerState.remainingSeconds)}
-              {timerState.isComplete ? ' complete' : ''}
-            </Text>
+            <>
+              <Text style={styles.currentSetText}>
+                Rest: {formatDuration(timerState.remainingSeconds)}
+                {timerState.isComplete ? ' complete' : timerState.isPaused ? ' paused' : ''}
+              </Text>
+              <View style={styles.actionRow}>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => setRestTimer(addRestTime(restTimer, 30))}
+                  style={styles.secondaryButton}
+                >
+                  <Text style={styles.secondaryButtonText}>Add 30s</Text>
+                </Pressable>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => {
+                    const nowMs = Date.now();
+                    setTimerNowMs(nowMs);
+                    setRestTimer(
+                      restTimer.pausedAtMs === null
+                        ? pauseRestTimer(restTimer, nowMs)
+                        : resumeRestTimer(restTimer, nowMs),
+                    );
+                  }}
+                  style={styles.secondaryButton}
+                >
+                  <Text style={styles.secondaryButtonText}>
+                    {restTimer.pausedAtMs === null ? 'Pause' : 'Resume'}
+                  </Text>
+                </Pressable>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => setRestTimer(null)}
+                  style={styles.secondaryButton}
+                >
+                  <Text style={styles.secondaryButtonText}>Skip Timer</Text>
+                </Pressable>
+              </View>
+            </>
           ) : null}
         </View>
         <View style={styles.setPreview}>
