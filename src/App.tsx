@@ -122,6 +122,7 @@ import {
   createPlannedSets,
 } from './domain/workout/sessionPlanner';
 import {
+  addExercise,
   addSetAfter,
   completeSet,
   completeWorkout,
@@ -348,6 +349,7 @@ export default function App() {
                 appSettings={appSettings}
                 dueWorkout={dueWorkout}
                 lastCompletedWorkout={lastCompletedWorkout}
+                libraryExercises={libraryExercises}
                 notificationSettings={notificationSettings}
                 onSaved={refreshLocalData}
                 oneRmRecords={oneRmRecords}
@@ -449,6 +451,7 @@ function TodayWorkoutSummary({
   appSettings,
   dueWorkout,
   lastCompletedWorkout,
+  libraryExercises,
   notificationSettings,
   onSaved,
   oneRmRecords,
@@ -462,6 +465,7 @@ function TodayWorkoutSummary({
   appSettings: AppSettings;
   dueWorkout: ReturnType<typeof getDueWorkout>;
   lastCompletedWorkout: LastCompletedWorkout | null;
+  libraryExercises: ExerciseLibraryItem[];
   notificationSettings: NotificationSettings;
   onSaved: (database: TrainingDatabase) => Promise<void>;
   oneRmRecords: CurrentOneRmRecord[];
@@ -567,6 +571,12 @@ function TodayWorkoutSummary({
     const latestPerformanceByExercise = new Map(
       latestPerformances.map((performance) => [performance.exerciseId, performance]),
     );
+    const activeExerciseIds = new Set(
+      activePlannedSets.map((set) => set.exerciseId),
+    );
+    const addableExercises = libraryExercises
+      .filter((exercise) => !activeExerciseIds.has(exercise.exerciseId))
+      .slice(0, 6);
     const timerState = restTimer
       ? getRestTimerState(restTimer, timerNowMs)
       : null;
@@ -811,6 +821,17 @@ function TodayWorkoutSummary({
                 <Text style={styles.secondaryButtonText}>Remove Exercise</Text>
               </Pressable>
             ) : null}
+            {draft && addableExercises.map((exercise) => (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={`Add ${exercise.name}`}
+                key={exercise.exerciseId}
+                onPress={() => void saveDraft(addExercise(draft, exercise))}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Add {exercise.name}</Text>
+              </Pressable>
+            ))}
             {draft ? (
               <Pressable
                 accessibilityRole="button"

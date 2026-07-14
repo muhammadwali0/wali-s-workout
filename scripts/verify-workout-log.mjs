@@ -8,6 +8,7 @@ const { createPlannedSets } = await import(
   '../src/domain/workout/sessionPlanner.ts'
 );
 const {
+  addExercise,
   addSetAfter,
   completeSet,
   completeWorkout,
@@ -80,6 +81,20 @@ assert.throws(
   () => completeWorkout({ ...draft, plannedSets: [], actualSets: [] }),
   /no sets/,
 );
+
+const withAddedExercise = addExercise(draft, {
+  exerciseId: 'custom_row',
+  name: 'Custom Row',
+  defaultRole: 'secondary',
+});
+const addedExerciseSet = withAddedExercise.plannedSets.at(-1);
+assert.equal(withAddedExercise.plannedSets.length, plannedSets.length + 1);
+assert.equal(addedExerciseSet.exerciseId, 'custom_row');
+assert.equal(addedExerciseSet.exerciseName, 'Custom Row');
+assert.equal(addedExerciseSet.exerciseRole, 'secondary');
+assert.equal(addedExerciseSet.setType, 'added');
+assert.equal(addedExerciseSet.targetReps, null);
+assert.equal(withAddedExercise.actualSets.at(-1).plannedSetId, addedExerciseSet.id);
 
 const firstExerciseSetCount = plannedSets.filter(
   (set) => set.exerciseOrder === plannedSets[0].exerciseOrder,

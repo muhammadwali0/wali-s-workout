@@ -167,6 +167,61 @@ export function addSetAfter(draft: WorkoutDraft, plannedSetId: string): WorkoutD
   };
 }
 
+export function addExercise(
+  draft: WorkoutDraft,
+  exercise: {
+    exerciseId: string;
+    name: string;
+    defaultRole?: string | null;
+  },
+): WorkoutDraft {
+  const exerciseOrder =
+    Math.max(...draft.plannedSets.map((set) => set.exerciseOrder), 0) + 1;
+  const addedCount = draft.plannedSets.filter(
+    (set) => set.originalExerciseId === exercise.exerciseId,
+  ).length;
+  const addedSet: PlannedSet = {
+    id: `added_${exercise.exerciseId}_${addedCount + 1}`,
+    exerciseId: exercise.exerciseId,
+    exerciseName: exercise.name,
+    exerciseRole: exercise.defaultRole ?? 'tertiary',
+    originalExerciseId: exercise.exerciseId,
+    originalExerciseName: exercise.name,
+    substitutionScope: null,
+    exerciseOrder,
+    supersetGroup: null,
+    setNumber: 1,
+    setType: 'added',
+    targetReps: null,
+    percent1RmLow: null,
+    percent1RmHigh: null,
+    targetRpeLow: null,
+    targetRpeHigh: null,
+    restSecondsMin: null,
+    restSecondsMax: null,
+    tempo: null,
+    notes: 'User-added exercise',
+  };
+  const addedActualSet = {
+    plannedSetId: addedSet.id,
+    completed: false,
+    skipped: false,
+    failed: false,
+    weight: null,
+    reps: null,
+    rpe: null,
+    rir: null,
+    notes: null,
+  };
+
+  return {
+    ...draft,
+    status: 'draft',
+    plannedSets: [...draft.plannedSets, addedSet],
+    actualSets: [...draft.actualSets, addedActualSet],
+  };
+}
+
 export function removeSet(draft: WorkoutDraft, plannedSetId: string): WorkoutDraft {
   const actual = draft.actualSets.find((set) => set.plannedSetId === plannedSetId);
   if (!actual) {

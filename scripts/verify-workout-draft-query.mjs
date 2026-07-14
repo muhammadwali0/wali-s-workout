@@ -63,6 +63,9 @@ const db = {
     return [
       {
         exerciseOrder: 1,
+        exerciseId: 'back_squat',
+        exerciseName: 'Back Squat',
+        originalExerciseId: 'back_squat',
         setOrder: 1,
         setType: 'working',
         completed: 1,
@@ -75,6 +78,9 @@ const db = {
       },
       {
         exerciseOrder: 1,
+        exerciseId: 'back_squat',
+        exerciseName: 'Back Squat',
+        originalExerciseId: 'back_squat',
         setOrder: 2,
         setType: 'working',
         completed: 0,
@@ -87,6 +93,9 @@ const db = {
       },
       {
         exerciseOrder: 1,
+        exerciseId: 'back_squat',
+        exerciseName: 'Back Squat',
+        originalExerciseId: 'back_squat',
         setOrder: 3,
         setType: 'added',
         completed: 1,
@@ -97,6 +106,21 @@ const db = {
         rir: 2,
         notes: 'Back-off',
       },
+      {
+        exerciseOrder: 2,
+        exerciseId: 'custom_row',
+        exerciseName: 'Custom Row',
+        originalExerciseId: 'custom_row',
+        setOrder: 1,
+        setType: 'added',
+        completed: 0,
+        failed: 0,
+        weight: null,
+        reps: null,
+        rpe: null,
+        rir: null,
+        notes: null,
+      },
     ];
   },
 };
@@ -104,7 +128,7 @@ const db = {
 const draft = await getSavedWorkoutDraft(db, 'instance_1', 'workout_1', plannedSets);
 assert.equal(draft.status, 'draft');
 assert.equal(draft.startedAt, '2026-01-01T09:55:00Z');
-assert.equal(draft.plannedSets.length, 3);
+assert.equal(draft.plannedSets.length, 4);
 assert.equal(draft.actualSets[0].completed, true);
 assert.equal(draft.actualSets[0].skipped, false);
 assert.equal(draft.actualSets[0].failed, true);
@@ -116,8 +140,13 @@ assert.equal(draft.plannedSets[2].setType, 'added');
 assert.equal(draft.actualSets[2].completed, true);
 assert.equal(draft.actualSets[2].notes, 'Back-off');
 assert.equal(draft.actualSets[2].rir, 2);
+assert.equal(draft.plannedSets[3].exerciseId, 'custom_row');
+assert.equal(draft.plannedSets[3].exerciseName, 'Custom Row');
+assert.equal(draft.plannedSets[3].setType, 'added');
+assert.equal(draft.actualSets[3].completed, false);
 assert.match(calls[0].sql, /FROM workout_logs/);
 assert.match(calls[1].sql, /FROM set_logs/);
+assert.match(calls[1].sql, /JOIN exercises e/);
 assert.match(calls[1].sql, /sl\.set_type AS setType/);
 assert.match(calls[1].sql, /sl\.is_failed AS failed/);
 assert.match(calls[1].sql, /sl\.rir/);

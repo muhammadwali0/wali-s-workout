@@ -10,6 +10,9 @@ type SavedWorkoutRow = {
 
 type SavedSetRow = {
   exerciseOrder: number;
+  exerciseId: string;
+  exerciseName: string;
+  originalExerciseId: string;
   setOrder: number;
   setType: string;
   completed: number;
@@ -41,6 +44,9 @@ export async function getSavedWorkoutDraft(
   const rows = await db.getAllAsync<SavedSetRow>(
     `SELECT
        el.sort_order AS exerciseOrder,
+       el.exercise_id AS exerciseId,
+       e.name AS exerciseName,
+       el.original_exercise_id AS originalExerciseId,
        sl.set_order AS setOrder,
        sl.set_type AS setType,
        sl.is_completed AS completed,
@@ -52,6 +58,7 @@ export async function getSavedWorkoutDraft(
        sl.user_notes AS notes
      FROM set_logs sl
      JOIN exercise_logs el ON el.id = sl.exercise_log_id
+     JOIN exercises e ON e.id = el.exercise_id
      WHERE el.workout_log_id = ?
      ORDER BY el.sort_order, sl.set_order`,
     log.workoutLogId,
@@ -69,15 +76,37 @@ export async function getSavedWorkoutDraft(
       const source = plannedSets
         .filter((set) => set.exerciseOrder === row.exerciseOrder)
         .at(-1);
-      if (!source) return [];
 
       return [
-        {
+        source
+          ? {
           ...source,
           id: `${source.id}_recovered_${row.setOrder}`,
           setNumber: row.setOrder,
           setType: row.setType,
-        },
+          }
+          : {
+              id: `recovered_${row.exerciseId}_${row.setOrder}`,
+              exerciseId: row.exerciseId,
+              exerciseName: row.exerciseName,
+              exerciseRole: 'tertiary',
+              originalExerciseId: row.originalExerciseId,
+              originalExerciseName: row.exerciseName,
+              substitutionScope: null,
+              exerciseOrder: row.exerciseOrder,
+              supersetGroup: null,
+              setNumber: row.setOrder,
+              setType: row.setType,
+              targetReps: null,
+              percent1RmLow: null,
+              percent1RmHigh: null,
+              targetRpeLow: null,
+              targetRpeHigh: null,
+              restSecondsMin: null,
+              restSecondsMax: null,
+              tempo: null,
+              notes: 'Recovered user-added exercise',
+            },
       ];
     }),
   ].sort((a, b) => a.exerciseOrder - b.exerciseOrder || a.setNumber - b.setNumber);
