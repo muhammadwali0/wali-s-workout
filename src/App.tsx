@@ -41,7 +41,10 @@ import {
   type TodayWorkoutInstance,
 } from './db/todayWorkoutQuery';
 import {
+  getWorkoutHistorySets,
   getRecentWorkoutHistory,
+  updateWorkoutHistorySet,
+  type WorkoutHistorySet,
   type WorkoutHistoryItem,
 } from './db/historyQueries';
 import {
@@ -380,8 +383,10 @@ export default function App() {
             ) : null}
             {activeTab === 'history' ? (
               <HistorySummary
+                db={db}
                 dbStatus={dbStatus}
                 historyItems={historyItems}
+                onSaved={refreshLocalData}
                 personalRecords={personalRecords}
               />
             ) : null}
@@ -1517,20 +1522,81 @@ function AnalyticsSummary({
 }
 
 function HistorySummary({
+  db,
   dbStatus,
   historyItems,
+  onSaved,
   personalRecords,
 }: {
+  db: TrainingDatabase | null;
   dbStatus: string;
   historyItems: WorkoutHistoryItem[];
+  onSaved: (database: TrainingDatabase) => Promise<void>;
   personalRecords: PersonalRecordItem[];
 }) {
+  const [selectedLogId, setSelectedLogId] = useState<string | null>(null);
+  const [historySets, setHistorySets] = useState<WorkoutHistorySet[]>([]);
+  const [historyEditValues, setHistoryEditValues] = useState<
+    Record<string, { weight: string; reps: string; rpe: string; notes: string }>
+  >({});
+  const [historyStatus, setHistoryStatus] = useState('Select a workout to inspect sets');
+
+  useEffect(() => {
+    if (!db || !selectedLogId) {
+      setHistorySets([]);
+      return;
+    }
+
+    void getWorkoutHistorySets(db, selectedLogId).then((sets) => {
+      setHistorySets(sets);
+      setHistoryEditValues(
+        Object.fromEntries(
+          sets.map((set) => [
+            set.setLogId,
+            {
+              weight: set.weight === null ? '' : String(set.weight),
+              reps: set.reps === null ? '' : String(set.reps),
+              rpe: set.rpe === null ? '' : String(set.rpe),
+              notes: set.userNotes ?? '',
+            },
+          ]),
+        ),
+      );
+      setHistoryStatus(`${sets.length} sets loaded`);
+    });
+  }, [db, selectedLogId]);
+
+  const saveSetEdit = async (set: WorkoutHistorySet) => {
+    if (!db || !selectedLogId) return;
+
+    const values = historyEditValues[set.setLogId];
+    if (!values) return;
+
+    try {
+      await updateWorkoutHistorySet(db, {
+        workoutLogId: selectedLogId,
+        setLogId: set.setLogId,
+        weight: values.weight.trim() === '' ? null : Number(values.weight),
+        reps: values.reps.trim() === '' ? null : Number(values.reps),
+        rpe: values.rpe.trim() === '' ? null : Number(values.rpe),
+        notes: values.notes.trim() || null,
+      });
+      const nextSets = await getWorkoutHistorySets(db, selectedLogId);
+      setHistorySets(nextSets);
+      await onSaved(db);
+      setHistoryStatus('Set correction saved');
+    } catch (error) {
+      setHistoryStatus(error instanceof Error ? error.message : 'Correction failed');
+    }
+  };
+
   return (
     <View style={styles.summaryBlock}>
       <Text style={styles.summaryTitle}>Recent Workout Logs</Text>
       <Text style={styles.summaryText}>
         {dbStatus} - {historyItems.length} logs available.
       </Text>
+      <Text style={styles.summaryText}>{historyStatus}</Text>
       <View style={styles.setPreview}>
         {historyItems.length === 0 ? (
           <Text style={styles.summaryText}>No saved workout logs yet.</Text>
@@ -1550,10 +1616,111 @@ function HistorySummary({
               {item.lastSetNote ? (
                 <Text style={styles.setPrescription}>Note: {item.lastSetNote}</Text>
               ) : null}
+              <Pressable
+                accessibilityRole="button"
+                onPress={() =>
+                  setSelectedLogId((current) =>
+                    current === item.workoutLogId ? null : item.workoutLogId,
+                  )
+                }
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>
+                  {selectedLogId === item.workoutLogId ? 'Hide Detail' : 'Workout Detail'}
+                </Text>
+              </Pressable>
             </View>
           ))
         )}
       </View>
+      {selectedLogId ? (
+        <View style={styles.baselinePanel}>
+          <Text style={styles.summaryTitle}>Workout Detail</Text>
+          {historySets.length === 0 ? (
+            <Text style={styles.summaryText}>No set rows found for this workout.</Text>
+          ) : (
+            historySets.map((set) => {
+              const values = historyEditValues[set.setLogId] ?? {
+                weight: '',
+                reps: '',
+                rpe: '',
+                notes: '',
+              };
+
+              return (
+                <View key={set.setLogId} style={styles.setRow}>
+                  <Text style={styles.setExercise}>{set.exerciseName}</Text>
+                  <Text style={styles.setPrescription}>
+                    Set {set.setOrder} - {set.setType}
+                    {set.isCompleted ? ' - completed' : ' - not completed'}
+                    {set.isFailed ? ' - failed' : ''}
+                  </Text>
+                  <View style={styles.setEntryRow}>
+                    <TextInput
+                      accessibilityLabel={`History weight for ${set.exerciseName}`}
+                      inputMode="decimal"
+                      onChangeText={(weight) =>
+                        setHistoryEditValues((current) => ({
+                          ...current,
+                          [set.setLogId]: { ...values, weight },
+                        }))
+                      }
+                      placeholder={set.unit}
+                      style={[styles.noteInput, styles.setEntryInput]}
+                      value={values.weight}
+                    />
+                    <TextInput
+                      accessibilityLabel={`History reps for ${set.exerciseName}`}
+                      inputMode="numeric"
+                      onChangeText={(reps) =>
+                        setHistoryEditValues((current) => ({
+                          ...current,
+                          [set.setLogId]: { ...values, reps },
+                        }))
+                      }
+                      placeholder="Reps"
+                      style={[styles.noteInput, styles.setEntryInput]}
+                      value={values.reps}
+                    />
+                    <TextInput
+                      accessibilityLabel={`History RPE for ${set.exerciseName}`}
+                      inputMode="decimal"
+                      onChangeText={(rpe) =>
+                        setHistoryEditValues((current) => ({
+                          ...current,
+                          [set.setLogId]: { ...values, rpe },
+                        }))
+                      }
+                      placeholder="RPE"
+                      style={[styles.noteInput, styles.setEntryInput]}
+                      value={values.rpe}
+                    />
+                  </View>
+                  <TextInput
+                    accessibilityLabel={`History note for ${set.exerciseName}`}
+                    onChangeText={(notes) =>
+                      setHistoryEditValues((current) => ({
+                        ...current,
+                        [set.setLogId]: { ...values, notes },
+                      }))
+                    }
+                    placeholder="Set note"
+                    style={styles.noteInput}
+                    value={values.notes}
+                  />
+                  <Pressable
+                    accessibilityRole="button"
+                    onPress={() => void saveSetEdit(set)}
+                    style={styles.secondaryButton}
+                  >
+                    <Text style={styles.secondaryButtonText}>Save Correction</Text>
+                  </Pressable>
+                </View>
+              );
+            })
+          )}
+        </View>
+      ) : null}
       <View style={styles.baselinePanel}>
         <Text style={styles.summaryTitle}>Personal Records</Text>
         {personalRecords.length === 0 ? (
