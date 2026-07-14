@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 
-const { getSuggestedLoad } = await import('../src/domain/load/suggestedLoad.ts');
+const { getSuggestedLoad, needsOneRmRecord } = await import(
+  '../src/domain/load/suggestedLoad.ts'
+);
 
 const records = [{ exerciseId: 'back_squat', value: 180 }];
 
@@ -44,6 +46,22 @@ assert.equal(
     2.5,
   ),
   null,
+);
+assert.equal(
+  needsOneRmRecord({
+    exerciseId: 'bench_press',
+    percent1RmLow: 75,
+    percent1RmHigh: null,
+  }),
+  true,
+);
+assert.equal(
+  needsOneRmRecord({
+    exerciseId: 'bench_press',
+    percent1RmLow: null,
+    percent1RmHigh: null,
+  }),
+  false,
 );
 
 console.log('suggested load verified');

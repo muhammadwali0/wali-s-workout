@@ -115,7 +115,7 @@ import {
   type NotificationSettings,
 } from './domain/notifications/notificationPlanner';
 import { defaultSettings, type AppSettings } from './domain/settings/appSettings';
-import { getSuggestedLoad } from './domain/load/suggestedLoad';
+import { getSuggestedLoad, needsOneRmRecord } from './domain/load/suggestedLoad';
 import { getDueWorkout } from './domain/program/seedResolver';
 import {
   applyExerciseReplacements,
@@ -626,6 +626,15 @@ function TodayWorkoutSummary({
       const suggestion = plannedSet
         ? getSuggestedLoad(plannedSet, oneRmRecords, appSettings.plateIncrement)
         : null;
+      if (
+        plannedSet &&
+        needsOneRmRecord(plannedSet) &&
+        !suggestion &&
+        nextSetEntry.weight.trim() === ''
+      ) {
+        setSaveStatus(`Missing 1RM for ${plannedSet.exerciseName}`);
+        return;
+      }
       const weight =
         nextSetEntry.weight.trim() === ''
           ? suggestion?.roundedLow ?? 0
@@ -950,6 +959,12 @@ function TodayWorkoutSummary({
               </Text>
               {set.notes ? (
                 <Text style={styles.setPrescription}>Note: {set.notes}</Text>
+              ) : null}
+              {needsOneRmRecord(set) &&
+              !oneRmRecords.some((record) => record.exerciseId === set.exerciseId) ? (
+                <Text style={styles.warningText}>
+                  Missing 1RM for {set.exerciseName}
+                </Text>
               ) : null}
               {latestPerformanceByExercise.has(set.exerciseId) ? (
                 <Text style={styles.setPrescription}>
@@ -2482,6 +2497,13 @@ const styles = StyleSheet.create({
     color: '#475569',
     fontSize: 14,
     lineHeight: 20,
+  },
+  warningText: {
+    marginTop: 4,
+    color: '#92400E',
+    fontSize: 12,
+    fontWeight: '700',
+    lineHeight: 17,
   },
   setPreview: {
     marginTop: 14,

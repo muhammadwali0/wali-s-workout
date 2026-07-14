@@ -34,3 +34,10 @@ export function getSuggestedLoad(
 
   return calculateBracket(record.value, low, high, increment);
 }
+
+export function needsOneRmRecord(prescription: PercentPrescription) {
+  return (
+    prescription.percent1RmLow !== null ||
+    prescription.percent1RmHigh !== null
+  );
+}
