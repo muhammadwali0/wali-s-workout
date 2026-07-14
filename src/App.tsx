@@ -132,6 +132,7 @@ import { getDueWorkout } from './domain/program/seedResolver';
 import {
   applyExerciseReplacements,
   createPlannedSets,
+  type PlannedSet,
 } from './domain/workout/sessionPlanner';
 import {
   addExercise,
@@ -687,6 +688,19 @@ function TodayWorkoutSummary({
     const activeExerciseIds = new Set(
       activePlannedSets.map((set) => set.exerciseId),
     );
+    const libraryByExercise = new Map(
+      libraryExercises.map((exercise) => [exercise.exerciseId, exercise]),
+    );
+    const exerciseDetailGroups = Array.from(
+      activePlannedSets
+        .reduce((groups, set) => {
+          const group = groups.get(set.exerciseOrder) ?? [];
+          group.push(set);
+          groups.set(set.exerciseOrder, group);
+          return groups;
+        }, new Map<number, PlannedSet[]>())
+        .values(),
+    );
     const addableExercises = libraryExercises
       .filter((exercise) => !activeExerciseIds.has(exercise.exerciseId))
       .slice(0, 6);
@@ -1186,6 +1200,62 @@ function TodayWorkoutSummary({
               </View>
             </>
           ) : null}
+        </View>
+        <View style={styles.sessionPanel}>
+          <Text style={styles.sessionTitle}>Exercise Detail</Text>
+          {exerciseDetailGroups.map((sets) => {
+            const firstSet = sets[0];
+            const exercise = libraryByExercise.get(firstSet.exerciseId);
+            const hasMissingOneRm = sets.some(
+              (set) =>
+                needsOneRmRecord(set) &&
+                !oneRmRecords.some((record) => record.exerciseId === set.exerciseId),
+            );
+
+            return (
+              <View key={`${firstSet.exerciseOrder}-${firstSet.exerciseId}`} style={styles.setRow}>
+                <Text style={styles.setExercise}>{firstSet.exerciseName}</Text>
+                <Text style={styles.setPrescription}>
+                  {formatPlannedExerciseSummary(
+                    sets,
+                    oneRmRecords,
+                    appSettings.plateIncrement,
+                    appSettings.preferredUnit,
+                  )}
+                </Text>
+                <Text style={styles.setPrescription}>
+                  Role: {firstSet.exerciseRole}
+                  {firstSet.supersetGroup ? ` - Superset ${firstSet.supersetGroup}` : ''}
+                  {exercise?.movementPattern ? ` - ${exercise.movementPattern}` : ''}
+                </Text>
+                {exercise?.primaryMuscles ? (
+                  <Text style={styles.setPrescription}>
+                    Primary muscles: {exercise.primaryMuscles}
+                  </Text>
+                ) : null}
+                {firstSet.substitutionScope ? (
+                  <Text style={styles.setPrescription}>
+                    Substitute for {firstSet.originalExerciseName} -{' '}
+                    {firstSet.substitutionScope}
+                  </Text>
+                ) : null}
+                {latestPerformanceByExercise.has(firstSet.exerciseId) ? (
+                  <Text style={styles.setPrescription}>
+                    Previous:{' '}
+                    {formatLatestPerformance(
+                      latestPerformanceByExercise.get(firstSet.exerciseId),
+                      appSettings.preferredUnit,
+                    )}
+                  </Text>
+                ) : null}
+                {hasMissingOneRm ? (
+                  <Text style={styles.warningText}>
+                    Missing 1RM for percentage load calculation
+                  </Text>
+                ) : null}
+              </View>
+            );
+          })}
         </View>
         <View style={styles.setPreview}>
           {previewSets.map((set) => (
@@ -3154,6 +3224,48 @@ function formatLatestPerformance(
   if (!performance) return 'none';
   const rpe = performance.rpe === null ? '' : `, RPE ${performance.rpe}`;
   return `${performance.weight} ${unit} x ${performance.reps}${rpe}`;
+}
+
+function formatPlannedExerciseSummary(
+  sets: readonly PlannedSet[],
+  oneRmRecords: readonly CurrentOneRmRecord[],
+  plateIncrement: number,
+  unit: AppSettings['preferredUnit'],
+) {
+  const parts = [
+    `${sets.length} sets`,
+    formatUnique(sets.map((set) => set.setType)),
+    formatUnique(sets.map((set) => (set.targetReps ? `${set.targetReps} reps` : ''))),
+    formatUnique(
+      sets.map((set) =>
+        formatPercentRange(set.percent1RmLow, set.percent1RmHigh).replace(/^ - /, ''),
+      ),
+    ),
+    formatUnique(
+      sets.map((set) =>
+        formatSuggestedLoad(
+          getSuggestedLoad(set, oneRmRecords, plateIncrement),
+          unit,
+        ).replace(/^ - /, ''),
+      ),
+    ),
+    formatUnique(
+      sets.map((set) =>
+        formatRpeRange(set.targetRpeLow, set.targetRpeHigh).replace(/^ - /, ''),
+      ),
+    ),
+    formatUnique(
+      sets.map((set) =>
+        formatRestRange(set.restSecondsMin, set.restSecondsMax).replace(/^ - /, ''),
+      ),
+    ),
+  ].filter(Boolean);
+
+  return parts.join(' - ');
+}
+
+function formatUnique(values: readonly string[]) {
+  return Array.from(new Set(values.filter(Boolean))).join(', ');
 }
 
 function formatOneRmRecordType(type: 'current_working' | 'tested' | 'phase_end') {
