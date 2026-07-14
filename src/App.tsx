@@ -112,6 +112,11 @@ import { getLineChartPlot } from './domain/analytics/lineChart';
 import { getWeeklyAverageRpe } from './domain/analytics/weeklyRpe';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
 import {
+  comparePlannedActualMuscleExposure,
+  getBlockReport,
+  getFatigueReasons,
+} from './domain/analytics/v2Reports';
+import {
   filterAnalyticsSets,
   type AnalyticsSetFilter,
 } from './domain/analytics/setFilters';
@@ -1410,11 +1415,19 @@ function AnalyticsSummary({
   const weeklyVolume = getWeeklyVolume(filteredCompletedSets);
   const weeklyRpe = getWeeklyAverageRpe(filteredCompletedSets);
   const blockComparison = compareBlocks(filteredCompletedSets);
+  const blockReport = getBlockReport(blockComparison);
   const phaseComparison = comparePhases(filteredCompletedSets);
   const consistency = getConsistencyCalendar(calendarWorkouts);
   const trainingFrequency = getTrainingFrequency(calendarWorkouts);
   const fatigueSignals = calculateFatigueSignals(filteredCompletedSets, calendarWorkouts);
-  const muscleExposure = calculateMuscleExposure(filteredCompletedSets)
+  const fatigueReasons = getFatigueReasons(fatigueSignals);
+  const completedMuscleExposure = calculateMuscleExposure(filteredCompletedSets);
+  const plannedMuscleExposure = calculateMuscleExposure(filteredPlannedSets);
+  const plannedActualMuscleGaps = comparePlannedActualMuscleExposure(
+    plannedMuscleExposure,
+    completedMuscleExposure,
+  ).slice(0, 5);
+  const muscleExposure = completedMuscleExposure
     .sort((a, b) => b.volumeLoad - a.volumeLoad)
     .slice(0, 5);
   const totalMuscleVolume = muscleExposure.reduce(
@@ -1422,11 +1435,11 @@ function AnalyticsSummary({
     0,
   );
   const categoryDistribution = getCategoryDistribution(filteredCompletedSets);
-  const muscleHeatmap = calculateMuscleHeatmap(calculateMuscleExposure(filteredCompletedSets))
+  const muscleHeatmap = calculateMuscleHeatmap(completedMuscleExposure)
     .sort((a, b) => b.intensity - a.intensity)
     .slice(0, 8);
   const plannedMuscleHeatmap = calculateMuscleHeatmap(
-    calculateMuscleExposure(filteredPlannedSets),
+    plannedMuscleExposure,
   )
     .sort((a, b) => b.intensity - a.intensity)
     .slice(0, 8);
@@ -1581,6 +1594,21 @@ function AnalyticsSummary({
             />
           ))
         )}
+        {blockComparison.length > 0 ? (
+          <View style={styles.sessionPanel}>
+            <Text style={styles.sessionTitle}>Block Report</Text>
+            <Text style={styles.setPrescription}>
+              Highest volume: Block {blockReport.topVolume?.blockNumber ?? '-'} -{' '}
+              {Math.round(blockReport.topVolume?.totalVolume ?? 0)} kg reps.
+            </Text>
+            <Text style={styles.setPrescription}>
+              Most working sets: Block {blockReport.topSets?.blockNumber ?? '-'} -{' '}
+              {blockReport.topSets?.workingSets ?? 0} sets. Average:{' '}
+              {Math.round(blockReport.averageVolume)} kg reps /{' '}
+              {Math.round(blockReport.averageWorkingSets)} sets.
+            </Text>
+          </View>
+        ) : null}
       </View>
 
       <View style={styles.analyticsSection}>
@@ -1691,6 +1719,9 @@ function AnalyticsSummary({
           week: {Math.round(fatigueSignals.priorWeekVolume)} kg reps - missed:{' '}
           {fatigueSignals.missedSessions}.
         </Text>
+        <Text style={styles.setPrescription}>
+          Drivers: {fatigueReasons.length === 0 ? 'none detected' : fatigueReasons.join(', ')}.
+        </Text>
       </View>
 
       <View style={styles.analyticsSection}>
@@ -1797,6 +1828,19 @@ function AnalyticsSummary({
               />
             </View>
           </>
+        )}
+        {plannedActualMuscleGaps.length === 0 ? null : (
+          <View style={styles.sessionPanel}>
+            <Text style={styles.sessionTitle}>Planned vs Actual Muscle Gap</Text>
+            {plannedActualMuscleGaps.map((gap) => (
+              <Text key={gap.muscleId} style={styles.setPrescription}>
+                {muscleNameById.get(gap.muscleId) ?? gap.muscleId}: actual{' '}
+                {gap.actualHardSets.toFixed(1)} vs planned{' '}
+                {gap.plannedHardSets.toFixed(1)} hard sets ({gap.hardSetDelta >= 0 ? '+' : ''}
+                {gap.hardSetDelta.toFixed(1)}).
+              </Text>
+            ))}
+          </View>
         )}
       </View>
 
