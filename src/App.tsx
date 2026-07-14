@@ -272,6 +272,8 @@ export default function App() {
     ScheduledNotificationItem[]
   >([]);
   const [dbStatus, setDbStatus] = useState('Opening local database');
+  const [setupRestoreJson, setSetupRestoreJson] = useState('');
+  const [setupStatus, setSetupStatus] = useState('Program setup not completed');
   const trainingYear = useMemo(() => {
     const now = new Date();
     return createTrainingYear(
@@ -331,6 +333,96 @@ export default function App() {
       cancelled = true;
     };
   }, []);
+
+  const completeInitialSetup = async () => {
+    if (!db) return;
+
+    await saveAppSettings(db, { ...appSettings, setupCompleted: true });
+    await refreshLocalData(db);
+    setSetupStatus('Setup completed');
+  };
+  const restoreInitialBackup = async () => {
+    if (!db) return;
+
+    try {
+      await restoreTrainingDataExport(db, setupRestoreJson);
+      await saveAppSettings(db, { ...(await getAppSettings(db)), setupCompleted: true });
+      setSetupRestoreJson('');
+      await refreshLocalData(db);
+      setSetupStatus('Backup restored');
+    } catch (error) {
+      setSetupStatus(error instanceof Error ? error.message : 'Restore failed');
+    }
+  };
+
+  if (!appSettings.setupCompleted) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar style="dark" />
+        <View style={styles.shell}>
+          <View style={styles.header}>
+            <Text style={styles.appName}>Wali's Workout</Text>
+            <Text style={styles.dateText}>Structured Training Logbook</Text>
+          </View>
+          <ScrollView contentContainerStyle={styles.content}>
+            <View style={styles.positionCard}>
+              <Text style={styles.meta}>First Launch</Text>
+              <Text style={styles.positionTitle}>Program Setup</Text>
+              <Text style={styles.eyebrow}>{dbStatus}</Text>
+            </View>
+            <View style={styles.panel}>
+              <Text style={styles.sectionTitle}>Begin Setup</Text>
+              <Text style={styles.body}>
+                Confirm local program data, units, plate increments, reminder defaults, and
+                baseline entry before opening the training workspace.
+              </Text>
+              <Text style={styles.summaryText}>{setupStatus}</Text>
+              <View style={styles.baselinePanel}>
+                <Text style={styles.sessionTitle}>Setup Summary</Text>
+                <Text style={styles.setPrescription}>
+                  Program calendar: {libraryExercises.length > 0 ? 'Loaded' : 'Loading'}
+                </Text>
+                <Text style={styles.setPrescription}>
+                  Units: {appSettings.preferredUnit} - barbell {appSettings.barbellWeight} -
+                  plate increment {appSettings.plateIncrement}
+                </Text>
+                <Text style={styles.setPrescription}>
+                  Reminders: {notificationSettings.workoutRemindersEnabled ? 'Enabled' : 'Disabled'} -{' '}
+                  {notificationSettings.workoutReminderTime ?? 'unset'}
+                </Text>
+              </View>
+              <TextInput
+                accessibilityLabel="Restore backup JSON during setup"
+                multiline
+                onChangeText={setSetupRestoreJson}
+                placeholder="Paste exported JSON backup to restore instead"
+                style={styles.noteInput}
+                value={setupRestoreJson}
+              />
+              <View style={styles.actionRow}>
+                <Pressable
+                  accessibilityRole="button"
+                  disabled={!db}
+                  onPress={() => void completeInitialSetup()}
+                  style={styles.primaryButton}
+                >
+                  <Text style={styles.primaryButtonText}>Begin Setup</Text>
+                </Pressable>
+                <Pressable
+                  accessibilityRole="button"
+                  disabled={!db || setupRestoreJson.trim() === ''}
+                  onPress={() => void restoreInitialBackup()}
+                  style={styles.secondaryButton}
+                >
+                  <Text style={styles.secondaryButtonText}>Restore Backup</Text>
+                </Pressable>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>

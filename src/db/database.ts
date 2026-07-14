@@ -21,6 +21,9 @@ export async function openTrainingDatabase() {
 export async function migrateDatabase(db: TrainingDatabase) {
   await db.execAsync(createSchemaSql);
   await db.runAsync(
+    'ALTER TABLE app_settings ADD COLUMN setup_completed INTEGER NOT NULL DEFAULT 0',
+  ).catch(() => undefined);
+  await db.runAsync(
     'INSERT OR IGNORE INTO schema_migrations (version, applied_at) VALUES (?, ?)',
     schemaVersion,
     new Date().toISOString(),

@@ -7,6 +7,7 @@ export type AppSettings = {
   dumbbellIncrement: number;
   machineIncrement: number;
   theme: 'scholar_light';
+  setupCompleted: boolean;
 };
 
 export const defaultSettings: AppSettings = {
@@ -16,10 +17,12 @@ export const defaultSettings: AppSettings = {
   dumbbellIncrement: 2.5,
   machineIncrement: 5,
   theme: 'scholar_light',
+  setupCompleted: false,
 };
 
 export function normalizeSettings(settings: Partial<AppSettings>): AppSettings {
   const merged = { ...defaultSettings, ...settings };
+  merged.setupCompleted = Boolean(merged.setupCompleted);
   validatePositive(merged.barbellWeight, 'barbellWeight');
   validatePositive(merged.plateIncrement, 'plateIncrement');
   validatePositive(merged.dumbbellIncrement, 'dumbbellIncrement');

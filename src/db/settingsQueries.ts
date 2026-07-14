@@ -14,6 +14,7 @@ type SettingsRow = {
   dumbbellIncrement: number;
   machineIncrement: number;
   theme: AppSettings['theme'];
+  setupCompleted: number;
 };
 
 export async function getAppSettings(
@@ -27,13 +28,17 @@ export async function getAppSettings(
        plate_increment AS plateIncrement,
        dumbbell_increment AS dumbbellIncrement,
        machine_increment AS machineIncrement,
-       theme
+       theme,
+       setup_completed AS setupCompleted
      FROM app_settings
      WHERE id = ?`,
     settingsId,
   );
 
-  return normalizeSettings(rows[0] ?? defaultSettings);
+  const row = rows[0];
+  return normalizeSettings(
+    row ? { ...row, setupCompleted: row.setupCompleted === 1 } : defaultSettings,
+  );
 }
 
 export async function saveAppSettings(
@@ -51,9 +56,10 @@ export async function saveAppSettings(
        dumbbell_increment,
        machine_increment,
        theme,
+       setup_completed,
        created_at,
        updated_at
-     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     settingsId,
     next.preferredUnit,
     next.barbellWeight,
@@ -61,6 +67,7 @@ export async function saveAppSettings(
     next.dumbbellIncrement,
     next.machineIncrement,
     next.theme,
+    next.setupCompleted ? 1 : 0,
     now,
     now,
   );
@@ -79,9 +86,10 @@ async function ensureAppSettings(db: Pick<TrainingDatabase, 'runAsync'>) {
        dumbbell_increment,
        machine_increment,
        theme,
+       setup_completed,
        created_at,
        updated_at
-     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     settingsId,
     defaultSettings.preferredUnit,
     defaultSettings.barbellWeight,
@@ -89,6 +97,7 @@ async function ensureAppSettings(db: Pick<TrainingDatabase, 'runAsync'>) {
     defaultSettings.dumbbellIncrement,
     defaultSettings.machineIncrement,
     defaultSettings.theme,
+    defaultSettings.setupCompleted ? 1 : 0,
     now,
     now,
   );

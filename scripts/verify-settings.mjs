@@ -11,12 +11,14 @@ assert.deepEqual(defaultSettings, {
   dumbbellIncrement: 2.5,
   machineIncrement: 5,
   theme: 'scholar_light',
+  setupCompleted: false,
 });
 assert.deepEqual(normalizeSettings({ preferredUnit: 'lb', barbellWeight: 45 }), {
   ...defaultSettings,
   preferredUnit: 'lb',
   barbellWeight: 45,
 });
+assert.equal(normalizeSettings({ setupCompleted: true }).setupCompleted, true);
 assert.throws(() => normalizeSettings({ plateIncrement: 0 }), /plateIncrement/);
 
 console.log('settings verified');
