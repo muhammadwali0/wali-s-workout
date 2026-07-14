@@ -998,6 +998,9 @@ function AnalyticsSummary({
   )
     .sort((a, b) => b.intensity - a.intensity)
     .slice(0, 8);
+  const primaryStrengthTrend = strengthTrend.filter(
+    (point) => point.exerciseId === strengthTrend[0]?.exerciseId,
+  );
   const maxVolume = Math.max(...weeklyVolume.map((point) => point.totalVolume), 1);
   const maxBlockVolume = Math.max(
     ...blockComparison.map((point) => point.totalVolume),
@@ -1250,7 +1253,10 @@ function AnalyticsSummary({
           <Text style={styles.summaryText}>No estimated 1RM records yet.</Text>
         ) : (
           <>
-            <StrengthTrendChart points={strengthTrend.slice(0, 8)} />
+            <StrengthTrendChart points={primaryStrengthTrend.slice(0, 8)} />
+            <Text style={styles.setPrescription}>
+              Line: {primaryStrengthTrend[0]?.exerciseName}
+            </Text>
             {strengthTrend.slice(0, 5).map((point) => (
               <View key={`${point.exerciseId}_${point.achievedAt}`} style={styles.setRow}>
                 <Text style={styles.setExercise}>{point.exerciseName}</Text>
