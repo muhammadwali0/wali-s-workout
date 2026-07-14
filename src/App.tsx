@@ -105,6 +105,7 @@ import {
   type MuscleHeatmapRegion,
 } from './domain/analytics/muscleHeatmap';
 import { getTrainingFrequency } from './domain/analytics/trainingFrequency';
+import { calculateFatigueSignals } from './domain/analytics/fatigueSignals';
 import { getLineChartPlot } from './domain/analytics/lineChart';
 import { getWeeklyAverageRpe } from './domain/analytics/weeklyRpe';
 import { getWeeklyVolume } from './domain/analytics/weeklyVolume';
@@ -1384,6 +1385,7 @@ function AnalyticsSummary({
   const phaseComparison = comparePhases(filteredCompletedSets);
   const consistency = getConsistencyCalendar(calendarWorkouts);
   const trainingFrequency = getTrainingFrequency(calendarWorkouts);
+  const fatigueSignals = calculateFatigueSignals(filteredCompletedSets, calendarWorkouts);
   const muscleExposure = calculateMuscleExposure(filteredCompletedSets)
     .sort((a, b) => b.volumeLoad - a.volumeLoad)
     .slice(0, 5);
@@ -1641,6 +1643,25 @@ function AnalyticsSummary({
             />
           ))
         )}
+      </View>
+
+      <View style={styles.analyticsSection}>
+        <Text style={styles.analyticsHeading}>Fatigue Signals</Text>
+        <Text style={styles.summaryText}>
+          Current signal level: {fatigueSignals.riskLevel}. Derived from logged RPE,
+          RIR, failed sets, missed sessions, and week-to-week volume change.
+        </Text>
+        <View style={styles.analyticsFooter}>
+          <Metric label="Failed" value={String(fatigueSignals.failedSets)} />
+          <Metric label="High RPE" value={String(fatigueSignals.highRpeSets)} />
+          <Metric label="Low RIR" value={String(fatigueSignals.lowRirSets)} />
+          <Metric label="Drops" value={String(fatigueSignals.performanceDropSignals)} />
+        </View>
+        <Text style={styles.setPrescription}>
+          Latest week: {Math.round(fatigueSignals.latestWeekVolume)} kg reps - prior
+          week: {Math.round(fatigueSignals.priorWeekVolume)} kg reps - missed:{' '}
+          {fatigueSignals.missedSessions}.
+        </Text>
       </View>
 
       <View style={styles.analyticsSection}>
