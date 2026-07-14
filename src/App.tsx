@@ -1973,6 +1973,44 @@ function LibrarySummary({
     ]),
   );
   const baselineExercises = exercises.slice(0, 5);
+  const savedBaselineCount = baselineExercises.filter((exercise) =>
+    recordByExercise.has(exercise.exerciseId),
+  ).length;
+  const setupChecks = [
+    {
+      label: 'Annual calendar',
+      done: exercises.length > 0,
+      detail: `${exercises.length} exercises loaded`,
+    },
+    {
+      label: 'Equipment settings',
+      done:
+        appSettings.barbellWeight > 0 &&
+        appSettings.plateIncrement > 0 &&
+        appSettings.dumbbellIncrement > 0 &&
+        appSettings.machineIncrement > 0,
+      detail: `${appSettings.preferredUnit}, ${appSettings.plateIncrement} plate increment`,
+    },
+    {
+      label: '1RM baselines',
+      done: savedBaselineCount >= 3,
+      detail: `${savedBaselineCount}/${baselineExercises.length} visible lifts saved`,
+    },
+    {
+      label: 'Reminders',
+      done:
+        notificationSettings.workoutRemindersEnabled &&
+        notificationSettings.missedWorkoutEnabled,
+      detail: `${notificationSettings.workoutReminderTime ?? 'unset'} workout, ${
+        notificationSettings.missedWorkoutTime ?? 'unset'
+      } missed`,
+    },
+    {
+      label: 'Backup',
+      done: false,
+      detail: 'Use Export Data after setup or restore a pasted backup',
+    },
+  ];
   const saveBaseline = async (
     exerciseId: string,
     recordType: 'current_working' | 'tested' | 'phase_end' = 'current_working',
@@ -2043,6 +2081,14 @@ function LibrarySummary({
     } catch (error) {
       setSaveStatus(error instanceof Error ? error.message : 'Invalid settings');
     }
+  };
+  const applyRecommendedSetup = async () => {
+    if (!db) return;
+
+    await saveAppSettings(db, appSettings);
+    await saveNotificationSettings(db, notificationSettings);
+    await onSaved(db);
+    setSaveStatus('Recommended setup saved locally');
   };
   const saveReplacement = async (alternative: ExerciseAlternativeItem) => {
     if (!db) return;
@@ -2202,6 +2248,24 @@ function LibrarySummary({
       <Text style={styles.summaryText}>
         {dbStatus} - {exercises.length} exercises loaded.
       </Text>
+      <View style={styles.baselinePanel}>
+        <Text style={styles.sessionTitle}>Setup Checklist</Text>
+        <Text style={styles.summaryText}>
+          Setup covers program data, units, plate increments, baselines, reminders, and backup.
+        </Text>
+        {setupChecks.map((check) => (
+          <Text key={check.label} style={styles.setPrescription}>
+            {check.done ? 'Done' : 'Pending'} - {check.label}: {check.detail}
+          </Text>
+        ))}
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => void applyRecommendedSetup()}
+          style={styles.secondaryButton}
+        >
+          <Text style={styles.secondaryButtonText}>Apply Recommended Setup</Text>
+        </Pressable>
+      </View>
       <View style={styles.baselinePanel}>
         <Text style={styles.sessionTitle}>Training Settings</Text>
         <Text style={styles.summaryText}>
