@@ -139,6 +139,10 @@ import {
   type NotificationSettings,
 } from './domain/notifications/notificationPlanner';
 import { defaultSettings, type AppSettings } from './domain/settings/appSettings';
+import {
+  getBackupSyncStatus,
+  type BackupSyncStatus,
+} from './domain/settings/backupSyncStatus';
 import { getSuggestedLoad, needsOneRmRecord } from './domain/load/suggestedLoad';
 import { transferPhaseEndToBlockBaseline } from './domain/load/oneRmVault';
 import { estimateOneRepMax } from './domain/load/loadCalculator';
@@ -2347,6 +2351,9 @@ function LibrarySummary({
   const [restoreJson, setRestoreJson] = useState('');
   const [restorePreview, setRestorePreview] =
     useState<TrainingDataExportPreview | null>(null);
+  const [backupSyncStatus, setBackupSyncStatus] = useState<BackupSyncStatus | null>(
+    null,
+  );
   const [resetConfirm, setResetConfirm] = useState('');
   const [saveStatus, setSaveStatus] = useState('Baselines not changed');
   const [replacementScope, setReplacementScope] =
@@ -2648,12 +2655,23 @@ function LibrarySummary({
     const directory = new Directory(Paths.document, 'exports');
     directory.create({ idempotent: true, intermediates: true });
 
-    const files = buildExportFiles(await getTrainingDataExport(db));
+    const snapshot = await getTrainingDataExport(db);
+    const files = buildExportFiles(snapshot);
     for (const exportFile of files) {
       const file = new File(directory, exportFile.name);
       file.create({ overwrite: true });
       file.write(exportFile.content);
     }
+    setBackupSyncStatus(
+      getBackupSyncStatus({
+        exportedAt: snapshot.exportedAt,
+        schemaVersion: snapshot.schemaVersion,
+        totalRows: Object.values(snapshot.tables).reduce(
+          (sum, rows) => sum + rows.length,
+          0,
+        ),
+      }),
+    );
     setSaveStatus(`Exported ${files.length} files to ${directory.uri}`);
   };
   const updateRestoreJson = (json: string) => {
@@ -2673,8 +2691,10 @@ function LibrarySummary({
 
       const asset = result.assets[0];
       const content = await new File(asset.uri).text();
+      const preview = previewTrainingDataExport(content);
       setRestoreJson(content);
-      setRestorePreview(previewTrainingDataExport(content));
+      setRestorePreview(preview);
+      setBackupSyncStatus(getBackupSyncStatus(preview));
       setSaveStatus(`Loaded ${asset.name}`);
     } catch (error) {
       setRestorePreview(null);
@@ -2683,7 +2703,9 @@ function LibrarySummary({
   };
   const previewRestoreBackup = () => {
     try {
-      setRestorePreview(previewTrainingDataExport(restoreJson));
+      const preview = previewTrainingDataExport(restoreJson);
+      setRestorePreview(preview);
+      setBackupSyncStatus(getBackupSyncStatus(preview));
       setSaveStatus('Backup preview ready');
     } catch (error) {
       setRestorePreview(null);
@@ -2701,6 +2723,7 @@ function LibrarySummary({
       await restoreTrainingDataExport(db, restoreJson);
       setRestoreJson('');
       setRestorePreview(null);
+      setBackupSyncStatus(null);
       await onSaved(db);
       setSaveStatus('Backup restored locally');
     } catch (error) {
@@ -2966,6 +2989,12 @@ function LibrarySummary({
         <Text style={styles.summaryText}>
           Export local training data as one JSON backup plus workout, set, and PR CSV files.
           Preview a backup before restoring because restore replaces local logs and settings.
+        </Text>
+        <Text style={styles.setPrescription}>
+          Sync status:{' '}
+          {backupSyncStatus
+            ? `${backupSyncStatus.summary} - ${backupSyncStatus.exportedAt}`
+            : 'no backup previewed or exported this session'}
         </Text>
         <TextInput
           accessibilityLabel="Restore backup JSON"
