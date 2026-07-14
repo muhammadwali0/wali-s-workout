@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 
-const { buildExportFiles, getTrainingDataExport, toCsv } = await import(
+const {
+  buildExportFiles,
+  getTrainingDataExport,
+  resetUserTrainingData,
+  restoreTrainingDataExport,
+  toCsv,
+} = await import(
   '../src/db/exportQueries.ts'
 );
 
@@ -24,6 +30,12 @@ const db = {
       return [{ id: 'pr_1', pr_type: 'estimated_1rm', estimated_1rm: 120 }];
     }
     return [];
+  },
+  async execAsync(sql) {
+    calls.push(sql);
+  },
+  async runAsync(sql, ...params) {
+    calls.push({ sql, params });
   },
 };
 
@@ -50,5 +62,36 @@ assert.match(files[0].content, /"schemaVersion": 1/);
 assert.match(files[1].content, /"steady, controlled"/);
 assert.match(files[2].content, /"bar ""fast"""/);
 assert.equal(toCsv([]), '\n');
+
+await resetUserTrainingData(db);
+assert.deepEqual(
+  calls
+    .filter((call) => typeof call === 'object' && call.sql.startsWith('DELETE FROM'))
+    .slice(0, 3)
+    .map((call) => call.sql),
+  ['DELETE FROM personal_records', 'DELETE FROM set_logs', 'DELETE FROM exercise_logs'],
+);
+
+calls.length = 0;
+await restoreTrainingDataExport(db, files[0].content);
+assert.equal(calls[0], 'BEGIN TRANSACTION');
+assert.ok(
+  calls.some(
+    (call) =>
+      typeof call === 'object' &&
+      call.sql.startsWith('INSERT OR REPLACE INTO workout_logs') &&
+      call.params.includes('log_1'),
+  ),
+);
+assert.ok(
+  calls.some(
+    (call) =>
+      typeof call === 'object' &&
+      call.sql.startsWith('INSERT OR REPLACE INTO set_logs') &&
+      call.params.includes('set_1'),
+  ),
+);
+assert.equal(calls.at(-1), 'COMMIT');
+await assert.rejects(restoreTrainingDataExport(db, '{}'), /Invalid backup|missing/);
 
 console.log('export queries verified');

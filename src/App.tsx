@@ -81,7 +81,12 @@ import {
   type ExerciseReplacementInput,
 } from './db/modificationQueries';
 import { getAppSettings, saveAppSettings } from './db/settingsQueries';
-import { buildExportFiles, getTrainingDataExport } from './db/exportQueries';
+import {
+  buildExportFiles,
+  getTrainingDataExport,
+  resetUserTrainingData,
+  restoreTrainingDataExport,
+} from './db/exportQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import { getSavedWorkoutDraft } from './db/workoutDraftQuery';
 import {
@@ -1940,6 +1945,8 @@ function LibrarySummary({
   const [draftMachineIncrement, setDraftMachineIncrement] = useState('');
   const [draftWorkoutReminderTime, setDraftWorkoutReminderTime] = useState('');
   const [draftMissedReminderTime, setDraftMissedReminderTime] = useState('');
+  const [restoreJson, setRestoreJson] = useState('');
+  const [resetConfirm, setResetConfirm] = useState('');
   const [saveStatus, setSaveStatus] = useState('Baselines not changed');
   const [replacementScope, setReplacementScope] =
     useState<ExerciseReplacementInput['scope']>('today_only');
@@ -2158,6 +2165,30 @@ function LibrarySummary({
     }
     setSaveStatus(`Exported ${files.length} files to ${directory.uri}`);
   };
+  const restoreTrainingData = async () => {
+    if (!db) return;
+
+    try {
+      await restoreTrainingDataExport(db, restoreJson);
+      setRestoreJson('');
+      await onSaved(db);
+      setSaveStatus('Backup restored locally');
+    } catch (error) {
+      setSaveStatus(error instanceof Error ? error.message : 'Restore failed');
+    }
+  };
+  const resetTrainingData = async () => {
+    if (!db) return;
+    if (resetConfirm !== 'RESET') {
+      setSaveStatus('Type RESET to clear local training data');
+      return;
+    }
+
+    await resetUserTrainingData(db);
+    setResetConfirm('');
+    await onSaved(db);
+    setSaveStatus('Local training data reset');
+  };
 
   return (
     <View style={styles.summaryBlock}>
@@ -2340,13 +2371,44 @@ function LibrarySummary({
         <Text style={styles.summaryText}>
           Export local training data as one JSON backup plus workout, set, and PR CSV files.
         </Text>
-        <Pressable
-          accessibilityRole="button"
-          onPress={() => void exportTrainingData()}
-          style={styles.secondaryButton}
-        >
-          <Text style={styles.secondaryButtonText}>Export Data</Text>
-        </Pressable>
+        <TextInput
+          accessibilityLabel="Restore backup JSON"
+          multiline
+          onChangeText={setRestoreJson}
+          placeholder="Paste exported JSON backup"
+          style={styles.noteInput}
+          value={restoreJson}
+        />
+        <TextInput
+          accessibilityLabel="Reset confirmation"
+          onChangeText={setResetConfirm}
+          placeholder="Type RESET to clear logs"
+          style={styles.baselineInput}
+          value={resetConfirm}
+        />
+        <View style={styles.actionRow}>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void exportTrainingData()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Export Data</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void restoreTrainingData()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Restore Backup</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => void resetTrainingData()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Reset Logs</Text>
+          </Pressable>
+        </View>
       </View>
       <View style={styles.baselinePanel}>
         <Text style={styles.sessionTitle}>Substitution Scope</Text>
