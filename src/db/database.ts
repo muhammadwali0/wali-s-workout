@@ -7,7 +7,10 @@ import {
   schemaVersion,
   type AppTable,
 } from './schema.ts';
-import { ensureProgramSeeded } from './programSeedRows.ts';
+import {
+  ensureProgramSeeded,
+  realignUnusedProgramScheduleToCurrentWeek,
+} from './programSeedRows.ts';
 
 export type TrainingDatabase = SQLite.SQLiteDatabase;
 
@@ -15,6 +18,7 @@ export async function openTrainingDatabase() {
   const db = await SQLite.openDatabaseAsync(databaseName);
   await migrateDatabase(db);
   await ensureProgramSeeded(db);
+  await realignUnusedProgramScheduleToCurrentWeek(db);
   return db;
 }
 

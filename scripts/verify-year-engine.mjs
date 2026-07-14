@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 const {
   createTrainingYear,
   formatProgramPosition,
+  getProgramWeekStart,
   getProgramPosition,
 } = await import('../src/domain/program/yearEngine.ts');
 
@@ -31,5 +32,7 @@ assert.equal(
   formatProgramPosition(firstDay),
   'Block 1 - Phase Week 1 - Day 1',
 );
+assert.equal(getProgramWeekStart('2026-07-14'), '2026-07-13');
+assert.equal(getProgramPosition('2026-07-14', createTrainingYear('2026-07-13')).dayOfWeek, 2);
 
 console.log('year engine verified: 52-week resolver');

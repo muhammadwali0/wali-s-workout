@@ -82,6 +82,7 @@ import {
   type ActiveExerciseReplacement,
   type ExerciseReplacementInput,
 } from './db/modificationQueries';
+import { getActiveProgramYearStart } from './db/programSeedRows';
 import { getAppSettings, saveAppSettings } from './db/settingsQueries';
 import {
   buildExportFiles,
@@ -124,6 +125,7 @@ import { programSeed } from './data/programSeed';
 import {
   createTrainingYear,
   formatProgramPosition,
+  getProgramWeekStart,
   getProgramPosition,
   type ProgramPosition,
 } from './domain/program/yearEngine';
@@ -290,15 +292,16 @@ export default function App() {
   const [scheduledNotifications, setScheduledNotifications] = useState<
     ScheduledNotificationItem[]
   >([]);
+  const [programStartDate, setProgramStartDate] = useState(() =>
+    getProgramWeekStart(new Date()),
+  );
   const [dbStatus, setDbStatus] = useState('Opening local database');
   const [setupRestoreJson, setSetupRestoreJson] = useState('');
   const [setupStatus, setSetupStatus] = useState('Program setup not completed');
   const trainingYear = useMemo(() => {
-    const now = new Date();
-    return createTrainingYear(
-      new Date(Date.UTC(now.getUTCFullYear(), 0, 1)),
-    );
-  }, []);
+    return createTrainingYear(programStartDate);
+  }, [programStartDate]);
+  styles = getStyles(appSettings.theme);
   const position = useMemo(
     () => getProgramPosition(new Date(), trainingYear),
     [trainingYear],
@@ -313,6 +316,7 @@ export default function App() {
     position.status === 'in_year' ? position.week.weekType : position.status;
   const refreshLocalData = async (database: TrainingDatabase) => {
     await markOverdueWorkoutsMissed(database);
+    setProgramStartDate(await getActiveProgramYearStart(database));
     setTodayInstance(await getTodayWorkoutInstance(database));
     setNextWorkoutInstance(await getNextWorkoutInstance(database));
     setLastCompletedWorkout(await getLastCompletedWorkout(database));
@@ -377,7 +381,7 @@ export default function App() {
   if (!appSettings.setupCompleted) {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <StatusBar style="dark" />
+        <StatusBar style={appSettings.theme === 'scholar_dark' ? 'light' : 'dark'} />
         <View style={styles.shell}>
           <View style={styles.header}>
             <Text style={styles.appName}>Wali's Workout</Text>
@@ -447,7 +451,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="dark" />
+      <StatusBar style={appSettings.theme === 'scholar_dark' ? 'light' : 'dark'} />
       <View style={styles.shell}>
         <View style={styles.header}>
           <Text style={styles.appName}>Wali's Workout</Text>
@@ -2784,9 +2788,24 @@ function LibrarySummary({
         <Text style={styles.setPrescription}>
           Calendar: {formatCalendarMode(appSettings.calendarMode)} - rest sound:{' '}
           {appSettings.restAlertSound ? 'on' : 'off'} - rest vibration:{' '}
-          {appSettings.restAlertVibration ? 'on' : 'off'}
+          {appSettings.restAlertVibration ? 'on' : 'off'} - theme:{' '}
+          {appSettings.theme === 'scholar_dark' ? 'dark' : 'light'}
         </Text>
         <View style={styles.actionRow}>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() =>
+              void saveSettings({
+                theme:
+                  appSettings.theme === 'scholar_dark'
+                    ? 'scholar_light'
+                    : 'scholar_dark',
+              })
+            }
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Toggle Dark Mode</Text>
+          </Pressable>
           <Pressable
             accessibilityRole="button"
             onPress={() =>
@@ -3868,7 +3887,7 @@ function formatDuration(totalSeconds: number) {
   return `${minutes}:${String(seconds).padStart(2, '0')}`;
 }
 
-const styles = StyleSheet.create({
+const lightStyles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#F8FAFC',
@@ -4304,3 +4323,79 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
+
+const darkStyleOverrides = StyleSheet.create({
+  safeArea: { backgroundColor: '#07110F' },
+  shell: { backgroundColor: '#07110F' },
+  header: { backgroundColor: '#0D1B18', borderBottomColor: '#1F3A35' },
+  appName: { color: '#F5F1DF' },
+  dateText: { color: '#9CB5AD' },
+  positionCard: { backgroundColor: '#0D1B18', borderColor: '#2B4A43' },
+  meta: { color: '#85D6C8' },
+  positionTitle: { color: '#F8FAFC' },
+  eyebrow: { color: '#BCD0C8' },
+  panel: { backgroundColor: '#0D1B18', borderColor: '#1F3A35' },
+  sectionTitle: { color: '#E5EEE9' },
+  body: { color: '#BCD0C8' },
+  summaryBlock: { borderTopColor: '#1F3A35' },
+  summaryTitle: { color: '#F8FAFC' },
+  summaryText: { color: '#BCD0C8' },
+  warningText: { color: '#F0C56A' },
+  sessionPanel: { backgroundColor: '#10231F', borderColor: '#2B4A43' },
+  sessionTitle: { color: '#F8FAFC' },
+  baselineInput: {
+    backgroundColor: '#07110F',
+    borderColor: '#2B4A43',
+    color: '#F8FAFC',
+  },
+  noteInput: {
+    backgroundColor: '#07110F',
+    borderColor: '#2B4A43',
+    color: '#F8FAFC',
+  },
+  primaryButton: { backgroundColor: '#2A7C71' },
+  secondaryButton: {
+    backgroundColor: '#10231F',
+    borderColor: '#85D6C8',
+  },
+  selectedButton: { backgroundColor: '#1F3A35' },
+  secondaryButtonText: { color: '#D9F0EA' },
+  currentSetText: { color: '#BCD0C8' },
+  setRow: { borderLeftColor: '#85D6C8' },
+  setExercise: { color: '#F8FAFC' },
+  setPrescription: { color: '#9CB5AD' },
+  metric: { backgroundColor: '#0D1B18', borderColor: '#1F3A35' },
+  metricLabel: { color: '#9CB5AD' },
+  metricValue: { color: '#F8FAFC' },
+  tabBar: { backgroundColor: '#0D1B18', borderTopColor: '#1F3A35' },
+  activeTab: { borderTopColor: '#85D6C8' },
+  tabText: { color: '#9CB5AD' },
+  activeTabText: { color: '#D9F0EA' },
+  analyticsHeading: { color: '#D9F0EA' },
+  barLabel: { color: '#F8FAFC' },
+  barValue: { color: '#9CB5AD' },
+  barTrack: { backgroundColor: '#1F3A35' },
+  barFill: { backgroundColor: '#85D6C8' },
+  lineChart: { backgroundColor: '#07110F', borderColor: '#1F3A35' },
+  lineChartAxis: { backgroundColor: '#2B4A43' },
+  lineChartSegment: { backgroundColor: '#85D6C8' },
+  lineChartPoint: { backgroundColor: '#D8B45F', borderColor: '#07110F' },
+  compositionTrack: { backgroundColor: '#1F3A35' },
+  stackedTrack: { backgroundColor: '#1F3A35' },
+  plannedSegment: { backgroundColor: '#2B4A43' },
+  actualSegment: { backgroundColor: '#85D6C8' },
+  heatmapFigure: { backgroundColor: '#0D1B18', borderColor: '#2B4A43' },
+  heatmapTitle: { color: '#F8FAFC' },
+  heatmapEmpty: { color: '#9CB5AD' },
+});
+
+function getStyles(theme: AppSettings['theme']) {
+  if (theme !== 'scholar_dark') return lightStyles;
+  return new Proxy(lightStyles, {
+    get(target, key: keyof typeof lightStyles) {
+      return [target[key], darkStyleOverrides[key as keyof typeof darkStyleOverrides]];
+    },
+  }) as typeof lightStyles;
+}
+
+let styles = getStyles(defaultSettings.theme);

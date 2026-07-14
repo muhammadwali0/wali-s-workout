@@ -22,6 +22,8 @@ assert.deepEqual(normalizeSettings({ preferredUnit: 'lb', barbellWeight: 45 }), 
   barbellWeight: 45,
 });
 assert.equal(normalizeSettings({ setupCompleted: true }).setupCompleted, true);
+assert.equal(normalizeSettings({ theme: 'scholar_dark' }).theme, 'scholar_dark');
+assert.equal(normalizeSettings({ theme: 'neon' }).theme, 'scholar_light');
 assert.equal(
   normalizeSettings({ calendarMode: 'calendar_month' }).calendarMode,
   'calendar_month',

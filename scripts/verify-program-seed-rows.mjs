@@ -35,6 +35,16 @@ assert.equal(
 assert.equal(rows.workoutInstances[0].scheduled_date, '2026-01-01');
 assert.equal(rows.workoutInstances[0].sequence_index, 1);
 assert.equal(rows.workoutInstances.at(-1)?.status, 'scheduled');
+assert.equal(
+  buildProgramSeedRows({
+    programYearId: 'year_2026_week',
+    programName: 'Training Year',
+    startDate: '2026-07-13',
+    endDate: '2027-07-11',
+    recordedAt: '2026-07-14T00:00:00Z',
+  }).workoutInstances[0].scheduled_date,
+  '2026-07-13',
+);
 assert.equal(new Set(rows.programExercises.map((row) => row.id)).size, rows.programExercises.length);
 assert.equal(
   new Set(rows.programSetPrescriptions.map((row) => row.id)).size,

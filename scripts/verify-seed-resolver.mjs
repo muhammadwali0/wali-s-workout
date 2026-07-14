@@ -16,6 +16,10 @@ const restDay = getDueWorkout(getProgramPosition('2026-01-03', year));
 assert.equal(restDay.status, 'rest_day');
 assert.equal(restDay.nextWorkout.id, 'phase1_w01_d3');
 
+const sunday = getDueWorkout(getProgramPosition('2026-01-07', year));
+assert.equal(sunday.status, 'rest_day');
+assert.equal(sunday.nextWorkout, null);
+
 const bufferWeek = getDueWorkout(getProgramPosition('2026-03-19', year));
 assert.equal(bufferWeek.status, 'buffer_week');
 

@@ -1,4 +1,5 @@
 import { programSeed } from '../data/programSeed.ts';
+import { createTrainingYear, getProgramWeekStart } from '../domain/program/yearEngine.ts';
 import type { TrainingDatabase } from './database.ts';
 
 type ProgramSeed = typeof programSeed;
@@ -24,15 +25,87 @@ export async function ensureProgramSeeded(
 
   if ((row?.count ?? 0) > 0) return false;
 
-  const year = now.getUTCFullYear();
+  const startDate = getProgramWeekStart(now);
+  const trainingYear = createTrainingYear(startDate);
+  const year = startDate.slice(0, 4);
   await saveProgramSeedRows(db as TrainingDatabase, {
     programYearId: `training_year_${year}`,
     programName: 'Training Year',
-    startDate: `${year}-01-01`,
-    endDate: `${year}-12-31`,
+    startDate,
+    endDate: trainingYear.endDate,
     recordedAt: now.toISOString(),
   });
   return true;
+}
+
+export async function getActiveProgramYearStart(
+  db: Pick<TrainingDatabase, 'getFirstAsync'>,
+) {
+  const row = await db.getFirstAsync<{ startDate: string }>(
+    'SELECT start_date AS startDate FROM program_years WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1',
+  );
+  return row?.startDate ?? getProgramWeekStart();
+}
+
+export async function realignUnusedProgramScheduleToCurrentWeek(
+  db: Pick<TrainingDatabase, 'execAsync' | 'getAllAsync' | 'getFirstAsync' | 'runAsync'>,
+  now = new Date(),
+) {
+  const desiredStartDate = getProgramWeekStart(now);
+  const currentStartDate = await getActiveProgramYearStart(db);
+  if (currentStartDate === desiredStartDate) return false;
+
+  const logCount = await db.getFirstAsync<{ count: number }>(
+    'SELECT COUNT(*) AS count FROM workout_logs',
+  );
+  if ((logCount?.count ?? 0) > 0) return false;
+
+  const rows = await db.getAllAsync<{
+    instanceId: string;
+    weekNumber: number;
+    scheduledWeekday: number;
+  }>(
+    `SELECT
+       wi.id AS instanceId,
+       pwk.week_number AS weekNumber,
+       pw.scheduled_weekday AS scheduledWeekday
+     FROM workout_instances wi
+     JOIN program_workouts pw ON pw.id = wi.program_workout_id
+     JOIN program_weeks pwk ON pwk.id = pw.program_week_id
+     WHERE pw.scheduled_weekday IS NOT NULL`,
+  );
+  const trainingYear = createTrainingYear(desiredStartDate);
+  const recordedAt = now.toISOString();
+
+  await db.execAsync('BEGIN TRANSACTION');
+  try {
+    await db.runAsync(
+      'UPDATE program_years SET start_date = ?, end_date = ?, updated_at = ? WHERE is_active = 1',
+      desiredStartDate,
+      trainingYear.endDate,
+      recordedAt,
+    );
+    for (const row of rows) {
+      await db.runAsync(
+        `UPDATE workout_instances
+         SET scheduled_date = ?,
+             actual_date = NULL,
+             status = 'scheduled',
+             was_shifted = 0,
+             shift_reason = NULL,
+             updated_at = ?
+         WHERE id = ?`,
+        addDays(desiredStartDate, (row.weekNumber - 1) * 7 + row.scheduledWeekday - 1),
+        recordedAt,
+        row.instanceId,
+      );
+    }
+    await db.execAsync('COMMIT');
+    return true;
+  } catch (error) {
+    await db.execAsync('ROLLBACK');
+    throw error;
+  }
 }
 
 export async function saveProgramSeedRows(

@@ -1,5 +1,6 @@
 export type WeightUnit = 'kg' | 'lb';
 export type CalendarMode = 'program_week' | 'calendar_month';
+export type AppTheme = 'scholar_light' | 'scholar_dark';
 
 export type AppSettings = {
   preferredUnit: WeightUnit;
@@ -7,7 +8,7 @@ export type AppSettings = {
   plateIncrement: number;
   dumbbellIncrement: number;
   machineIncrement: number;
-  theme: 'scholar_light';
+  theme: AppTheme;
   setupCompleted: boolean;
   calendarMode: CalendarMode;
   restAlertSound: boolean;
@@ -32,6 +33,9 @@ export function normalizeSettings(settings: Partial<AppSettings>): AppSettings {
   merged.setupCompleted = Boolean(merged.setupCompleted);
   merged.restAlertSound = Boolean(merged.restAlertSound);
   merged.restAlertVibration = Boolean(merged.restAlertVibration);
+  if (!['scholar_light', 'scholar_dark'].includes(merged.theme)) {
+    merged.theme = defaultSettings.theme;
+  }
   if (!['program_week', 'calendar_month'].includes(merged.calendarMode)) {
     merged.calendarMode = defaultSettings.calendarMode;
   }

@@ -51,6 +51,10 @@ export function getDueWorkout(position: ProgramPosition): DueWorkout {
   }
 
   const { week } = position;
+  if (position.dayOfWeek === 7) {
+    return { status: 'rest_day', nextWorkout: null };
+  }
+
   if (week.isBuffer || !week.phaseCode || !week.phaseWeekNumber) {
     return { status: 'buffer_week' };
   }

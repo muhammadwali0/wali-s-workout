@@ -29,6 +29,16 @@ assert.equal(
     ?.params[0],
   'training_year_2026',
 );
+assert.equal(
+  emptyCalls.find((call) => call.sql?.startsWith('INSERT OR REPLACE INTO program_years'))
+    ?.params[3],
+  '2027-07-11',
+);
+assert.equal(
+  emptyCalls.find((call) => call.sql?.startsWith('INSERT OR REPLACE INTO program_years'))
+    ?.params[2],
+  '2026-07-13',
+);
 
 const populatedCalls = [];
 const populatedDb = {

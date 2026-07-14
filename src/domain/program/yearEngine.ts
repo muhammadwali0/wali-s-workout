@@ -39,6 +39,12 @@ export function createTrainingYear(startDate: Date | string): TrainingYear {
   };
 }
 
+export function getProgramWeekStart(date: Date | string = new Date()) {
+  const target = toUtcDateOnly(date);
+  const daysSinceMonday = (target.getUTCDay() + 6) % daysPerWeek;
+  return toIsoDate(addDays(target, -daysSinceMonday));
+}
+
 export function getProgramPosition(
   date: Date | string,
   trainingYear: TrainingYear,
@@ -82,9 +88,16 @@ export function formatProgramPosition(position: ProgramPosition) {
 }
 
 function toUtcDateOnly(date: Date | string) {
-  const value = typeof date === 'string' ? new Date(`${date}T00:00:00Z`) : date;
+  if (typeof date === 'string') {
+    const value = new Date(`${date.slice(0, 10)}T00:00:00Z`);
+    return new Date(
+      Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate()),
+    );
+  }
+
+  const value = date;
   return new Date(
-    Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate()),
+    Date.UTC(value.getFullYear(), value.getMonth(), value.getDate()),
   );
 }
 
