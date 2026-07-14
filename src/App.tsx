@@ -1080,6 +1080,7 @@ function AnalyticsSummary({
   );
   const completed = consistency.reduce((sum, day) => sum + day.completed, 0);
   const missed = consistency.reduce((sum, day) => sum + day.missed, 0);
+  const failedSets = completedSets.filter((set) => set.failed === 1).length;
 
   return (
     <View style={styles.summaryBlock}>
@@ -1329,6 +1330,7 @@ function AnalyticsSummary({
       <View style={styles.analyticsFooter}>
         <Metric label="Completed" value={String(completed)} />
         <Metric label="Missed" value={String(missed)} />
+        <Metric label="Failed Sets" value={String(failedSets)} />
       </View>
     </View>
   );

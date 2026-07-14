@@ -10,6 +10,7 @@ export type AnalyticsSet = VolumeSet &
   BlockComparisonSet &
   RpeSet & {
     exerciseCategory: string | null;
+    failed: number;
   };
 
 export type PlannedAnalyticsSet = MuscleExposureSet &
@@ -54,7 +55,8 @@ export async function getCompletedAnalyticsSets(
        sl.is_completed = 1 AS completed,
        sl.weight AS weight,
        sl.reps AS reps,
-       sl.rpe
+       sl.rpe,
+       sl.is_failed AS failed
      FROM set_logs sl
      JOIN exercise_logs el ON el.id = sl.exercise_log_id
      JOIN exercises e ON e.id = el.exercise_id

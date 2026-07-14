@@ -25,6 +25,7 @@ const rows = [
     weight: 100,
     reps: 5,
     rpe: 8,
+    failed: 1,
   },
 ];
 const calls = [];
@@ -42,6 +43,7 @@ assert.match(calls[0], /JOIN workout_logs/);
 assert.match(calls[0], /JOIN workout_instances/);
 assert.match(calls[0], /JOIN program_blocks/);
 assert.match(calls[0], /sl\.rpe/);
+assert.match(calls[0], /sl\.is_failed AS failed/);
 assert.match(calls[0], /e\.category AS exerciseCategory/);
 assert.match(calls[0], /sl\.is_completed = 1/);
 assert.match(calls[0], /wl\.status = 'completed'/);
