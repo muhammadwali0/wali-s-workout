@@ -126,6 +126,28 @@ export async function getLatestExercisePerformances(
   );
 }
 
+export async function skipTodayWorkoutInstance(
+  db: Pick<TrainingDatabase, 'runAsync'>,
+  instanceId: string,
+  date: Date | string = new Date(),
+  reason = 'Skipped by user',
+) {
+  const recordedDate = toIsoDate(date);
+  await db.runAsync(
+    `UPDATE workout_instances
+     SET status = 'skipped',
+         actual_date = ?,
+         shift_reason = ?,
+         updated_at = ?
+     WHERE id = ?
+       AND status IN ('scheduled', 'rescheduled')`,
+    recordedDate,
+    reason,
+    new Date().toISOString(),
+    instanceId,
+  );
+}
+
 function toIsoDate(date: Date | string) {
   if (typeof date === 'string') return date.slice(0, 10);
   return date.toISOString().slice(0, 10);

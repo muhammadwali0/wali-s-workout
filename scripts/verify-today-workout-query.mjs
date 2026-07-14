@@ -5,6 +5,7 @@ const {
   getLatestExercisePerformances,
   getNextWorkoutInstance,
   getTodayWorkoutInstance,
+  skipTodayWorkoutInstance,
 } = await import('../src/db/todayWorkoutQuery.ts');
 
 const row = {
@@ -42,6 +43,9 @@ const db = {
       },
     ];
   },
+  async runAsync(sql, ...params) {
+    calls.push({ sql, params });
+  },
 };
 
 assert.deepEqual(await getTodayWorkoutInstance(db, '2026-01-01T10:00:00Z'), row);
@@ -76,5 +80,15 @@ assert.deepEqual(calls[3].exerciseIds, ['back_squat']);
 assert.match(calls[3].sql, /FROM set_logs sl/);
 assert.match(calls[3].sql, /ROW_NUMBER\(\) OVER/);
 assert.match(calls[3].sql, /PARTITION BY el\.exercise_id/);
+
+await skipTodayWorkoutInstance(db, 'instance_1', '2026-01-01T10:00:00Z', 'travel');
+assert.match(calls[4].sql, /SET status = 'skipped'/);
+assert.match(calls[4].sql, /status IN \('scheduled', 'rescheduled'\)/);
+assert.deepEqual(calls[4].params.slice(0, 3), [
+  '2026-01-01',
+  'travel',
+  calls[4].params[2],
+]);
+assert.equal(calls[4].params[3], 'instance_1');
 
 console.log('today workout query verified');

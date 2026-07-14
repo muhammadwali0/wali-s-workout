@@ -34,6 +34,7 @@ import {
   getLatestExercisePerformances,
   getNextWorkoutInstance,
   getTodayWorkoutInstance,
+  skipTodayWorkoutInstance,
   type LastCompletedWorkout,
   type LatestExercisePerformance,
   type TodayWorkoutInstance,
@@ -728,6 +729,18 @@ function TodayWorkoutSummary({
         setSaveStatus(error instanceof Error ? error.message : 'Invalid target');
       }
     };
+    const skipWorkout = async () => {
+      if (!db || !todayInstance) return;
+
+      await skipTodayWorkoutInstance(db, todayInstance.instanceId);
+      setDraft(null);
+      setRestTimer(null);
+      setNextSetEntry(emptySetEntry);
+      setPrescriptionEntry(emptyPrescriptionEntry);
+      setNextSetNote('');
+      await onSaved(db);
+      setSaveStatus('Workout skipped');
+    };
 
     return (
       <View style={styles.summaryBlock}>
@@ -888,6 +901,17 @@ function TodayWorkoutSummary({
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Discard</Text>
+              </Pressable>
+            ) : null}
+            {!draft &&
+            todayInstance &&
+            ['scheduled', 'rescheduled'].includes(todayInstance.status) ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => void skipWorkout()}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Skip Workout</Text>
               </Pressable>
             ) : null}
             {draft && summary?.isComplete && draft.status !== 'completed' ? (
