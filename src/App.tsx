@@ -561,6 +561,9 @@ function TodayWorkoutSummary({
       ...todayMuscleExposure.map((exposure) => exposure.hardSets),
       1,
     );
+    const todayMuscleHeatmap = calculateMuscleHeatmap(todayMuscleExposure)
+      .sort((a, b) => b.intensity - a.intensity)
+      .slice(0, 8);
     const latestPerformanceByExercise = new Map(
       latestPerformances.map((performance) => [performance.exerciseId, performance]),
     );
@@ -690,6 +693,10 @@ function TodayWorkoutSummary({
         {todayMuscleExposure.length > 0 ? (
           <View style={styles.sessionPanel}>
             <Text style={styles.sessionTitle}>Current Workout Muscle Exposure</Text>
+            <View style={styles.heatmapFigures}>
+              <MuscleHeatmapFigure regions={todayMuscleHeatmap} view="front" />
+              <MuscleHeatmapFigure regions={todayMuscleHeatmap} view="back" />
+            </View>
             {todayMuscleExposure.map((exposure) => (
               <BarRow
                 key={exposure.muscleId}
