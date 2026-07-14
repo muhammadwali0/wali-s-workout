@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 
-const { getConsistencyCalendar } = await import(
+const { formatCalendarDayLabel, getConsistencyCalendar } = await import(
   '../src/domain/analytics/consistencyCalendar.ts'
 );
 
@@ -17,6 +17,17 @@ assert.deepEqual(
     { date: '2026-01-02', completed: 0, missed: 0, skipped: 0, rescheduled: 0 },
     { date: '2026-01-03', completed: 0, missed: 0, skipped: 1, rescheduled: 1 },
   ],
+);
+
+assert.equal(
+  formatCalendarDayLabel({
+    date: '2026-01-03',
+    completed: 0,
+    missed: 1,
+    skipped: 2,
+    rescheduled: 1,
+  }),
+  '2026-01-03: 0 completed, 1 missed, 2 skipped, 1 rescheduled',
 );
 
 console.log('consistency calendar verified');

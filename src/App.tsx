@@ -78,6 +78,7 @@ import { getAppSettings, saveAppSettings } from './db/settingsQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import { getSavedWorkoutDraft } from './db/workoutDraftQuery';
 import {
+  formatCalendarDayLabel,
   getConsistencyCalendar,
   type CalendarDay,
   type CalendarWorkout,
@@ -1966,6 +1967,8 @@ function CalendarHeatmap({ days }: { days: CalendarDay[] }) {
         {days.map((day) => (
           <View
             key={day.date}
+            accessible
+            accessibilityLabel={formatCalendarDayLabel(day)}
             style={[
               styles.calendarCell,
               { backgroundColor: getCalendarCellColor(day) },

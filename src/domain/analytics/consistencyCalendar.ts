@@ -35,3 +35,14 @@ export function getConsistencyCalendar(
 
   return [...days.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
+
+export function formatCalendarDayLabel(day: CalendarDay): string {
+  const parts = [
+    `${day.completed} completed`,
+    `${day.missed} missed`,
+    `${day.skipped} skipped`,
+    `${day.rescheduled} rescheduled`,
+  ];
+
+  return `${day.date}: ${parts.join(', ')}`;
+}
