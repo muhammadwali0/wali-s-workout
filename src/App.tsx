@@ -1081,6 +1081,11 @@ function AnalyticsSummary({
   const completed = consistency.reduce((sum, day) => sum + day.completed, 0);
   const missed = consistency.reduce((sum, day) => sum + day.missed, 0);
   const failedSets = completedSets.filter((set) => set.failed === 1).length;
+  const rirSets = completedSets.filter((set) => set.rir !== null);
+  const averageRir =
+    rirSets.length === 0
+      ? null
+      : rirSets.reduce((total, set) => total + (set.rir ?? 0), 0) / rirSets.length;
 
   return (
     <View style={styles.summaryBlock}>
@@ -1331,6 +1336,10 @@ function AnalyticsSummary({
         <Metric label="Completed" value={String(completed)} />
         <Metric label="Missed" value={String(missed)} />
         <Metric label="Failed Sets" value={String(failedSets)} />
+        <Metric
+          label="Avg RIR"
+          value={averageRir === null ? '-' : String(Math.round(averageRir * 10) / 10)}
+        />
       </View>
     </View>
   );
