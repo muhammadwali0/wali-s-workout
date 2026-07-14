@@ -1202,33 +1202,33 @@ function AnalyticsSummary({
   const [heatmapRange, setHeatmapRange] = useState<HeatmapRange>('year');
   const [customStartDate, setCustomStartDate] = useState('');
   const [customEndDate, setCustomEndDate] = useState('');
-  const weeklyVolume = getWeeklyVolume(completedSets);
-  const weeklyRpe = getWeeklyAverageRpe(completedSets);
-  const blockComparison = compareBlocks(completedSets);
-  const phaseComparison = comparePhases(completedSets);
-  const consistency = getConsistencyCalendar(calendarWorkouts);
-  const trainingFrequency = getTrainingFrequency(calendarWorkouts);
-  const muscleExposure = calculateMuscleExposure(completedSets)
-    .sort((a, b) => b.volumeLoad - a.volumeLoad)
-    .slice(0, 5);
-  const totalMuscleVolume = muscleExposure.reduce(
-    (total, exposure) => total + exposure.volumeLoad,
-    0,
-  );
-  const categoryDistribution = getCategoryDistribution(completedSets);
   const heatmapFilter = getHeatmapFilter(
     heatmapRange,
     position,
     customStartDate,
     customEndDate,
   );
-  const heatmapSets = filterAnalyticsSets(completedSets, heatmapFilter);
-  const plannedHeatmapSets = filterAnalyticsSets(plannedSets, heatmapFilter);
-  const muscleHeatmap = calculateMuscleHeatmap(calculateMuscleExposure(heatmapSets))
+  const filteredCompletedSets = filterAnalyticsSets(completedSets, heatmapFilter);
+  const filteredPlannedSets = filterAnalyticsSets(plannedSets, heatmapFilter);
+  const weeklyVolume = getWeeklyVolume(filteredCompletedSets);
+  const weeklyRpe = getWeeklyAverageRpe(filteredCompletedSets);
+  const blockComparison = compareBlocks(filteredCompletedSets);
+  const phaseComparison = comparePhases(filteredCompletedSets);
+  const consistency = getConsistencyCalendar(calendarWorkouts);
+  const trainingFrequency = getTrainingFrequency(calendarWorkouts);
+  const muscleExposure = calculateMuscleExposure(filteredCompletedSets)
+    .sort((a, b) => b.volumeLoad - a.volumeLoad)
+    .slice(0, 5);
+  const totalMuscleVolume = muscleExposure.reduce(
+    (total, exposure) => total + exposure.volumeLoad,
+    0,
+  );
+  const categoryDistribution = getCategoryDistribution(filteredCompletedSets);
+  const muscleHeatmap = calculateMuscleHeatmap(calculateMuscleExposure(filteredCompletedSets))
     .sort((a, b) => b.intensity - a.intensity)
     .slice(0, 8);
   const plannedMuscleHeatmap = calculateMuscleHeatmap(
-    calculateMuscleExposure(plannedHeatmapSets),
+    calculateMuscleExposure(filteredPlannedSets),
   )
     .sort((a, b) => b.intensity - a.intensity)
     .slice(0, 8);
@@ -1258,19 +1258,54 @@ function AnalyticsSummary({
   );
   const completed = consistency.reduce((sum, day) => sum + day.completed, 0);
   const missed = consistency.reduce((sum, day) => sum + day.missed, 0);
-  const failedSets = completedSets.filter((set) => set.failed === 1).length;
-  const rirSets = completedSets.filter((set) => set.rir !== null);
+  const failedSets = filteredCompletedSets.filter((set) => set.failed === 1).length;
+  const rirSets = filteredCompletedSets.filter((set) => set.rir !== null);
   const averageRir =
     rirSets.length === 0
       ? null
       : rirSets.reduce((total, set) => total + (set.rir ?? 0), 0) / rirSets.length;
+  const topMuscle = muscleExposure[0] ?? null;
 
   return (
     <View style={styles.summaryBlock}>
       <Text style={styles.summaryTitle}>Analytics Preview</Text>
       <Text style={styles.summaryText}>
-        {dbStatus} - {completedSets.length} completed sets available.
+        {dbStatus} - {filteredCompletedSets.length}/{completedSets.length} completed sets in{' '}
+        {formatHeatmapRange(heatmapRange).toLowerCase()} scope.
       </Text>
+      <View style={styles.actionRow}>
+        {(['year', 'week', 'block', 'phase', 'custom'] as const).map((range) => (
+          <Pressable
+            accessibilityRole="button"
+            key={range}
+            onPress={() => setHeatmapRange(range)}
+            style={[
+              styles.secondaryButton,
+              heatmapRange === range ? styles.selectedButton : null,
+            ]}
+          >
+            <Text style={styles.secondaryButtonText}>{formatHeatmapRange(range)}</Text>
+          </Pressable>
+        ))}
+      </View>
+      {heatmapRange === 'custom' ? (
+        <View style={styles.setEntryRow}>
+          <TextInput
+            accessibilityLabel="Analytics start date"
+            onChangeText={setCustomStartDate}
+            placeholder="YYYY-MM-DD"
+            style={[styles.baselineInput, styles.setEntryInput]}
+            value={customStartDate}
+          />
+          <TextInput
+            accessibilityLabel="Analytics end date"
+            onChangeText={setCustomEndDate}
+            placeholder="YYYY-MM-DD"
+            style={[styles.baselineInput, styles.setEntryInput]}
+            value={customEndDate}
+          />
+        </View>
+      ) : null}
 
       <View style={styles.analyticsSection}>
         <Text style={styles.analyticsHeading}>Weekly Volume</Text>
@@ -1405,6 +1440,12 @@ function AnalyticsSummary({
             />
           ))
         )}
+        {topMuscle ? (
+          <Text style={styles.setPrescription}>
+            Detail: {muscleNameById.get(topMuscle.muscleId) ?? topMuscle.muscleId} -{' '}
+            {topMuscle.hardSets.toFixed(1)} hard sets - {Math.round(topMuscle.volumeLoad)} kg reps.
+          </Text>
+        ) : null}
       </View>
 
       <View style={styles.analyticsSection}>
@@ -1433,41 +1474,6 @@ function AnalyticsSummary({
 
       <View style={styles.analyticsSection}>
         <Text style={styles.analyticsHeading}>Muscle Heatmap</Text>
-        <View style={styles.actionRow}>
-          {(['year', 'week', 'block', 'phase', 'custom'] as const).map((range) => (
-            <Pressable
-              accessibilityRole="button"
-              key={range}
-              onPress={() => setHeatmapRange(range)}
-              style={[
-                styles.secondaryButton,
-                heatmapRange === range ? styles.selectedButton : null,
-              ]}
-            >
-              <Text style={styles.secondaryButtonText}>
-                {formatHeatmapRange(range)}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-        {heatmapRange === 'custom' ? (
-          <View style={styles.setEntryRow}>
-            <TextInput
-              accessibilityLabel="Heatmap start date"
-              onChangeText={setCustomStartDate}
-              placeholder="YYYY-MM-DD"
-              style={[styles.baselineInput, styles.setEntryInput]}
-              value={customStartDate}
-            />
-            <TextInput
-              accessibilityLabel="Heatmap end date"
-              onChangeText={setCustomEndDate}
-              placeholder="YYYY-MM-DD"
-              style={[styles.baselineInput, styles.setEntryInput]}
-              value={customEndDate}
-            />
-          </View>
-        ) : null}
         {muscleHeatmap.length === 0 ? (
           <Text style={styles.summaryText}>No heatmap data from completed sets yet.</Text>
         ) : (
