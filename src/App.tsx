@@ -128,6 +128,7 @@ import {
   type ProgramPosition,
 } from './domain/program/yearEngine';
 import { getPhaseTransitionSummary } from './domain/program/phaseTransition';
+import { getTestWeekAssistant } from './domain/program/testWeekAssistant';
 import {
   isValidNotificationTime,
   planNextMissedWorkoutNotification,
@@ -675,6 +676,11 @@ function TodayWorkoutSummary({
       createPlannedSets(dueWorkout.workout),
       activeReplacements,
     );
+    const testWeekAssistant = getTestWeekAssistant(
+      dueWorkout.workout.workoutType,
+      plannedSets,
+      oneRmRecords,
+    );
     const summary = draft ? summarizeWorkoutDraft(draft) : null;
     const nextSet = draft?.actualSets.find((set) => !set.completed && !set.skipped);
     const activePlannedSets = draft?.plannedSets ?? plannedSets;
@@ -917,6 +923,26 @@ function TodayWorkoutSummary({
         <Text style={styles.summaryText}>
           Main lifts: {dueWorkout.mainLifts.join(', ')}
         </Text>
+        {testWeekAssistant.isTestWorkout ? (
+          <View style={styles.sessionPanel}>
+            <Text style={styles.sessionTitle}>Test Week Assistant</Text>
+            <Text style={styles.summaryText}>
+              Primary tests: {testWeekAssistant.primaryExercises.join(', ') || 'none'}.
+            </Text>
+            <Text style={styles.setPrescription}>
+              Tested records saved: {testWeekAssistant.testedRecords}. Missing
+              baselines:{' '}
+              {testWeekAssistant.missingBaselineExercises.length === 0
+                ? 'none'
+                : testWeekAssistant.missingBaselineExercises.join(', ')}
+              .
+            </Text>
+            <Text style={styles.setPrescription}>
+              Use the Library 1RM vault to save tested values, then confirm phase
+              baselines during the transition buffer.
+            </Text>
+          </View>
+        ) : null}
         {todayMuscleExposure.length > 0 ? (
           <View style={styles.sessionPanel}>
             <Text style={styles.sessionTitle}>Current Workout Muscle Exposure</Text>
@@ -3075,15 +3101,16 @@ function LibrarySummary({
               ) : null}
               {(alternativesByExercise.get(exercise.exerciseId) ?? [])
                 .slice(0, 2)
-                .map((alternative) => (
+                .map((alternative, index) => (
                   <Pressable
                     accessibilityRole="button"
                     key={alternative.alternativeExerciseId}
                     onPress={() => void saveReplacement(alternative)}
                   >
                     <Text style={styles.setPrescription}>
-                      Substitute: {alternative.alternativeName} -{' '}
-                      {alternative.compatibilityScore}% match
+                      {index === 0 ? 'Suggested' : 'Alternative'}:{' '}
+                      {alternative.alternativeName} - {alternative.compatibilityScore}%
+                      match{alternative.reason ? ` - ${alternative.reason}` : ''}
                     </Text>
                   </Pressable>
                 ))}
