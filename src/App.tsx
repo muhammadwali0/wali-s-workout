@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { Directory, File, Paths } from 'expo-file-system';
 import { useEffect, useMemo, useState } from 'react';
 import {
   Pressable,
@@ -77,6 +78,7 @@ import {
   type ExerciseReplacementInput,
 } from './db/modificationQueries';
 import { getAppSettings, saveAppSettings } from './db/settingsQueries';
+import { buildExportFiles, getTrainingDataExport } from './db/exportQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import { getSavedWorkoutDraft } from './db/workoutDraftQuery';
 import {
@@ -1934,6 +1936,20 @@ function LibrarySummary({
     await onSaved(db);
     setSaveStatus('Week status reminder scheduled');
   };
+  const exportTrainingData = async () => {
+    if (!db) return;
+
+    const directory = new Directory(Paths.document, 'exports');
+    directory.create({ idempotent: true, intermediates: true });
+
+    const files = buildExportFiles(await getTrainingDataExport(db));
+    for (const exportFile of files) {
+      const file = new File(directory, exportFile.name);
+      file.create({ overwrite: true });
+      file.write(exportFile.content);
+    }
+    setSaveStatus(`Exported ${files.length} files to ${directory.uri}`);
+  };
 
   return (
     <View style={styles.summaryBlock}>
@@ -2076,6 +2092,19 @@ function LibrarySummary({
             {notification.title} - {notification.scheduledFor}
           </Text>
         ))}
+      </View>
+      <View style={styles.baselinePanel}>
+        <Text style={styles.sessionTitle}>Backup and Export</Text>
+        <Text style={styles.summaryText}>
+          Export local training data as one JSON backup plus workout, set, and PR CSV files.
+        </Text>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => void exportTrainingData()}
+          style={styles.secondaryButton}
+        >
+          <Text style={styles.secondaryButtonText}>Export Data</Text>
+        </Pressable>
       </View>
       <View style={styles.baselinePanel}>
         <Text style={styles.sessionTitle}>Substitution Scope</Text>
