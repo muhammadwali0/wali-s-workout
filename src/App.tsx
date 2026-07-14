@@ -116,6 +116,7 @@ import {
 } from './domain/notifications/notificationPlanner';
 import { defaultSettings, type AppSettings } from './domain/settings/appSettings';
 import { getSuggestedLoad, needsOneRmRecord } from './domain/load/suggestedLoad';
+import { transferPhaseEndToBlockBaseline } from './domain/load/oneRmVault';
 import { getDueWorkout } from './domain/program/seedResolver';
 import {
   applyExerciseReplacements,
@@ -1631,7 +1632,10 @@ function LibrarySummary({
     ]),
   );
   const baselineExercises = exercises.slice(0, 5);
-  const saveBaseline = async (exerciseId: string) => {
+  const saveBaseline = async (
+    exerciseId: string,
+    recordType: 'current_working' | 'tested' | 'phase_end' = 'current_working',
+  ) => {
     if (!db) return;
 
     const value = Number(draftValues[exerciseId]);
@@ -1644,9 +1648,45 @@ function LibrarySummary({
       exerciseId,
       value,
       unit: appSettings.preferredUnit,
+      recordType,
+      programBlockId:
+        position.status === 'in_year' ? `block_${position.week.blockNumber}` : null,
     });
     await onSaved(db);
-    setSaveStatus('Baseline saved locally');
+    setSaveStatus(`${formatOneRmRecordType(recordType)} saved locally`);
+  };
+  const transferBaseline = async (record: CurrentOneRmRecord | undefined) => {
+    if (!db) return;
+    if (!record) {
+      setSaveStatus('No tested or phase-end 1RM to transfer');
+      return;
+    }
+    if (position.status !== 'in_year') {
+      setSaveStatus('Training year is not active');
+      return;
+    }
+
+    try {
+      const next = transferPhaseEndToBlockBaseline(
+        record,
+        `block_${position.week.blockNumber + 1}`,
+        new Date().toISOString(),
+      );
+      await saveOneRmRecord(db, {
+        exerciseId: next.exerciseId,
+        value: next.value,
+        unit: next.unit,
+        recordType: next.recordType,
+        programBlockId: next.programBlockId,
+        recordedAt: next.recordedAt,
+      });
+      await onSaved(db);
+      setSaveStatus('Next block baseline saved locally');
+    } catch (error) {
+      setSaveStatus(
+        error instanceof Error ? error.message : 'Cannot transfer baseline',
+      );
+    }
   };
   const saveSettings = async (settings: Partial<AppSettings>) => {
     if (!db) return;
@@ -2024,6 +2064,27 @@ function LibrarySummary({
               >
                 <Text style={styles.secondaryButtonText}>Save</Text>
               </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => void saveBaseline(exercise.exerciseId, 'tested')}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Tested</Text>
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => void saveBaseline(exercise.exerciseId, 'phase_end')}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Phase End</Text>
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => void transferBaseline(record)}
+                style={styles.secondaryButton}
+              >
+                <Text style={styles.secondaryButtonText}>Transfer</Text>
+              </Pressable>
             </View>
           );
         })}
@@ -2369,6 +2430,12 @@ function formatLatestPerformance(
   if (!performance) return 'none';
   const rpe = performance.rpe === null ? '' : `, RPE ${performance.rpe}`;
   return `${performance.weight} ${unit} x ${performance.reps}${rpe}`;
+}
+
+function formatOneRmRecordType(type: 'current_working' | 'tested' | 'phase_end') {
+  if (type === 'current_working') return 'Current working 1RM';
+  if (type === 'tested') return 'Tested 1RM';
+  return 'Phase-end 1RM';
 }
 
 function formatPersonalRecord(record: PersonalRecordItem) {
