@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 const {
   getActiveExerciseReplacements,
   restoreExerciseReplacement,
+  saveCustomAlternative,
   saveExerciseReplacement,
 } = await import('../src/db/modificationQueries.ts');
 
@@ -117,3 +118,32 @@ assert.deepEqual(restoreCalls[0].params, [
   '2026-01-02T00:00:00Z',
   'replace_back_squat_front_squat_today_only',
 ]);
+
+const customCalls = [];
+const custom = await saveCustomAlternative(
+  {
+    async getFirstAsync(sql, ...params) {
+      customCalls.push({ sql, params });
+      return {
+        id: 'back_squat',
+        category: 'squat',
+        movementPattern: 'squat',
+        equipment: 'barbell',
+        defaultRole: 'primary',
+      };
+    },
+    async runAsync(sql, ...params) {
+      customCalls.push({ sql, params });
+    },
+  },
+  {
+    sourceExerciseId: 'back_squat',
+    name: 'Safety Bar Squat',
+    recordedAt: '2026-01-03T00:00:00Z',
+  },
+);
+
+assert.equal(custom.exerciseId, 'custom_back_squat_safety_bar_squat');
+assert.match(customCalls[1].sql, /INSERT OR REPLACE INTO exercises/);
+assert.match(customCalls[2].sql, /FROM exercise_muscles/);
+assert.match(customCalls[3].sql, /INSERT OR REPLACE INTO exercise_alternatives/);

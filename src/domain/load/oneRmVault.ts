@@ -23,7 +23,7 @@ export function getCurrentOneRm(
   return records
     .filter((record) => record.exerciseId === exerciseId)
     .filter((record) =>
-      ['current_working', 'tested', 'block_baseline', 'phase_end'].includes(
+      ['current_working', 'tested', 'estimated', 'block_baseline', 'phase_end'].includes(
         record.recordType,
       ),
     )

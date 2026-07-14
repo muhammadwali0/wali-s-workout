@@ -27,6 +27,7 @@ const getDb = {
 assert.deepEqual(await getCurrentOneRmRecords(getDb), rows);
 assert.match(getCalls[0], /FROM one_rm_records/);
 assert.match(getCalls[0], /JOIN exercises/);
+assert.match(getCalls[0], /estimated/);
 assert.match(getCalls[0], /NOT EXISTS/);
 assert.match(getCalls[0], /ORDER BY e\.name/);
 

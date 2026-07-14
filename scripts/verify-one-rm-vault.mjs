@@ -31,9 +31,18 @@ const records = [
     programBlockId: 'block_1',
     recordedAt: '2026-02-01T00:00:00Z',
   }),
+  createOneRmRecord({
+    exerciseId: 'deadlift',
+    value: 180,
+    unit: 'kg',
+    recordType: 'estimated',
+    programBlockId: null,
+    recordedAt: '2026-03-01T00:00:00Z',
+  }),
 ];
 
 assert.equal(getCurrentOneRm(records, 'back_squat').value, 150);
+assert.equal(getCurrentOneRm(records, 'deadlift').recordType, 'estimated');
 assert.equal(getCurrentOneRm(records, 'missing'), null);
 assert.throws(
   () =>

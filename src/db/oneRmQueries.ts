@@ -24,12 +24,12 @@ export async function getCurrentOneRmRecords(
        r.recorded_at AS recordedAt
      FROM one_rm_records r
      JOIN exercises e ON e.id = r.exercise_id
-     WHERE r.record_type IN ('current_working', 'tested', 'block_baseline', 'phase_end')
+     WHERE r.record_type IN ('current_working', 'tested', 'estimated', 'block_baseline', 'phase_end')
        AND NOT EXISTS (
          SELECT 1
          FROM one_rm_records newer
          WHERE newer.exercise_id = r.exercise_id
-           AND newer.record_type IN ('current_working', 'tested', 'block_baseline', 'phase_end')
+           AND newer.record_type IN ('current_working', 'tested', 'estimated', 'block_baseline', 'phase_end')
            AND newer.recorded_at > r.recorded_at
        )
      ORDER BY e.name`,

@@ -77,6 +77,7 @@ import {
 import {
   getActiveExerciseReplacements,
   restoreExerciseReplacement,
+  saveCustomAlternative,
   saveExerciseReplacement,
   type ActiveExerciseReplacement,
   type ExerciseReplacementInput,
@@ -134,6 +135,7 @@ import {
 import { defaultSettings, type AppSettings } from './domain/settings/appSettings';
 import { getSuggestedLoad, needsOneRmRecord } from './domain/load/suggestedLoad';
 import { transferPhaseEndToBlockBaseline } from './domain/load/oneRmVault';
+import { estimateOneRepMax } from './domain/load/loadCalculator';
 import { getDueWorkout } from './domain/program/seedResolver';
 import {
   applyExerciseReplacements,
@@ -752,7 +754,7 @@ function TodayWorkoutSummary({
       await onSaved(db);
       setSaveStatus('Saved locally');
     };
-    const logNextSet = (failed = false) => {
+    const logNextSet = async (failed = false) => {
       if (!draft || !nextSet) return;
 
       const plannedSet = activePlannedSets.find(
@@ -767,7 +769,22 @@ function TodayWorkoutSummary({
         !suggestion &&
         nextSetEntry.weight.trim() === ''
       ) {
-        setSaveStatus(`Missing 1RM for ${plannedSet.exerciseName}`);
+        const latest = latestPerformanceByExercise.get(plannedSet.exerciseId);
+        if (latest && db) {
+          await saveOneRmRecord(db, {
+            exerciseId: plannedSet.exerciseId,
+            value: estimateOneRepMax(latest.weight, latest.reps),
+            unit: appSettings.preferredUnit,
+            recordType: 'estimated',
+            programBlockId: null,
+          });
+          await onSaved(db);
+          setSaveStatus(
+            `Estimated 1RM saved for ${plannedSet.exerciseName}; log the set again`,
+          );
+          return;
+        }
+        setSaveStatus(`Missing 1RM for ${plannedSet.exerciseName}; enter weight manually`);
         return;
       }
       const weight =
@@ -929,21 +946,23 @@ function TodayWorkoutSummary({
           <View style={styles.actionRow}>
             <Pressable
               accessibilityRole="button"
-              onPress={() =>
-                void saveDraft(
-                  createWorkoutDraft(dueWorkout.workout.id, plannedSets),
-                )
-              }
+              onPress={() => {
+                if (draft) {
+                  setSaveStatus('Active workout already in progress');
+                  return;
+                }
+                void saveDraft(createWorkoutDraft(dueWorkout.workout.id, plannedSets));
+              }}
               style={styles.primaryButton}
             >
               <Text style={styles.primaryButtonText}>
-                {draft ? 'Restart' : 'Start'}
+                {draft ? 'Resume Active' : 'Start'}
               </Text>
             </Pressable>
             {draft && nextSet ? (
               <Pressable
                 accessibilityRole="button"
-                onPress={() => logNextSet()}
+                onPress={() => void logNextSet()}
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Log Next Set</Text>
@@ -952,7 +971,7 @@ function TodayWorkoutSummary({
             {draft && nextSet ? (
               <Pressable
                 accessibilityRole="button"
-                onPress={() => logNextSet(true)}
+                onPress={() => void logNextSet(true)}
                 style={styles.secondaryButton}
               >
                 <Text style={styles.secondaryButtonText}>Fail Next Set</Text>
@@ -2252,6 +2271,9 @@ function LibrarySummary({
   const [draftMachineIncrement, setDraftMachineIncrement] = useState('');
   const [draftWorkoutReminderTime, setDraftWorkoutReminderTime] = useState('');
   const [draftMissedReminderTime, setDraftMissedReminderTime] = useState('');
+  const [customAlternativeNames, setCustomAlternativeNames] = useState<
+    Record<string, string>
+  >({});
   const [restoreJson, setRestoreJson] = useState('');
   const [restorePreview, setRestorePreview] =
     useState<TrainingDataExportPreview | null>(null);
@@ -2434,6 +2456,26 @@ function LibrarySummary({
     await restoreExerciseReplacement(db, replacement.id);
     await onSaved(db);
     setSaveStatus('Original exercise restored');
+  };
+  const createCustomAlternative = async (exercise: ExerciseLibraryItem) => {
+    if (!db) return;
+
+    try {
+      await saveCustomAlternative(db, {
+        sourceExerciseId: exercise.exerciseId,
+        name: customAlternativeNames[exercise.exerciseId] ?? '',
+      });
+      setCustomAlternativeNames((current) => ({
+        ...current,
+        [exercise.exerciseId]: '',
+      }));
+      await onSaved(db);
+      setSaveStatus(`Custom alternative saved for ${exercise.name}`);
+    } catch (error) {
+      setSaveStatus(
+        error instanceof Error ? error.message : 'Custom alternative failed',
+      );
+    }
   };
   const toggleWorkoutReminder = async () => {
     if (!db) return;
@@ -3000,6 +3042,30 @@ function LibrarySummary({
                     </Text>
                   </Pressable>
                 ))}
+              {(alternativesByExercise.get(exercise.exerciseId) ?? []).length === 0 ? (
+                <Text style={styles.warningText}>No approved alternative found</Text>
+              ) : null}
+              <View style={styles.setEntryRow}>
+                <TextInput
+                  accessibilityLabel={`Custom alternative for ${exercise.name}`}
+                  onChangeText={(value) =>
+                    setCustomAlternativeNames((current) => ({
+                      ...current,
+                      [exercise.exerciseId]: value,
+                    }))
+                  }
+                  placeholder="Custom faithful alternative"
+                  style={[styles.baselineInput, styles.setEntryInput]}
+                  value={customAlternativeNames[exercise.exerciseId] ?? ''}
+                />
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => void createCustomAlternative(exercise)}
+                  style={styles.secondaryButton}
+                >
+                  <Text style={styles.secondaryButtonText}>Save Alternative</Text>
+                </Pressable>
+              </View>
             </View>
           ))
         )}

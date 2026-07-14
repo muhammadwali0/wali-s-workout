@@ -8,6 +8,12 @@ export type ExerciseReplacementInput = {
   recordedAt?: string;
 };
 
+export type CustomAlternativeInput = {
+  sourceExerciseId: string;
+  name: string;
+  recordedAt?: string;
+};
+
 export type ActiveExerciseReplacement = {
   id: string;
   originalExerciseId: string;
@@ -116,6 +122,112 @@ export async function saveExerciseReplacement(
   return id;
 }
 
+export async function saveCustomAlternative(
+  db: Pick<TrainingDatabase, 'getFirstAsync' | 'runAsync'>,
+  input: CustomAlternativeInput,
+) {
+  const name = input.name.trim();
+  if (name.length < 2) throw new Error('Enter a custom alternative name');
+
+  const source = await db.getFirstAsync<{
+    id: string;
+    category: string | null;
+    movementPattern: string;
+    equipment: string | null;
+    defaultRole: string | null;
+  }>(
+    `SELECT
+       id,
+       category,
+       movement_pattern AS movementPattern,
+       equipment,
+       default_role AS defaultRole
+     FROM exercises
+     WHERE id = ?`,
+    input.sourceExerciseId,
+  );
+  if (!source) throw new Error('Source exercise not found');
+
+  const now = input.recordedAt ?? new Date().toISOString();
+  const exerciseId = `custom_${source.id}_${slugify(name)}`;
+  const alternativeId = `custom_alt_${source.id}_${exerciseId}`;
+
+  await db.runAsync(
+    `INSERT OR REPLACE INTO exercises (
+       id,
+       name,
+       category,
+       movement_pattern,
+       equipment,
+       default_role,
+       is_unilateral,
+       is_bodyweight,
+       instructions,
+       program_notes,
+       user_notes,
+       created_at,
+       updated_at
+     ) VALUES (?, ?, ?, ?, ?, ?, 0, 0, NULL, NULL, ?, ?, ?)`,
+    exerciseId,
+    name,
+    source.category,
+    source.movementPattern,
+    source.equipment,
+    source.defaultRole,
+    'Custom faithful alternative',
+    now,
+    now,
+  );
+  await db.runAsync(
+    `INSERT OR REPLACE INTO exercise_muscles (
+       id,
+       exercise_id,
+       muscle_id,
+       involvement_type,
+       contribution_weight,
+       created_at,
+       updated_at
+     )
+     SELECT
+       ? || '_' || muscle_id || '_' || involvement_type,
+       ?,
+       muscle_id,
+       involvement_type,
+       contribution_weight,
+       ?,
+       ?
+     FROM exercise_muscles
+     WHERE exercise_id = ?`,
+    exerciseId,
+    exerciseId,
+    now,
+    now,
+    source.id,
+  );
+  await db.runAsync(
+    `INSERT OR REPLACE INTO exercise_alternatives (
+       id,
+       source_exercise_id,
+       alternative_exercise_id,
+       compatibility_score,
+       reason,
+       same_primary_muscles,
+       same_movement_pattern,
+       same_role,
+       created_at,
+       updated_at
+     ) VALUES (?, ?, ?, 100, ?, 1, 1, 1, ?, ?)`,
+    alternativeId,
+    source.id,
+    exerciseId,
+    'Custom alternative using the source exercise stimulus metadata',
+    now,
+    now,
+  );
+
+  return { exerciseId, alternativeId };
+}
+
 export async function restoreExerciseReplacement(
   db: Pick<TrainingDatabase, 'runAsync'>,
   modificationId: string,
@@ -130,4 +242,12 @@ export async function restoreExerciseReplacement(
     recordedAt,
     modificationId,
   );
+}
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 48);
 }
