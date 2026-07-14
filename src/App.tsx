@@ -120,6 +120,7 @@ import {
   getProgramPosition,
   type ProgramPosition,
 } from './domain/program/yearEngine';
+import { getPhaseTransitionSummary } from './domain/program/phaseTransition';
 import {
   isValidNotificationTime,
   planNextMissedWorkoutNotification,
@@ -2272,6 +2273,7 @@ function LibrarySummary({
   const savedBaselineCount = baselineExercises.filter((exercise) =>
     recordByExercise.has(exercise.exerciseId),
   ).length;
+  const phaseTransition = getPhaseTransitionSummary(position, oneRmRecords);
   const setupChecks = [
     {
       label: 'Annual calendar',
@@ -2362,6 +2364,29 @@ function LibrarySummary({
         error instanceof Error ? error.message : 'Cannot transfer baseline',
       );
     }
+  };
+  const confirmPhaseTransitionBaselines = async () => {
+    if (!db || !phaseTransition) return;
+    if (oneRmRecords.length === 0) {
+      setSaveStatus('Save at least one 1RM before confirming baselines');
+      return;
+    }
+
+    const recordedAt = new Date().toISOString();
+    for (const record of oneRmRecords) {
+      await saveOneRmRecord(db, {
+        exerciseId: record.exerciseId,
+        value: record.value,
+        unit: record.unit,
+        recordType: 'block_baseline',
+        programBlockId: phaseTransition.nextBlockId,
+        recordedAt,
+      });
+    }
+    await onSaved(db);
+    setSaveStatus(
+      `Confirmed ${oneRmRecords.length} baselines for Block ${phaseTransition.nextBlockNumber}`,
+    );
   };
   const saveSettings = async (settings: Partial<AppSettings>) => {
     if (!db) return;
@@ -2923,6 +2948,27 @@ function LibrarySummary({
       <View style={styles.baselinePanel}>
         <Text style={styles.sessionTitle}>Current Working 1RM</Text>
         <Text style={styles.summaryText}>{saveStatus}</Text>
+        {phaseTransition ? (
+          <View style={styles.sessionPanel}>
+            <Text style={styles.sessionTitle}>Phase Transition</Text>
+            <Text style={styles.summaryText}>
+              Block {phaseTransition.sourceBlockNumber} complete. Confirm baselines
+              for Block {phaseTransition.nextBlockNumber} repeat loading.
+            </Text>
+            <Text style={styles.setPrescription}>
+              {phaseTransition.baselineCount} current baselines -{' '}
+              {phaseTransition.testedCount} tested - {phaseTransition.phaseEndCount}{' '}
+              phase-end.
+            </Text>
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => void confirmPhaseTransitionBaselines()}
+              style={styles.secondaryButton}
+            >
+              <Text style={styles.secondaryButtonText}>Confirm Repeat Baselines</Text>
+            </Pressable>
+          </View>
+        ) : null}
         {baselineExercises.map((exercise) => {
           const record = recordByExercise.get(exercise.exerciseId);
 
