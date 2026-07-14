@@ -1364,6 +1364,9 @@ function AnalyticsSummary({
   const [heatmapRange, setHeatmapRange] = useState<HeatmapRange>('year');
   const [customStartDate, setCustomStartDate] = useState('');
   const [customEndDate, setCustomEndDate] = useState('');
+  const [selectedInsight, setSelectedInsight] = useState(
+    'Select a chart row or heatmap region for exact values.',
+  );
   const heatmapFilter = getHeatmapFilter(
     heatmapRange,
     position,
@@ -1468,6 +1471,10 @@ function AnalyticsSummary({
           />
         </View>
       ) : null}
+      <View style={styles.sessionPanel}>
+        <Text style={styles.sessionTitle}>Selected Data Point</Text>
+        <Text style={styles.summaryText}>{selectedInsight}</Text>
+      </View>
 
       <View style={styles.analyticsSection}>
         <Text style={styles.analyticsHeading}>Weekly Volume</Text>
@@ -1475,11 +1482,23 @@ function AnalyticsSummary({
           <Text style={styles.summaryText}>No completed working sets yet.</Text>
         ) : (
           <>
-            <VolumeTrendChart points={weeklyVolume} />
+            <VolumeTrendChart
+              onSelect={(point) =>
+                setSelectedInsight(
+                  `Weekly volume ${point.weekKey}: ${point.totalVolume} kg reps across ${point.totalSets} working sets.`,
+                )
+              }
+              points={weeklyVolume}
+            />
             {weeklyVolume.map((point) => (
               <BarRow
                 key={point.weekKey}
                 label={point.weekKey}
+                onPress={() =>
+                  setSelectedInsight(
+                    `Weekly volume ${point.weekKey}: ${point.totalVolume} kg reps across ${point.totalSets} working sets.`,
+                  )
+                }
                 value={`${point.totalVolume} kg reps`}
                 percent={(point.totalVolume / maxVolume) * 100}
               />
@@ -1497,6 +1516,11 @@ function AnalyticsSummary({
             <BarRow
               key={point.weekKey}
               label={point.weekKey}
+              onPress={() =>
+                setSelectedInsight(
+                  `Weekly RPE ${point.weekKey}: ${Math.round(point.averageRpe * 10) / 10} average from ${point.ratedSets} rated working sets.`,
+                )
+              }
               value={`${Math.round(point.averageRpe * 10) / 10} avg`}
               percent={point.averageRpe * 10}
             />
@@ -1513,6 +1537,11 @@ function AnalyticsSummary({
             <BarRow
               key={point.blockNumber}
               label={`Block ${point.blockNumber} - ${point.phaseCode}`}
+              onPress={() =>
+                setSelectedInsight(
+                  `Block ${point.blockNumber} ${point.phaseCode}: ${point.workingSets} working sets and ${point.totalVolume} kg reps.`,
+                )
+              }
               value={`${point.workingSets} sets`}
               percent={(point.totalVolume / maxBlockVolume) * 100}
             />
@@ -1529,6 +1558,11 @@ function AnalyticsSummary({
             <BarRow
               key={point.phaseCode}
               label={point.phaseCode}
+              onPress={() =>
+                setSelectedInsight(
+                  `Phase ${point.phaseCode}: ${point.workingSets} working sets and ${point.totalVolume} kg reps.`,
+                )
+              }
               value={`${point.workingSets} sets`}
               percent={(point.totalVolume / maxPhaseVolume) * 100}
             />
@@ -1545,6 +1579,11 @@ function AnalyticsSummary({
             <BarRow
               key={point.weekKey}
               label={point.weekKey}
+              onPress={() =>
+                setSelectedInsight(
+                  `Training frequency ${point.weekKey}: ${point.completed}/${point.scheduled} scheduled workouts completed.`,
+                )
+              }
               value={`${point.completed}/${point.scheduled} completed`}
               percent={(point.scheduled / maxFrequency) * 100}
             />
@@ -1567,7 +1606,15 @@ function AnalyticsSummary({
           <Text style={styles.summaryText}>No planned-versus-actual sessions yet.</Text>
         ) : (
           plannedVsActual.map((item) => (
-            <PlannedActualRow key={item.instanceId} item={item} />
+            <PlannedActualRow
+              key={item.instanceId}
+              item={item}
+              onPress={() =>
+                setSelectedInsight(
+                  `${item.workoutName} on ${item.scheduledDate}: ${item.actualWorkingSets}/${item.plannedWorkingSets} working sets completed.`,
+                )
+              }
+            />
           ))
         )}
       </View>
@@ -1581,6 +1628,11 @@ function AnalyticsSummary({
             <BarRow
               key={point.workoutLogId}
               label={point.workoutName}
+              onPress={() =>
+                setSelectedInsight(
+                  `${point.workoutName}: ${formatDuration(point.durationSeconds)} completed on ${point.completedAt}.`,
+                )
+              }
               value={formatDuration(point.durationSeconds)}
               percent={(point.durationSeconds / maxDuration) * 100}
             />
@@ -1597,6 +1649,11 @@ function AnalyticsSummary({
             <BarRow
               key={exposure.muscleId}
               label={muscleNameById.get(exposure.muscleId) ?? exposure.muscleId}
+              onPress={() =>
+                setSelectedInsight(
+                  `${muscleNameById.get(exposure.muscleId) ?? exposure.muscleId}: ${exposure.hardSets.toFixed(1)} hard sets and ${Math.round(exposure.volumeLoad)} kg reps.`,
+                )
+              }
               value={`${exposure.hardSets.toFixed(1)} hard sets`}
               percent={(exposure.volumeLoad / maxExposure) * 100}
             />
@@ -1642,8 +1699,24 @@ function AnalyticsSummary({
           <>
             <Text style={styles.setExercise}>Actual</Text>
             <View style={styles.heatmapFigures}>
-              <MuscleHeatmapFigure regions={muscleHeatmap} view="front" />
-              <MuscleHeatmapFigure regions={muscleHeatmap} view="back" />
+              <MuscleHeatmapFigure
+                onSelect={(region) =>
+                  setSelectedInsight(
+                    `Actual heatmap ${region.name}: ${region.hardSets.toFixed(1)} hard sets at ${Math.round(region.intensity * 100)}% relative intensity.`,
+                  )
+                }
+                regions={muscleHeatmap}
+                view="front"
+              />
+              <MuscleHeatmapFigure
+                onSelect={(region) =>
+                  setSelectedInsight(
+                    `Actual heatmap ${region.name}: ${region.hardSets.toFixed(1)} hard sets at ${Math.round(region.intensity * 100)}% relative intensity.`,
+                  )
+                }
+                regions={muscleHeatmap}
+                view="back"
+              />
             </View>
           </>
         )}
@@ -1651,8 +1724,24 @@ function AnalyticsSummary({
           <>
             <Text style={styles.setExercise}>Planned</Text>
             <View style={styles.heatmapFigures}>
-              <MuscleHeatmapFigure regions={plannedMuscleHeatmap} view="front" />
-              <MuscleHeatmapFigure regions={plannedMuscleHeatmap} view="back" />
+              <MuscleHeatmapFigure
+                onSelect={(region) =>
+                  setSelectedInsight(
+                    `Planned heatmap ${region.name}: ${region.hardSets.toFixed(1)} hard sets at ${Math.round(region.intensity * 100)}% relative intensity.`,
+                  )
+                }
+                regions={plannedMuscleHeatmap}
+                view="front"
+              />
+              <MuscleHeatmapFigure
+                onSelect={(region) =>
+                  setSelectedInsight(
+                    `Planned heatmap ${region.name}: ${region.hardSets.toFixed(1)} hard sets at ${Math.round(region.intensity * 100)}% relative intensity.`,
+                  )
+                }
+                regions={plannedMuscleHeatmap}
+                view="back"
+              />
             </View>
           </>
         )}
@@ -1664,18 +1753,34 @@ function AnalyticsSummary({
           <Text style={styles.summaryText}>No estimated 1RM records yet.</Text>
         ) : (
           <>
-            <StrengthTrendChart points={primaryStrengthTrend.slice(0, 8)} />
+            <StrengthTrendChart
+              onSelect={(point) =>
+                setSelectedInsight(
+                  `${point.exerciseName}: estimated 1RM ${Math.round(point.estimatedOneRm * 10) / 10} ${point.unit ?? ''} on ${point.achievedAt}.`,
+                )
+              }
+              points={primaryStrengthTrend.slice(0, 8)}
+            />
             <Text style={styles.setPrescription}>
               Line: {primaryStrengthTrend[0]?.exerciseName}
             </Text>
             {strengthTrend.slice(0, 5).map((point) => (
-              <View key={`${point.exerciseId}_${point.achievedAt}`} style={styles.setRow}>
+              <Pressable
+                accessibilityRole="button"
+                key={`${point.exerciseId}_${point.achievedAt}`}
+                onPress={() =>
+                  setSelectedInsight(
+                    `${point.exerciseName}: estimated 1RM ${Math.round(point.estimatedOneRm * 10) / 10} ${point.unit ?? ''} on ${point.achievedAt}.`,
+                  )
+                }
+                style={styles.setRow}
+              >
                 <Text style={styles.setExercise}>{point.exerciseName}</Text>
                 <Text style={styles.setPrescription}>
                   {Math.round(point.estimatedOneRm * 10) / 10} {point.unit ?? ''} -{' '}
                   {point.achievedAt}
                 </Text>
-              </View>
+              </Pressable>
             ))}
           </>
         )}
@@ -2778,15 +2883,17 @@ function LibrarySummary({
 
 function BarRow({
   label,
+  onPress,
   value,
   percent,
 }: {
   label: string;
+  onPress?: () => void;
   value: string;
   percent: number;
 }) {
-  return (
-    <View style={styles.barRow}>
+  const content = (
+    <>
       <View style={styles.barLabels}>
         <Text style={styles.barLabel}>{label}</Text>
         <Text style={styles.barValue}>{value}</Text>
@@ -2794,6 +2901,20 @@ function BarRow({
       <View style={styles.barTrack}>
         <View style={[styles.barFill, { width: `${Math.max(percent, 4)}%` }]} />
       </View>
+    </>
+  );
+
+  if (onPress) {
+    return (
+      <Pressable accessibilityRole="button" onPress={onPress} style={styles.barRow}>
+        {content}
+      </Pressable>
+    );
+  }
+
+  return (
+    <View style={styles.barRow}>
+      {content}
     </View>
   );
 }
@@ -2823,8 +2944,10 @@ function CalendarHeatmap({ days }: { days: CalendarDay[] }) {
 }
 
 function VolumeTrendChart({
+  onSelect,
   points,
 }: {
+  onSelect?: (point: ReturnType<typeof getWeeklyVolume>[number]) => void;
   points: ReturnType<typeof getWeeklyVolume>;
 }) {
   const [width, setWidth] = useState(0);
@@ -2867,14 +2990,19 @@ function VolumeTrendChart({
           />
         );
       })}
-      {plot.map((point) => (
-        <View
-          key={`${point.label}_volume_point`}
-          accessible
-          accessibilityLabel={`${point.label}: ${Math.round(point.value)} kg reps`}
-          style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
-        />
-      ))}
+      {plot.map((point, index) => {
+        const source = points[index];
+
+        return (
+          <Pressable
+            accessibilityLabel={`${point.label}: ${Math.round(point.value)} kg reps`}
+            accessibilityRole="button"
+            key={`${point.label}_volume_point`}
+            onPress={() => onSelect?.(source)}
+            style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
+          />
+        );
+      })}
     </View>
   );
 }
@@ -2933,7 +3061,13 @@ function PrHistoryChart({ records }: { records: PersonalRecordItem[] }) {
   );
 }
 
-function StrengthTrendChart({ points }: { points: StrengthTrendPoint[] }) {
+function StrengthTrendChart({
+  onSelect,
+  points,
+}: {
+  onSelect?: (point: StrengthTrendPoint) => void;
+  points: StrengthTrendPoint[];
+}) {
   const [width, setWidth] = useState(0);
   const height = 96;
   const ordered = [...points].reverse();
@@ -2975,22 +3109,29 @@ function StrengthTrendChart({ points }: { points: StrengthTrendPoint[] }) {
           />
         );
       })}
-      {plot.map((point, index) => (
-        <View
-          key={`${point.label}_${index}_point`}
-          accessible
-          accessibilityLabel={`${point.label}: ${Math.round(point.value * 10) / 10}`}
-          style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
-        />
-      ))}
+      {plot.map((point, index) => {
+        const source = ordered[index];
+
+        return (
+          <Pressable
+            accessibilityLabel={`${point.label}: ${Math.round(point.value * 10) / 10}`}
+            accessibilityRole="button"
+            key={`${point.label}_${index}_point`}
+            onPress={() => onSelect?.(source)}
+            style={[styles.lineChartPoint, { left: point.x - 4, top: point.y - 4 }]}
+          />
+        );
+      })}
     </View>
   );
 }
 
 function MuscleHeatmapFigure({
+  onSelect,
   regions,
   view,
 }: {
+  onSelect?: (region: MuscleHeatmapRegion) => void;
   regions: MuscleHeatmapRegion[];
   view: MuscleHeatmapRegion['view'];
 }) {
@@ -3010,8 +3151,10 @@ function MuscleHeatmapFigure({
           <Text style={styles.heatmapEmpty}>No exposure</Text>
         ) : (
           visibleRegions.map((region) => (
-            <View
+            <Pressable
+              accessibilityRole="button"
               key={`${view}_${region.muscleId}`}
+              onPress={() => onSelect?.(region)}
               style={[
                 styles.bodyRegion,
                 {
@@ -3026,7 +3169,7 @@ function MuscleHeatmapFigure({
               <Text style={styles.bodyRegionMeta}>
                 {region.hardSets.toFixed(1)} sets
               </Text>
-            </View>
+            </Pressable>
           ))
         )}
       </View>
@@ -3083,11 +3226,16 @@ function CompositionBar({
   );
 }
 
-function PlannedActualRow({ item }: { item: PlannedVsActualWorkout }) {
+function PlannedActualRow({
+  item,
+  onPress,
+}: {
+  item: PlannedVsActualWorkout;
+  onPress?: () => void;
+}) {
   const maxSets = Math.max(item.plannedWorkingSets, item.actualWorkingSets, 1);
-
-  return (
-    <View style={styles.barRow}>
+  const content = (
+    <>
       <View style={styles.barLabels}>
         <Text style={styles.barLabel}>{item.workoutName}</Text>
         <Text style={styles.barValue}>
@@ -3109,6 +3257,20 @@ function PlannedActualRow({ item }: { item: PlannedVsActualWorkout }) {
         />
       </View>
       <Text style={styles.setPrescription}>{item.scheduledDate}</Text>
+    </>
+  );
+
+  if (onPress) {
+    return (
+      <Pressable accessibilityRole="button" onPress={onPress} style={styles.barRow}>
+        {content}
+      </Pressable>
+    );
+  }
+
+  return (
+    <View style={styles.barRow}>
+      {content}
     </View>
   );
 }
