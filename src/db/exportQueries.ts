@@ -40,6 +40,13 @@ export type ExportFile = {
   content: string;
 };
 
+export type TrainingDataExportPreview = {
+  exportedAt: string;
+  schemaVersion: number;
+  tableCounts: Record<ExportTable, number>;
+  totalRows: number;
+};
+
 export async function getTrainingDataExport(
   db: Pick<TrainingDatabase, 'getAllAsync'>,
   exportedAt = new Date().toISOString(),
@@ -78,6 +85,25 @@ export function buildExportFiles(snapshot: TrainingDataExport): ExportFile[] {
       content: toCsv(snapshot.tables.personal_records),
     },
   ];
+}
+
+export function previewTrainingDataExport(json: string): TrainingDataExportPreview {
+  const snapshot = parseTrainingDataExport(json);
+  const tableCounts = {} as Record<ExportTable, number>;
+  let totalRows = 0;
+
+  for (const table of backupTables) {
+    const count = snapshot.tables[table].length;
+    tableCounts[table] = count;
+    totalRows += count;
+  }
+
+  return {
+    exportedAt: snapshot.exportedAt,
+    schemaVersion: snapshot.schemaVersion,
+    tableCounts,
+    totalRows,
+  };
 }
 
 export async function restoreTrainingDataExport(

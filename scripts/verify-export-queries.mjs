@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 const {
   buildExportFiles,
   getTrainingDataExport,
+  previewTrainingDataExport,
   resetUserTrainingData,
   restoreTrainingDataExport,
   toCsv,
@@ -62,6 +63,12 @@ assert.match(files[0].content, /"schemaVersion": 1/);
 assert.match(files[1].content, /"steady, controlled"/);
 assert.match(files[2].content, /"bar ""fast"""/);
 assert.equal(toCsv([]), '\n');
+
+const preview = previewTrainingDataExport(files[0].content);
+assert.equal(preview.schemaVersion, 1);
+assert.equal(preview.tableCounts.workout_logs, 1);
+assert.equal(preview.tableCounts.set_logs, 1);
+assert.equal(preview.totalRows, 3);
 
 await resetUserTrainingData(db);
 assert.deepEqual(

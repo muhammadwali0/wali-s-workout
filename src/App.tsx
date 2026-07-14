@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Directory, File, Paths } from 'expo-file-system';
+import * as DocumentPicker from 'expo-document-picker';
 import { useEffect, useMemo, useState } from 'react';
 import {
   Pressable,
@@ -84,8 +85,10 @@ import { getAppSettings, saveAppSettings } from './db/settingsQueries';
 import {
   buildExportFiles,
   getTrainingDataExport,
+  previewTrainingDataExport,
   resetUserTrainingData,
   restoreTrainingDataExport,
+  type TrainingDataExportPreview,
 } from './db/exportQueries';
 import { saveWorkoutDraft } from './db/workoutLogPersistence';
 import { getSavedWorkoutDraft } from './db/workoutDraftQuery';
@@ -2219,6 +2222,8 @@ function LibrarySummary({
   const [draftWorkoutReminderTime, setDraftWorkoutReminderTime] = useState('');
   const [draftMissedReminderTime, setDraftMissedReminderTime] = useState('');
   const [restoreJson, setRestoreJson] = useState('');
+  const [restorePreview, setRestorePreview] =
+    useState<TrainingDataExportPreview | null>(null);
   const [resetConfirm, setResetConfirm] = useState('');
   const [saveStatus, setSaveStatus] = useState('Baselines not changed');
   const [replacementScope, setReplacementScope] =
@@ -2484,12 +2489,51 @@ function LibrarySummary({
     }
     setSaveStatus(`Exported ${files.length} files to ${directory.uri}`);
   };
+  const updateRestoreJson = (json: string) => {
+    setRestoreJson(json);
+    setRestorePreview(null);
+  };
+  const pickRestoreBackup = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        copyToCacheDirectory: true,
+        type: 'application/json',
+      });
+      if (result.canceled) {
+        setSaveStatus('Backup import canceled');
+        return;
+      }
+
+      const asset = result.assets[0];
+      const content = await new File(asset.uri).text();
+      setRestoreJson(content);
+      setRestorePreview(previewTrainingDataExport(content));
+      setSaveStatus(`Loaded ${asset.name}`);
+    } catch (error) {
+      setRestorePreview(null);
+      setSaveStatus(error instanceof Error ? error.message : 'Backup import failed');
+    }
+  };
+  const previewRestoreBackup = () => {
+    try {
+      setRestorePreview(previewTrainingDataExport(restoreJson));
+      setSaveStatus('Backup preview ready');
+    } catch (error) {
+      setRestorePreview(null);
+      setSaveStatus(error instanceof Error ? error.message : 'Backup preview failed');
+    }
+  };
   const restoreTrainingData = async () => {
     if (!db) return;
+    if (!restorePreview) {
+      setSaveStatus('Preview backup before restoring');
+      return;
+    }
 
     try {
       await restoreTrainingDataExport(db, restoreJson);
       setRestoreJson('');
+      setRestorePreview(null);
       await onSaved(db);
       setSaveStatus('Backup restored locally');
     } catch (error) {
@@ -2707,15 +2751,31 @@ function LibrarySummary({
         <Text style={styles.sessionTitle}>Backup and Export</Text>
         <Text style={styles.summaryText}>
           Export local training data as one JSON backup plus workout, set, and PR CSV files.
+          Preview a backup before restoring because restore replaces local logs and settings.
         </Text>
         <TextInput
           accessibilityLabel="Restore backup JSON"
           multiline
-          onChangeText={setRestoreJson}
+          onChangeText={updateRestoreJson}
           placeholder="Paste exported JSON backup"
           style={styles.noteInput}
           value={restoreJson}
         />
+        {restorePreview ? (
+          <View style={styles.sessionPanel}>
+            <Text style={styles.sessionTitle}>Restore Preview</Text>
+            <Text style={styles.setPrescription}>
+              Exported: {restorePreview.exportedAt} - schema {restorePreview.schemaVersion}
+            </Text>
+            <Text style={styles.setPrescription}>
+              Rows: {restorePreview.totalRows} total - workouts{' '}
+              {restorePreview.tableCounts.workout_logs} - sets{' '}
+              {restorePreview.tableCounts.set_logs} - 1RM{' '}
+              {restorePreview.tableCounts.one_rm_records} - PRs{' '}
+              {restorePreview.tableCounts.personal_records}
+            </Text>
+          </View>
+        ) : null}
         <TextInput
           accessibilityLabel="Reset confirmation"
           onChangeText={setResetConfirm}
@@ -2733,6 +2793,22 @@ function LibrarySummary({
           </Pressable>
           <Pressable
             accessibilityRole="button"
+            onPress={() => void pickRestoreBackup()}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Import File</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            disabled={restoreJson.trim() === ''}
+            onPress={previewRestoreBackup}
+            style={styles.secondaryButton}
+          >
+            <Text style={styles.secondaryButtonText}>Preview Backup</Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            disabled={!restorePreview}
             onPress={() => void restoreTrainingData()}
             style={styles.secondaryButton}
           >
