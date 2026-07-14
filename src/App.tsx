@@ -465,7 +465,9 @@ export default function App() {
               {activeTab === 'today' ? positionLabel : active.title}
             </Text>
             <Text style={styles.eyebrow}>
-              {activeTab === 'today' ? `Week type: ${weekType}` : active.eyebrow}
+              {activeTab === 'today'
+                ? `Week type: ${formatCleanLabel(weekType)}`
+                : active.eyebrow}
             </Text>
           </View>
 
@@ -918,7 +920,7 @@ function TodayWorkoutSummary({
         <Text style={styles.summaryText}>
           {dbStatus}
           {todayInstance
-            ? ` - ${todayInstance.status} - ${todayInstance.instanceId}`
+            ? ` - ${formatCleanLabel(todayInstance.status)} - ${todayInstance.instanceId}`
             : dbReady
               ? ' - no persisted instance for today'
               : ''}
@@ -1295,9 +1297,9 @@ function TodayWorkoutSummary({
                   )}
                 </Text>
                 <Text style={styles.setPrescription}>
-                  Role: {firstSet.exerciseRole}
+                  Role: {formatCleanLabel(firstSet.exerciseRole)}
                   {firstSet.supersetGroup ? ` - Superset ${firstSet.supersetGroup}` : ''}
-                  {exercise?.movementPattern ? ` - ${exercise.movementPattern}` : ''}
+                  {exercise?.movementPattern ? ` - ${formatCleanLabel(exercise.movementPattern)}` : ''}
                 </Text>
                 {exercise?.primaryMuscles ? (
                   <Text style={styles.setPrescription}>
@@ -1307,7 +1309,7 @@ function TodayWorkoutSummary({
                 {firstSet.substitutionScope ? (
                   <Text style={styles.setPrescription}>
                     Substitute for {firstSet.originalExerciseName} -{' '}
-                    {firstSet.substitutionScope}
+                    {formatReplacementScope(firstSet.substitutionScope)}
                   </Text>
                 ) : null}
                 {latestPerformanceByExercise.has(firstSet.exerciseId) ? (
@@ -1333,16 +1335,16 @@ function TodayWorkoutSummary({
             <View key={set.id} style={styles.setRow}>
               <Text style={styles.setExercise}>{set.exerciseName}</Text>
               <Text style={styles.setPrescription}>
-                Role: {set.exerciseRole}
+                Role: {formatCleanLabel(set.exerciseRole)}
                 {set.supersetGroup ? ` - Superset ${set.supersetGroup}` : ''}
               </Text>
               {set.substitutionScope ? (
                 <Text style={styles.setPrescription}>
-                  Original: {set.originalExerciseName} - {set.substitutionScope}
+                  Original: {set.originalExerciseName} - {formatReplacementScope(set.substitutionScope)}
                 </Text>
               ) : null}
               <Text style={styles.setPrescription}>
-                Set {set.setNumber} - {set.setType}
+                Set {set.setNumber} - {formatCleanLabel(set.setType)}
                 {set.targetReps ? ` - ${set.targetReps} reps` : ''}
                 {formatPercentRange(set.percent1RmLow, set.percent1RmHigh)}
                 {formatSuggestedLoad(
@@ -1617,10 +1619,10 @@ function AnalyticsSummary({
           blockComparison.map((point) => (
             <BarRow
               key={point.blockNumber}
-              label={`Block ${point.blockNumber} - ${point.phaseCode}`}
+              label={`Block ${point.blockNumber} - ${formatPhaseLabel(point.phaseCode)}`}
               onPress={() =>
                 setSelectedInsight(
-                  `Block ${point.blockNumber} ${point.phaseCode}: ${point.workingSets} working sets and ${point.totalVolume} kg reps.`,
+                  `Block ${point.blockNumber} ${formatPhaseLabel(point.phaseCode)}: ${point.workingSets} working sets and ${point.totalVolume} kg reps.`,
                 )
               }
               value={`${point.workingSets} sets`}
@@ -1653,10 +1655,10 @@ function AnalyticsSummary({
           phaseComparison.map((point) => (
             <BarRow
               key={point.phaseCode}
-              label={point.phaseCode}
+              label={formatPhaseLabel(point.phaseCode)}
               onPress={() =>
                 setSelectedInsight(
-                  `Phase ${point.phaseCode}: ${point.workingSets} working sets and ${point.totalVolume} kg reps.`,
+                  `Phase ${formatPhaseLabel(point.phaseCode)}: ${point.workingSets} working sets and ${point.totalVolume} kg reps.`,
                 )
               }
               value={`${point.workingSets} sets`}
@@ -2014,7 +2016,7 @@ function HistorySummary({
             <View key={item.workoutLogId} style={styles.setRow}>
               <Text style={styles.setExercise}>{item.workoutName}</Text>
               <Text style={styles.setPrescription}>
-                {item.status} - {item.completedAt ?? item.scheduledDate} -{' '}
+                {formatCleanLabel(item.status)} - {item.completedAt ?? item.scheduledDate} -{' '}
                 {item.totalWorkingSets ?? 0} working sets - {item.totalVolume ?? 0} kg reps
                 {item.durationSeconds !== null
                   ? ` - ${formatDuration(item.durationSeconds)}`
@@ -2060,7 +2062,7 @@ function HistorySummary({
                 <View key={set.setLogId} style={styles.setRow}>
                   <Text style={styles.setExercise}>{set.exerciseName}</Text>
                   <Text style={styles.setPrescription}>
-                    Set {set.setOrder} - {set.setType}
+                    Set {set.setOrder} - {formatCleanLabel(set.setType)}
                     {set.isCompleted ? ' - completed' : ' - not completed'}
                     {set.isFailed ? ' - failed' : ''}
                   </Text>
@@ -2270,7 +2272,7 @@ function YearSummary({
             <View key={workout.instanceId} style={styles.setRow}>
               <Text style={styles.setExercise}>{workout.workoutName}</Text>
               <Text style={styles.setPrescription}>
-                {workout.scheduledDate} - {workout.status}
+                {workout.scheduledDate} - {formatCleanLabel(workout.status)}
               </Text>
               <TextInput
                 accessibilityLabel={`Move date for ${workout.workoutName}`}
@@ -3032,8 +3034,8 @@ function LibrarySummary({
             <Text style={styles.setPrescription}>
               Rows: {restorePreview.totalRows} total - workouts{' '}
               {restorePreview.tableCounts.workout_logs} - sets{' '}
-              {restorePreview.tableCounts.set_logs} - 1RM{' '}
-              {restorePreview.tableCounts.one_rm_records} - PRs{' '}
+              {restorePreview.tableCounts.set_logs} - 1RM records{' '}
+              {restorePreview.tableCounts.one_rm_records} - personal records{' '}
               {restorePreview.tableCounts.personal_records}
             </Text>
           </View>
@@ -3125,7 +3127,8 @@ function LibrarySummary({
             <View key={exercise.exerciseId} style={styles.setRow}>
               <Text style={styles.setExercise}>{exercise.name}</Text>
               <Text style={styles.setPrescription}>
-                {exercise.movementPattern} - {exercise.defaultRole ?? 'general'} -{' '}
+                {formatCleanLabel(exercise.movementPattern)} -{' '}
+                {formatCleanLabel(exercise.defaultRole ?? 'general')} -{' '}
                 {exercise.primaryMuscles ?? 'No primary muscle'} -{' '}
                 {exercise.alternativeCount} alternatives
               </Text>
@@ -3143,7 +3146,9 @@ function LibrarySummary({
                     Current: {
                       replacementByExercise.get(exercise.exerciseId)?.replacementName
                     } -{' '}
-                    {replacementByExercise.get(exercise.exerciseId)?.scope} - restore
+                    {formatReplacementScope(
+                      replacementByExercise.get(exercise.exerciseId)?.scope ?? 'today_only',
+                    )} - restore
                   </Text>
                 </Pressable>
               ) : null}
@@ -3742,6 +3747,27 @@ function formatCategoryLabel(category: string) {
     .join(' ');
 }
 
+function formatCleanLabel(value: string | null | undefined) {
+  if (!value) return '';
+  const acronyms = new Set(['rm', 'rpe', 'rir', 'pr', 'amrap']);
+  return value
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .split(/[_-]/)
+    .filter(Boolean)
+    .map((part) => {
+      const lower = part.toLowerCase();
+      if (acronyms.has(lower)) return lower.toUpperCase();
+      return lower.slice(0, 1).toUpperCase() + lower.slice(1);
+    })
+    .join(' ');
+}
+
+function formatPhaseLabel(value: string | null | undefined) {
+  const match = value?.match(/^phase(\d+)$/i);
+  if (match) return `Phase ${match[1]}`;
+  return formatCleanLabel(value);
+}
+
 function getTodayTitle(dueWorkout: ReturnType<typeof getDueWorkout>) {
   if (dueWorkout.status === 'workout_due') return 'Workout Due';
   if (dueWorkout.status === 'rest_day') return 'Rest Day';
@@ -3793,7 +3819,7 @@ function formatPlannedExerciseSummary(
 ) {
   const parts = [
     `${sets.length} sets`,
-    formatUnique(sets.map((set) => set.setType)),
+    formatUnique(sets.map((set) => formatCleanLabel(set.setType))),
     formatUnique(sets.map((set) => (set.targetReps ? `${set.targetReps} reps` : ''))),
     formatUnique(
       sets.map((set) =>
@@ -3858,7 +3884,7 @@ function formatPersonalRecord(record: PersonalRecordItem) {
   return `Volume ${record.volume ?? 0} ${record.unit ?? ''} reps`.trim();
 }
 
-function formatReplacementScope(scope: ExerciseReplacementInput['scope']) {
+function formatReplacementScope(scope: ExerciseReplacementInput['scope'] | string) {
   if (scope === 'today_only') return 'Today';
   if (scope === 'week') return 'Week';
   if (scope === 'future_matching_in_block') return 'Future Block Matches';
